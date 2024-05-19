@@ -18,11 +18,21 @@ This code repository covers:
 - [OMGS](https://github.com/HKBU-HPML/OMGS-SGD)
 - [DeAR](https://github.com/lzhangbv/dear_pytorch?tab=readme-ov-file)
 
+### State-of-the-art sparsification methods.
+
+- [DGC](https://arxiv.org/pdf/1712.01887.pdf)
+- [Gaussiank](https://arxiv.org/pdf/1911.08772.pdf)
+- [Redsync](https://www.sciencedirect.com/science/article/pii/S0743731518308657)
+- [SIDCo](https://proceedings.mlsys.org/paper_files/paper/2021/file/fea47a8aa372e42f3c84327aec9506cf-Paper.pdf)
+
 # Implementation
 
-We use the PyTorch framework and implemented the prototype system of __RGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. Overview of our system is as follows.
+We use the PyTorch framework and implemented the prototype system of __RGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows.
 
-![Overview](Overview.png)
+<!-- ![Overview](Overview.png) -->
+<center class ='img'>
+<img src="Overview.png" width="700px" />
+</center>
 
 # Installation
 
@@ -40,18 +50,18 @@ We use the PyTorch framework and implemented the prototype system of __RGMerge__
 git clone https://github.com/ATC24-RGMerge/RGMerge.git
 cd RGMerge
 pip install -r requirements.txt
-HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.21.3
+HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.28.0
 ```
 
-if pip installation failed, please try to upgrade pip via `pip install --upgrade pip`. If [Horovod](https://github.com/horovod/horovod) installation with NCCL failed, please check the installation [guide](https://horovod.readthedocs.io/en/stable/install_include.html).
+if pip installation fails, please try to upgrade pip via `pip install --upgrade pip`. If [Horovod](https://github.com/horovod/horovod) installation with NCCL failed, please check the installation [guide](https://horovod.readthedocs.io/en/stable/install_include.html).
 
 ## Quick start
 
 To run CV jobs:
 
 ```
-cd example/cv/
-bash run_cifar100_resnet50.sh
+cd example/cv
+bash run_imagenet_resnet152.sh
 ```
 
 To run NLP jobs:
@@ -59,6 +69,10 @@ To run NLP jobs:
 ```
 cd example/nlp/bert/scripts
 bash run_squad_bert.sh
+```
+```
+cd example/nlp/gpt
+bash run_clm_no_trainer_hvd_103.sh
 ```
 
 ## Papers
