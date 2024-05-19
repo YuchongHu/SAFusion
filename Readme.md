@@ -77,7 +77,7 @@ bash run_clm_no_trainer_hvd_103.sh
 
 ## Papers
 
-RGMerge: Fine-Grained Buffering for Efficient Merged Gradient Sparsification in Data-Parallel Distributed DNN Training Systems
+RGMerge: Resilient Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
 
 ## Referred Datasets
 
