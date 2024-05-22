@@ -1,0 +1,570 @@
+2024-05-17 08:25:42.750429: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2024-05-17 08:25:44.271883: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2024-05-17 08:25:44.434301: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+2024-05-17 08:25:45.916170: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+[0]<stderr>:2024-05-17 08:25:48.888000: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+[1]<stderr>:2024-05-17 20:25:49.309615: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.10.1
+[1]<stderr>:[0]<stderr>:[1]<stderr>:Running tokenizer on dataset:   0%|          | 0/36718 [00:00<?, ? examples/s][0]<stderr>:Running tokenizer on dataset:   0%|          | 0/36718 [00:00<?, ? examples/s][1]<stderr>:Running tokenizer on dataset:   5%|▌         | 2000/36718 [00:00<00:02, 12188.26 examples/s][0]<stderr>:Running tokenizer on dataset:   5%|▌         | 2000/36718 [00:00<00:03, 11564.83 examples/s][1]<stderr>:Running tokenizer on dataset:  11%|█         | 4000/36718 [00:00<00:02, 13868.10 examples/s][0]<stderr>:Running tokenizer on dataset:  11%|█         | 4000/36718 [00:00<00:02, 12808.74 examples/s][1]<stderr>:Running tokenizer on dataset:  16%|█▋        | 6000/36718 [00:00<00:02, 15185.94 examples/s][1]<stderr>:Running tokenizer on dataset:  22%|██▏       | 8000/36718 [00:00<00:01, 14720.95 examples/s][0]<stderr>:Running tokenizer on dataset:  16%|█▋        | 6000/36718 [00:00<00:02, 13975.78 examples/s][1]<stderr>:Running tokenizer on dataset:  27%|██▋       | 10000/36718 [00:00<00:01, 14986.73 examples/s][0]<stderr>:Running tokenizer on dataset:  22%|██▏       | 8000/36718 [00:00<00:02, 13380.95 examples/s][1]<stderr>:Running tokenizer on dataset:  33%|███▎      | 12000/36718 [00:00<00:01, 15090.94 examples/s][0]<stderr>:Running tokenizer on dataset:  27%|██▋       | 10000/36718 [00:00<00:01, 13604.65 examples/s][1]<stderr>:Running tokenizer on dataset:  38%|███▊      | 14000/36718 [00:00<00:01, 15239.15 examples/s][0]<stderr>:Running tokenizer on dataset:  33%|███▎      | 12000/36718 [00:00<00:01, 13603.99 examples/s][1]<stderr>:Running tokenizer on dataset:  44%|████▎     | 16000/36718 [00:01<00:01, 15213.82 examples/s][0]<stderr>:Running tokenizer on dataset:  38%|███▊      | 14000/36718 [00:01<00:01, 13666.60 examples/s][1]<stderr>:Running tokenizer on dataset:  49%|████▉     | 18000/36718 [00:01<00:01, 15311.28 examples/s][1]<stderr>:Running tokenizer on dataset:  54%|█████▍    | 20000/36718 [00:01<00:01, 15428.85 examples/s][0]<stderr>:Running tokenizer on dataset:  44%|████▎     | 16000/36718 [00:01<00:01, 13648.14 examples/s][1]<stderr>:Running tokenizer on dataset:  60%|█████▉    | 22000/36718 [00:01<00:00, 15325.30 examples/s][1]<stderr>:Running tokenizer on dataset:  65%|██████▌   | 24000/36718 [00:01<00:00, 15753.29 examples/s][0]<stderr>:Running tokenizer on dataset:  49%|████▉     | 18000/36718 [00:01<00:01, 10139.01 examples/s][0]<stderr>:Running tokenizer on dataset:  54%|█████▍    | 20000/36718 [00:01<00:01, 11202.09 examples/s][0]<stderr>:Running tokenizer on dataset:  60%|█████▉    | 22000/36718 [00:01<00:01, 11824.56 examples/s][1]<stderr>:Running tokenizer on dataset:  71%|███████   | 26000/36718 [00:01<00:00, 16026.70 examples/s][1]<stderr>:Running tokenizer on dataset:  76%|███████▋  | 28000/36718 [00:02<00:00, 11228.24 examples/s][0]<stderr>:Running tokenizer on dataset:  65%|██████▌   | 24000/36718 [00:01<00:01, 12669.13 examples/s][1]<stderr>:Running tokenizer on dataset:  82%|████████▏ | 30000/36718 [00:02<00:00, 12430.11 examples/s][0]<stderr>:Running tokenizer on dataset:  71%|███████   | 26000/36718 [00:02<00:00, 13327.90 examples/s][1]<stderr>:Running tokenizer on dataset:  87%|████████▋ | 32000/36718 [00:02<00:00, 12975.14 examples/s][0]<stderr>:Running tokenizer on dataset:  76%|███████▋  | 28000/36718 [00:02<00:00, 13245.24 examples/s][1]<stderr>:Running tokenizer on dataset:  93%|█████████▎| 34000/36718 [00:02<00:00, 13485.39 examples/s][0]<stderr>:Running tokenizer on dataset:  82%|████████▏ | 30000/36718 [00:02<00:00, 13612.02 examples/s][1]<stderr>:Running tokenizer on dataset:  98%|█████████▊| 36000/36718 [00:02<00:00, 13981.66 examples/s][1]<stderr>:Running tokenizer on dataset: 100%|██████████| 36718/36718 [00:02<00:00, 14099.86 examples/s]
+[1]<stderr>:[0]<stderr>:Running tokenizer on dataset:  87%|████████▋ | 32000/36718 [00:02<00:00, 13356.33 examples/s][1]<stderr>:Running tokenizer on dataset:   0%|          | 0/3760 [00:00<?, ? examples/s][0]<stderr>:Running tokenizer on dataset:  93%|█████████▎| 34000/36718 [00:02<00:00, 13370.55 examples/s][1]<stderr>:Running tokenizer on dataset:  53%|█████▎    | 2000/3760 [00:00<00:00, 15831.36 examples/s][1]<stderr>:Running tokenizer on dataset: 100%|██████████| 3760/3760 [00:00<00:00, 15082.94 examples/s][1]<stderr>:Running tokenizer on dataset: 100%|██████████| 3760/3760 [00:00<00:00, 15050.25 examples/s]
+[1]<stderr>:[0]<stderr>:Running tokenizer on dataset:  98%|█████████▊| 36000/36718 [00:02<00:00, 13423.22 examples/s][0]<stderr>:Running tokenizer on dataset: 100%|██████████| 36718/36718 [00:02<00:00, 12809.70 examples/s]
+[0]<stderr>:[1]<stderr>:Running tokenizer on dataset:   0%|          | 0/4358 [00:00<?, ? examples/s][0]<stderr>:Running tokenizer on dataset:   0%|          | 0/3760 [00:00<?, ? examples/s][1]<stderr>:Running tokenizer on dataset:  46%|████▌     | 2000/4358 [00:00<00:00, 15263.31 examples/s][1]<stderr>:Running tokenizer on dataset:  92%|█████████▏| 4000/4358 [00:00<00:00, 15750.61 examples/s][1]<stderr>:Running tokenizer on dataset: 100%|██████████| 4358/4358 [00:00<00:00, 15253.33 examples/s]
+[1]<stderr>:[0]<stderr>:Running tokenizer on dataset:  53%|█████▎    | 2000/3760 [00:00<00:00, 13710.28 examples/s][0]<stderr>:Running tokenizer on dataset: 100%|██████████| 3760/3760 [00:00<00:00, 13248.60 examples/s][0]<stderr>:Running tokenizer on dataset: 100%|██████████| 3760/3760 [00:00<00:00, 13209.62 examples/s]
+[0]<stderr>:[1]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/36718 [00:00<?, ? examples/s][0]<stderr>:Running tokenizer on dataset:   0%|          | 0/4358 [00:00<?, ? examples/s][1]<stderr>:Grouping texts in chunks of 1024:   5%|▌         | 2000/36718 [00:00<00:02, 12105.73 examples/s][0]<stderr>:Running tokenizer on dataset:  46%|████▌     | 2000/4358 [00:00<00:00, 13198.04 examples/s][0]<stderr>:Running tokenizer on dataset:  92%|█████████▏| 4000/4358 [00:00<00:00, 13755.48 examples/s][0]<stderr>:Running tokenizer on dataset: 100%|██████████| 4358/4358 [00:00<00:00, 13468.04 examples/s]
+[0]<stderr>:[1]<stderr>:Grouping texts in chunks of 1024:  11%|█         | 4000/36718 [00:00<00:02, 12651.87 examples/s][0]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/36718 [00:00<?, ? examples/s][1]<stderr>:Grouping texts in chunks of 1024:  16%|█▋        | 6000/36718 [00:00<00:02, 13577.02 examples/s][0]<stderr>:Grouping texts in chunks of 1024:   5%|▌         | 2000/36718 [00:00<00:02, 12072.15 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  22%|██▏       | 8000/36718 [00:00<00:02, 12776.06 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  11%|█         | 4000/36718 [00:00<00:02, 12676.24 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  27%|██▋       | 10000/36718 [00:00<00:02, 12887.95 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  16%|█▋        | 6000/36718 [00:00<00:02, 13675.85 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  33%|███▎      | 12000/36718 [00:00<00:01, 12776.83 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  22%|██▏       | 8000/36718 [00:00<00:02, 12866.16 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  38%|███▊      | 14000/36718 [00:01<00:01, 12815.15 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  27%|██▋       | 10000/36718 [00:00<00:02, 12966.99 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  44%|████▎     | 16000/36718 [00:01<00:01, 12663.02 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  33%|███▎      | 12000/36718 [00:00<00:01, 12904.95 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  49%|████▉     | 18000/36718 [00:01<00:01, 12686.86 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  38%|███▊      | 14000/36718 [00:01<00:01, 12926.03 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  54%|█████▍    | 20000/36718 [00:01<00:01, 12937.32 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  44%|████▎     | 16000/36718 [00:01<00:01, 12783.54 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  60%|█████▉    | 22000/36718 [00:01<00:01, 12726.07 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  49%|████▉     | 18000/36718 [00:01<00:01, 12792.69 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  65%|██████▌   | 24000/36718 [00:01<00:00, 13166.46 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  54%|█████▍    | 20000/36718 [00:01<00:01, 13038.98 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  71%|███████   | 26000/36718 [00:02<00:00, 13290.98 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  60%|█████▉    | 22000/36718 [00:01<00:01, 12806.79 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  76%|███████▋  | 28000/36718 [00:02<00:00, 12695.98 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  65%|██████▌   | 24000/36718 [00:01<00:00, 13275.01 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  82%|████████▏ | 30000/36718 [00:02<00:00, 12932.52 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  71%|███████   | 26000/36718 [00:01<00:00, 13386.48 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  87%|████████▋ | 32000/36718 [00:02<00:00, 12481.66 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  76%|███████▋  | 28000/36718 [00:02<00:00, 12827.35 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  93%|█████████▎| 34000/36718 [00:02<00:00, 12329.85 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  82%|████████▏ | 30000/36718 [00:02<00:00, 13073.00 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  98%|█████████▊| 36000/36718 [00:02<00:00, 12378.97 examples/s][1]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 36718/36718 [00:02<00:00, 12472.54 examples/s]
+[1]<stderr>:[0]<stderr>:Grouping texts in chunks of 1024:  87%|████████▋ | 32000/36718 [00:02<00:00, 12616.84 examples/s][1]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/3760 [00:00<?, ? examples/s][0]<stderr>:Grouping texts in chunks of 1024:  93%|█████████▎| 34000/36718 [00:02<00:00, 12456.16 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  53%|█████▎    | 2000/3760 [00:00<00:00, 12522.93 examples/s][1]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 3760/3760 [00:00<00:00, 12316.24 examples/s][1]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 3760/3760 [00:00<00:00, 12250.20 examples/s]
+[1]<stderr>:[0]<stderr>:Grouping texts in chunks of 1024:  98%|█████████▊| 36000/36718 [00:02<00:00, 12492.15 examples/s][0]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 36718/36718 [00:02<00:00, 12592.96 examples/s]
+[0]<stderr>:[1]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/4358 [00:00<?, ? examples/s][0]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/3760 [00:00<?, ? examples/s][1]<stderr>:Grouping texts in chunks of 1024:  46%|████▌     | 2000/4358 [00:00<00:00, 12176.46 examples/s][1]<stderr>:Grouping texts in chunks of 1024:  92%|█████████▏| 4000/4358 [00:00<00:00, 12586.28 examples/s][1]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 4358/4358 [00:00<00:00, 12563.16 examples/s]
+[0]<stderr>:Grouping texts in chunks of 1024:  53%|█████▎    | 2000/3760 [00:00<00:00, 12693.07 examples/s][0]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 3760/3760 [00:00<00:00, 12476.75 examples/s][0]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 3760/3760 [00:00<00:00, 12409.03 examples/s]
+[0]<stderr>:[0]<stderr>:Grouping texts in chunks of 1024:   0%|          | 0/4358 [00:00<?, ? examples/s][0]<stderr>:Grouping texts in chunks of 1024:  46%|████▌     | 2000/4358 [00:00<00:00, 12263.10 examples/s][0]<stderr>:Grouping texts in chunks of 1024:  92%|█████████▏| 4000/4358 [00:00<00:00, 12799.68 examples/s][0]<stderr>:Grouping texts in chunks of 1024: 100%|██████████| 4358/4358 [00:00<00:00, 12753.20 examples/s]
+[0]<stdout>:---args.num_train_epochs:  30
+[0]<stdout>:---args.max_train_steps:  34770
+[0]<stdout>:---len(train_dataloader):  1159
+[0]<stdout>:gpt_2
+[0]<stdout>:[1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1310720, 64328960]
+[1]<stdout>:gpt_2
+[1]<stdout>:[1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1310720, 64328960]
+[0]<stdout>:min_group_len_array =  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+[0]<stdout>:min_group_len_array_sum =  436
+[0]<stdout>:len(min_group_len_array) =  218
+[0]<stdout>:len(group_backward_time_size_array) =  218
+[0]<stdout>:sum(merging_time_compression_array)=  31.264903812817778
+[0]<stdout>:sum(group_compression_time_array)=  0.04368349316517509
+[0]<stdout>:sum(group_backward_time_size_array)=  0.0
+[0]<stdout>:len(min_group_len_array)=  218
+[0]<stdout>:groups_new=  [2, 56, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+[0]<stdout>:sum(groups_new)=  436
+[0]<stdout>:groups_new_=  [3, 56, 378]
+[0]<stdout>:sum(groups_new_)=  437
+[0]<stdout>:Number of parameters: 774030080
+[0]<stdout>:Total number of tensors: 436
+[0]<stdout>:Merged number of groups: 3
+[0]<stdout>:self._group_sizes:  3
+[0]<stdout>:self._group_sizes:  [[1280, 1280], [1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400], [3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1280, 6553600, 5120, 6553600, 1280, 1280, 1280, 1638400, 3840, 4915200, 1280, 1280, 1310720, 64328960]]
+[0]<stdout>:2
+[0]<stdout>:56
+[0]<stdout>:378
+[0]<stdout>:sum(len(gz))= 436
+[0]<stdout>:groups_len:  3
+[0]<stdout>:groups:  [['transformer.ln_f.bias', 'transformer.ln_f.weight'], ['transformer.h.35.mlp.c_proj.bias', 'transformer.h.35.mlp.c_proj.weight', 'transformer.h.35.mlp.c_fc.bias', 'transformer.h.35.mlp.c_fc.weight', 'transformer.h.35.ln_2.bias', 'transformer.h.35.ln_2.weight', 'transformer.h.35.attn.c_proj.bias', 'transformer.h.35.attn.c_proj.weight', 'transformer.h.35.attn.c_attn.bias', 'transformer.h.35.attn.c_attn.weight', 'transformer.h.35.ln_1.bias', 'transformer.h.35.ln_1.weight', 'transformer.h.34.mlp.c_proj.bias', 'transformer.h.34.mlp.c_proj.weight', 'transformer.h.34.mlp.c_fc.bias', 'transformer.h.34.mlp.c_fc.weight', 'transformer.h.34.ln_2.bias', 'transformer.h.34.ln_2.weight', 'transformer.h.34.attn.c_proj.bias', 'transformer.h.34.attn.c_proj.weight', 'transformer.h.34.attn.c_attn.bias', 'transformer.h.34.attn.c_attn.weight', 'transformer.h.34.ln_1.bias', 'transformer.h.34.ln_1.weight', 'transformer.h.33.mlp.c_proj.bias', 'transformer.h.33.mlp.c_proj.weight', 'transformer.h.33.mlp.c_fc.bias', 'transformer.h.33.mlp.c_fc.weight', 'transformer.h.33.ln_2.bias', 'transformer.h.33.ln_2.weight', 'transformer.h.33.attn.c_proj.bias', 'transformer.h.33.attn.c_proj.weight', 'transformer.h.33.attn.c_attn.bias', 'transformer.h.33.attn.c_attn.weight', 'transformer.h.33.ln_1.bias', 'transformer.h.33.ln_1.weight', 'transformer.h.32.mlp.c_proj.bias', 'transformer.h.32.mlp.c_proj.weight', 'transformer.h.32.mlp.c_fc.bias', 'transformer.h.32.mlp.c_fc.weight', 'transformer.h.32.ln_2.bias', 'transformer.h.32.ln_2.weight', 'transformer.h.32.attn.c_proj.bias', 'transformer.h.32.attn.c_proj.weight', 'transformer.h.32.attn.c_attn.bias', 'transformer.h.32.attn.c_attn.weight', 'transformer.h.32.ln_1.bias', 'transformer.h.32.ln_1.weight', 'transformer.h.31.mlp.c_proj.bias', 'transformer.h.31.mlp.c_proj.weight', 'transformer.h.31.mlp.c_fc.bias', 'transformer.h.31.mlp.c_fc.weight', 'transformer.h.31.ln_2.bias', 'transformer.h.31.ln_2.weight', 'transformer.h.31.attn.c_proj.bias', 'transformer.h.31.attn.c_proj.weight'], ['transformer.h.31.attn.c_attn.bias', 'transformer.h.31.attn.c_attn.weight', 'transformer.h.31.ln_1.bias', 'transformer.h.31.ln_1.weight', 'transformer.h.30.mlp.c_proj.bias', 'transformer.h.30.mlp.c_proj.weight', 'transformer.h.30.mlp.c_fc.bias', 'transformer.h.30.mlp.c_fc.weight', 'transformer.h.30.ln_2.bias', 'transformer.h.30.ln_2.weight', 'transformer.h.30.attn.c_proj.bias', 'transformer.h.30.attn.c_proj.weight', 'transformer.h.30.attn.c_attn.bias', 'transformer.h.30.attn.c_attn.weight', 'transformer.h.30.ln_1.bias', 'transformer.h.30.ln_1.weight', 'transformer.h.29.mlp.c_proj.bias', 'transformer.h.29.mlp.c_proj.weight', 'transformer.h.29.mlp.c_fc.bias', 'transformer.h.29.mlp.c_fc.weight', 'transformer.h.29.ln_2.bias', 'transformer.h.29.ln_2.weight', 'transformer.h.29.attn.c_proj.bias', 'transformer.h.29.attn.c_proj.weight', 'transformer.h.29.attn.c_attn.bias', 'transformer.h.29.attn.c_attn.weight', 'transformer.h.29.ln_1.bias', 'transformer.h.29.ln_1.weight', 'transformer.h.28.mlp.c_proj.bias', 'transformer.h.28.mlp.c_proj.weight', 'transformer.h.28.mlp.c_fc.bias', 'transformer.h.28.mlp.c_fc.weight', 'transformer.h.28.ln_2.bias', 'transformer.h.28.ln_2.weight', 'transformer.h.28.attn.c_proj.bias', 'transformer.h.28.attn.c_proj.weight', 'transformer.h.28.attn.c_attn.bias', 'transformer.h.28.attn.c_attn.weight', 'transformer.h.28.ln_1.bias', 'transformer.h.28.ln_1.weight', 'transformer.h.27.mlp.c_proj.bias', 'transformer.h.27.mlp.c_proj.weight', 'transformer.h.27.mlp.c_fc.bias', 'transformer.h.27.mlp.c_fc.weight', 'transformer.h.27.ln_2.bias', 'transformer.h.27.ln_2.weight', 'transformer.h.27.attn.c_proj.bias', 'transformer.h.27.attn.c_proj.weight', 'transformer.h.27.attn.c_attn.bias', 'transformer.h.27.attn.c_attn.weight', 'transformer.h.27.ln_1.bias', 'transformer.h.27.ln_1.weight', 'transformer.h.26.mlp.c_proj.bias', 'transformer.h.26.mlp.c_proj.weight', 'transformer.h.26.mlp.c_fc.bias', 'transformer.h.26.mlp.c_fc.weight', 'transformer.h.26.ln_2.bias', 'transformer.h.26.ln_2.weight', 'transformer.h.26.attn.c_proj.bias', 'transformer.h.26.attn.c_proj.weight', 'transformer.h.26.attn.c_attn.bias', 'transformer.h.26.attn.c_attn.weight', 'transformer.h.26.ln_1.bias', 'transformer.h.26.ln_1.weight', 'transformer.h.25.mlp.c_proj.bias', 'transformer.h.25.mlp.c_proj.weight', 'transformer.h.25.mlp.c_fc.bias', 'transformer.h.25.mlp.c_fc.weight', 'transformer.h.25.ln_2.bias', 'transformer.h.25.ln_2.weight', 'transformer.h.25.attn.c_proj.bias', 'transformer.h.25.attn.c_proj.weight', 'transformer.h.25.attn.c_attn.bias', 'transformer.h.25.attn.c_attn.weight', 'transformer.h.25.ln_1.bias', 'transformer.h.25.ln_1.weight', 'transformer.h.24.mlp.c_proj.bias', 'transformer.h.24.mlp.c_proj.weight', 'transformer.h.24.mlp.c_fc.bias', 'transformer.h.24.mlp.c_fc.weight', 'transformer.h.24.ln_2.bias', 'transformer.h.24.ln_2.weight', 'transformer.h.24.attn.c_proj.bias', 'transformer.h.24.attn.c_proj.weight', 'transformer.h.24.attn.c_attn.bias', 'transformer.h.24.attn.c_attn.weight', 'transformer.h.24.ln_1.bias', 'transformer.h.24.ln_1.weight', 'transformer.h.23.mlp.c_proj.bias', 'transformer.h.23.mlp.c_proj.weight', 'transformer.h.23.mlp.c_fc.bias', 'transformer.h.23.mlp.c_fc.weight', 'transformer.h.23.ln_2.bias', 'transformer.h.23.ln_2.weight', 'transformer.h.23.attn.c_proj.bias', 'transformer.h.23.attn.c_proj.weight', 'transformer.h.23.attn.c_attn.bias', 'transformer.h.23.attn.c_attn.weight', 'transformer.h.23.ln_1.bias', 'transformer.h.23.ln_1.weight', 'transformer.h.22.mlp.c_proj.bias', 'transformer.h.22.mlp.c_proj.weight', 'transformer.h.22.mlp.c_fc.bias', 'transformer.h.22.mlp.c_fc.weight', 'transformer.h.22.ln_2.bias', 'transformer.h.22.ln_2.weight', 'transformer.h.22.attn.c_proj.bias', 'transformer.h.22.attn.c_proj.weight', 'transformer.h.22.attn.c_attn.bias', 'transformer.h.22.attn.c_attn.weight', 'transformer.h.22.ln_1.bias', 'transformer.h.22.ln_1.weight', 'transformer.h.21.mlp.c_proj.bias', 'transformer.h.21.mlp.c_proj.weight', 'transformer.h.21.mlp.c_fc.bias', 'transformer.h.21.mlp.c_fc.weight', 'transformer.h.21.ln_2.bias', 'transformer.h.21.ln_2.weight', 'transformer.h.21.attn.c_proj.bias', 'transformer.h.21.attn.c_proj.weight', 'transformer.h.21.attn.c_attn.bias', 'transformer.h.21.attn.c_attn.weight', 'transformer.h.21.ln_1.bias', 'transformer.h.21.ln_1.weight', 'transformer.h.20.mlp.c_proj.bias', 'transformer.h.20.mlp.c_proj.weight', 'transformer.h.20.mlp.c_fc.bias', 'transformer.h.20.mlp.c_fc.weight', 'transformer.h.20.ln_2.bias', 'transformer.h.20.ln_2.weight', 'transformer.h.20.attn.c_proj.bias', 'transformer.h.20.attn.c_proj.weight', 'transformer.h.20.attn.c_attn.bias', 'transformer.h.20.attn.c_attn.weight', 'transformer.h.20.ln_1.bias', 'transformer.h.20.ln_1.weight', 'transformer.h.19.mlp.c_proj.bias', 'transformer.h.19.mlp.c_proj.weight', 'transformer.h.19.mlp.c_fc.bias', 'transformer.h.19.mlp.c_fc.weight', 'transformer.h.19.ln_2.bias', 'transformer.h.19.ln_2.weight', 'transformer.h.19.attn.c_proj.bias', 'transformer.h.19.attn.c_proj.weight', 'transformer.h.19.attn.c_attn.bias', 'transformer.h.19.attn.c_attn.weight', 'transformer.h.19.ln_1.bias', 'transformer.h.19.ln_1.weight', 'transformer.h.18.mlp.c_proj.bias', 'transformer.h.18.mlp.c_proj.weight', 'transformer.h.18.mlp.c_fc.bias', 'transformer.h.18.mlp.c_fc.weight', 'transformer.h.18.ln_2.bias', 'transformer.h.18.ln_2.weight', 'transformer.h.18.attn.c_proj.bias', 'transformer.h.18.attn.c_proj.weight', 'transformer.h.18.attn.c_attn.bias', 'transformer.h.18.attn.c_attn.weight', 'transformer.h.18.ln_1.bias', 'transformer.h.18.ln_1.weight', 'transformer.h.17.mlp.c_proj.bias', 'transformer.h.17.mlp.c_proj.weight', 'transformer.h.17.mlp.c_fc.bias', 'transformer.h.17.mlp.c_fc.weight', 'transformer.h.17.ln_2.bias', 'transformer.h.17.ln_2.weight', 'transformer.h.17.attn.c_proj.bias', 'transformer.h.17.attn.c_proj.weight', 'transformer.h.17.attn.c_attn.bias', 'transformer.h.17.attn.c_attn.weight', 'transformer.h.17.ln_1.bias', 'transformer.h.17.ln_1.weight', 'transformer.h.16.mlp.c_proj.bias', 'transformer.h.16.mlp.c_proj.weight', 'transformer.h.16.mlp.c_fc.bias', 'transformer.h.16.mlp.c_fc.weight', 'transformer.h.16.ln_2.bias', 'transformer.h.16.ln_2.weight', 'transformer.h.16.attn.c_proj.bias', 'transformer.h.16.attn.c_proj.weight', 'transformer.h.16.attn.c_attn.bias', 'transformer.h.16.attn.c_attn.weight', 'transformer.h.16.ln_1.bias', 'transformer.h.16.ln_1.weight', 'transformer.h.15.mlp.c_proj.bias', 'transformer.h.15.mlp.c_proj.weight', 'transformer.h.15.mlp.c_fc.bias', 'transformer.h.15.mlp.c_fc.weight', 'transformer.h.15.ln_2.bias', 'transformer.h.15.ln_2.weight', 'transformer.h.15.attn.c_proj.bias', 'transformer.h.15.attn.c_proj.weight', 'transformer.h.15.attn.c_attn.bias', 'transformer.h.15.attn.c_attn.weight', 'transformer.h.15.ln_1.bias', 'transformer.h.15.ln_1.weight', 'transformer.h.14.mlp.c_proj.bias', 'transformer.h.14.mlp.c_proj.weight', 'transformer.h.14.mlp.c_fc.bias', 'transformer.h.14.mlp.c_fc.weight', 'transformer.h.14.ln_2.bias', 'transformer.h.14.ln_2.weight', 'transformer.h.14.attn.c_proj.bias', 'transformer.h.14.attn.c_proj.weight', 'transformer.h.14.attn.c_attn.bias', 'transformer.h.14.attn.c_attn.weight', 'transformer.h.14.ln_1.bias', 'transformer.h.14.ln_1.weight', 'transformer.h.13.mlp.c_proj.bias', 'transformer.h.13.mlp.c_proj.weight', 'transformer.h.13.mlp.c_fc.bias', 'transformer.h.13.mlp.c_fc.weight', 'transformer.h.13.ln_2.bias', 'transformer.h.13.ln_2.weight', 'transformer.h.13.attn.c_proj.bias', 'transformer.h.13.attn.c_proj.weight', 'transformer.h.13.attn.c_attn.bias', 'transformer.h.13.attn.c_attn.weight', 'transformer.h.13.ln_1.bias', 'transformer.h.13.ln_1.weight', 'transformer.h.12.mlp.c_proj.bias', 'transformer.h.12.mlp.c_proj.weight', 'transformer.h.12.mlp.c_fc.bias', 'transformer.h.12.mlp.c_fc.weight', 'transformer.h.12.ln_2.bias', 'transformer.h.12.ln_2.weight', 'transformer.h.12.attn.c_proj.bias', 'transformer.h.12.attn.c_proj.weight', 'transformer.h.12.attn.c_attn.bias', 'transformer.h.12.attn.c_attn.weight', 'transformer.h.12.ln_1.bias', 'transformer.h.12.ln_1.weight', 'transformer.h.11.mlp.c_proj.bias', 'transformer.h.11.mlp.c_proj.weight', 'transformer.h.11.mlp.c_fc.bias', 'transformer.h.11.mlp.c_fc.weight', 'transformer.h.11.ln_2.bias', 'transformer.h.11.ln_2.weight', 'transformer.h.11.attn.c_proj.bias', 'transformer.h.11.attn.c_proj.weight', 'transformer.h.11.attn.c_attn.bias', 'transformer.h.11.attn.c_attn.weight', 'transformer.h.11.ln_1.bias', 'transformer.h.11.ln_1.weight', 'transformer.h.10.mlp.c_proj.bias', 'transformer.h.10.mlp.c_proj.weight', 'transformer.h.10.mlp.c_fc.bias', 'transformer.h.10.mlp.c_fc.weight', 'transformer.h.10.ln_2.bias', 'transformer.h.10.ln_2.weight', 'transformer.h.10.attn.c_proj.bias', 'transformer.h.10.attn.c_proj.weight', 'transformer.h.10.attn.c_attn.bias', 'transformer.h.10.attn.c_attn.weight', 'transformer.h.10.ln_1.bias', 'transformer.h.10.ln_1.weight', 'transformer.h.9.mlp.c_proj.bias', 'transformer.h.9.mlp.c_proj.weight', 'transformer.h.9.mlp.c_fc.bias', 'transformer.h.9.mlp.c_fc.weight', 'transformer.h.9.ln_2.bias', 'transformer.h.9.ln_2.weight', 'transformer.h.9.attn.c_proj.bias', 'transformer.h.9.attn.c_proj.weight', 'transformer.h.9.attn.c_attn.bias', 'transformer.h.9.attn.c_attn.weight', 'transformer.h.9.ln_1.bias', 'transformer.h.9.ln_1.weight', 'transformer.h.8.mlp.c_proj.bias', 'transformer.h.8.mlp.c_proj.weight', 'transformer.h.8.mlp.c_fc.bias', 'transformer.h.8.mlp.c_fc.weight', 'transformer.h.8.ln_2.bias', 'transformer.h.8.ln_2.weight', 'transformer.h.8.attn.c_proj.bias', 'transformer.h.8.attn.c_proj.weight', 'transformer.h.8.attn.c_attn.bias', 'transformer.h.8.attn.c_attn.weight', 'transformer.h.8.ln_1.bias', 'transformer.h.8.ln_1.weight', 'transformer.h.7.mlp.c_proj.bias', 'transformer.h.7.mlp.c_proj.weight', 'transformer.h.7.mlp.c_fc.bias', 'transformer.h.7.mlp.c_fc.weight', 'transformer.h.7.ln_2.bias', 'transformer.h.7.ln_2.weight', 'transformer.h.7.attn.c_proj.bias', 'transformer.h.7.attn.c_proj.weight', 'transformer.h.7.attn.c_attn.bias', 'transformer.h.7.attn.c_attn.weight', 'transformer.h.7.ln_1.bias', 'transformer.h.7.ln_1.weight', 'transformer.h.6.mlp.c_proj.bias', 'transformer.h.6.mlp.c_proj.weight', 'transformer.h.6.mlp.c_fc.bias', 'transformer.h.6.mlp.c_fc.weight', 'transformer.h.6.ln_2.bias', 'transformer.h.6.ln_2.weight', 'transformer.h.6.attn.c_proj.bias', 'transformer.h.6.attn.c_proj.weight', 'transformer.h.6.attn.c_attn.bias', 'transformer.h.6.attn.c_attn.weight', 'transformer.h.6.ln_1.bias', 'transformer.h.6.ln_1.weight', 'transformer.h.5.mlp.c_proj.bias', 'transformer.h.5.mlp.c_proj.weight', 'transformer.h.5.mlp.c_fc.bias', 'transformer.h.5.mlp.c_fc.weight', 'transformer.h.5.ln_2.bias', 'transformer.h.5.ln_2.weight', 'transformer.h.5.attn.c_proj.bias', 'transformer.h.5.attn.c_proj.weight', 'transformer.h.5.attn.c_attn.bias', 'transformer.h.5.attn.c_attn.weight', 'transformer.h.5.ln_1.bias', 'transformer.h.5.ln_1.weight', 'transformer.h.4.mlp.c_proj.bias', 'transformer.h.4.mlp.c_proj.weight', 'transformer.h.4.mlp.c_fc.bias', 'transformer.h.4.mlp.c_fc.weight', 'transformer.h.4.ln_2.bias', 'transformer.h.4.ln_2.weight', 'transformer.h.4.attn.c_proj.bias', 'transformer.h.4.attn.c_proj.weight', 'transformer.h.4.attn.c_attn.bias', 'transformer.h.4.attn.c_attn.weight', 'transformer.h.4.ln_1.bias', 'transformer.h.4.ln_1.weight', 'transformer.h.3.mlp.c_proj.bias', 'transformer.h.3.mlp.c_proj.weight', 'transformer.h.3.mlp.c_fc.bias', 'transformer.h.3.mlp.c_fc.weight', 'transformer.h.3.ln_2.bias', 'transformer.h.3.ln_2.weight', 'transformer.h.3.attn.c_proj.bias', 'transformer.h.3.attn.c_proj.weight', 'transformer.h.3.attn.c_attn.bias', 'transformer.h.3.attn.c_attn.weight', 'transformer.h.3.ln_1.bias', 'transformer.h.3.ln_1.weight', 'transformer.h.2.mlp.c_proj.bias', 'transformer.h.2.mlp.c_proj.weight', 'transformer.h.2.mlp.c_fc.bias', 'transformer.h.2.mlp.c_fc.weight', 'transformer.h.2.ln_2.bias', 'transformer.h.2.ln_2.weight', 'transformer.h.2.attn.c_proj.bias', 'transformer.h.2.attn.c_proj.weight', 'transformer.h.2.attn.c_attn.bias', 'transformer.h.2.attn.c_attn.weight', 'transformer.h.2.ln_1.bias', 'transformer.h.2.ln_1.weight', 'transformer.h.1.mlp.c_proj.bias', 'transformer.h.1.mlp.c_proj.weight', 'transformer.h.1.mlp.c_fc.bias', 'transformer.h.1.mlp.c_fc.weight', 'transformer.h.1.ln_2.bias', 'transformer.h.1.ln_2.weight', 'transformer.h.1.attn.c_proj.bias', 'transformer.h.1.attn.c_proj.weight', 'transformer.h.1.attn.c_attn.bias', 'transformer.h.1.attn.c_attn.weight', 'transformer.h.1.ln_1.bias', 'transformer.h.1.ln_1.weight', 'transformer.h.0.mlp.c_proj.bias', 'transformer.h.0.mlp.c_proj.weight', 'transformer.h.0.mlp.c_fc.bias', 'transformer.h.0.mlp.c_fc.weight', 'transformer.h.0.ln_2.bias', 'transformer.h.0.ln_2.weight', 'transformer.h.0.attn.c_proj.bias', 'transformer.h.0.attn.c_proj.weight', 'transformer.h.0.attn.c_attn.bias', 'transformer.h.0.attn.c_attn.weight', 'transformer.h.0.ln_1.bias', 'transformer.h.0.ln_1.weight', 'transformer.wpe.weight', 'transformer.wte.weight']]
+[0]<stdout>:group_dims:  [[1, 1], [1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2], [1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 2, 2]]
+[1]<stdout>:min_group_len_array =  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+[1]<stdout>:min_group_len_array_sum =  436
+[1]<stdout>:len(min_group_len_array) =  218
+[1]<stdout>:len(group_backward_time_size_array) =  218
+[1]<stdout>:sum(merging_time_compression_array)=  31.264903812817778
+[1]<stdout>:sum(group_compression_time_array)=  0.04368349316517509
+[1]<stdout>:sum(group_backward_time_size_array)=  0.0
+[1]<stdout>:len(min_group_len_array)=  218
+[1]<stdout>:groups_new=  [2, 56, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+[1]<stdout>:sum(groups_new)=  436
+[1]<stdout>:groups_new_=  [3, 56, 378]
+[1]<stdout>:sum(groups_new_)=  437
+[1]<stdout>:Number of parameters: 774030080
+[1]<stdout>:Total number of tensors: 436
+[1]<stdout>:Merged number of groups: 3
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -   ***** Running training *****
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Num examples = 2318
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Num Epochs = 30
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Instantaneous batch size per device = 1
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Total train batch size (w. parallel, distributed & accumulation) = 2
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Gradient Accumulation steps = 1
+[0]<stderr>:05/17/2024 08:26:08 - INFO - __main__ -     Total optimization steps = 34770
+[0]<stdout>:Start training!!!
+[0]<stdout>:starting_epoch:  0
+[0]<stdout>:args.num_train_epochs:  30
+[0]<stdout>:args.max_train_steps:  34770
+[0]<stdout>:-----------------model.named_parameters-----------------
+[0]<stdout>:transformer.wte.weight torch.Size([50257, 1280])
+[0]<stdout>:transformer.wpe.weight torch.Size([1024, 1280])
+[0]<stdout>:transformer.h.0.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.0.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.0.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.0.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.0.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.0.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.0.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.0.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.0.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.0.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.0.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.0.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.1.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.1.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.1.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.1.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.1.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.1.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.1.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.1.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.1.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.1.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.1.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.1.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.2.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.2.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.2.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.2.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.2.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.2.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.2.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.2.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.2.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.2.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.2.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.2.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.3.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.3.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.3.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.3.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.3.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.3.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.3.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.3.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.3.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.3.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.3.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.3.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.4.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.4.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.4.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.4.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.4.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.4.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.4.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.4.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.4.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.4.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.4.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.4.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.5.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.5.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.5.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.5.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.5.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.5.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.5.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.5.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.5.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.5.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.5.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.5.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.6.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.6.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.6.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.6.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.6.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.6.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.6.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.6.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.6.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.6.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.6.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.6.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.7.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.7.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.7.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.7.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.7.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.7.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.7.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.7.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.7.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.7.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.7.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.7.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.8.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.8.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.8.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.8.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.8.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.8.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.8.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.8.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.8.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.8.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.8.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.8.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.9.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.9.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.9.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.9.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.9.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.9.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.9.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.9.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.9.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.9.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.9.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.9.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.10.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.10.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.10.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.10.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.10.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.10.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.10.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.10.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.10.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.10.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.10.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.10.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.11.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.11.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.11.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.11.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.11.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.11.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.11.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.11.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.11.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.11.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.11.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.11.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.12.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.12.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.12.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.12.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.12.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.12.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.12.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.12.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.12.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.12.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.12.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.12.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.13.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.13.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.13.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.13.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.13.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.13.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.13.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.13.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.13.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.13.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.13.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.13.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.14.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.14.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.14.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.14.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.14.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.14.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.14.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.14.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.14.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.14.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.14.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.14.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.15.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.15.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.15.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.15.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.15.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.15.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.15.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.15.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.15.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.15.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.15.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.15.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.16.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.16.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.16.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.16.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.16.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.16.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.16.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.16.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.16.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.16.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.16.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.16.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.17.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.17.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.17.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.17.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.17.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.17.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.17.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.17.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.17.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.17.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.17.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.17.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.18.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.18.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.18.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.18.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.18.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.18.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.18.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.18.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.18.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.18.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.18.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.18.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.19.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.19.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.19.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.19.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.19.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.19.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.19.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.19.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.19.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.19.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.19.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.19.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.20.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.20.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.20.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.20.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.20.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.20.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.20.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.20.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.20.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.20.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.20.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.20.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.21.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.21.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.21.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.21.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.21.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.21.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.21.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.21.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.21.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.21.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.21.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.21.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.22.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.22.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.22.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.22.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.22.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.22.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.22.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.22.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.22.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.22.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.22.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.22.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.23.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.23.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.23.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.23.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.23.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.23.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.23.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.23.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.23.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.23.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.23.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.23.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.24.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.24.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.24.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.24.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.24.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.24.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.24.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.24.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.24.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.24.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.24.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.24.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.25.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.25.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.25.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.25.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.25.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.25.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.25.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.25.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.25.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.25.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.25.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.25.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.26.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.26.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.26.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.26.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.26.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.26.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.26.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.26.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.26.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.26.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.26.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.26.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.27.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.27.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.27.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.27.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.27.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.27.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.27.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.27.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.27.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.27.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.27.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.27.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.28.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.28.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.28.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.28.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.28.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.28.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.28.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.28.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.28.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.28.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.28.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.28.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.29.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.29.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.29.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.29.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.29.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.29.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.29.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.29.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.29.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.29.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.29.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.29.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.30.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.30.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.30.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.30.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.30.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.30.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.30.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.30.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.30.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.30.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.30.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.30.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.31.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.31.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.31.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.31.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.31.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.31.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.31.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.31.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.31.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.31.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.31.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.31.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.32.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.32.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.32.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.32.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.32.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.32.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.32.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.32.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.32.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.32.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.32.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.32.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.33.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.33.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.33.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.33.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.33.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.33.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.33.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.33.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.33.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.33.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.33.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.33.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.34.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.34.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.34.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.34.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.34.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.34.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.34.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.34.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.34.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.34.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.34.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.34.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.35.ln_1.weight torch.Size([1280])
+[0]<stdout>:transformer.h.35.ln_1.bias torch.Size([1280])
+[0]<stdout>:transformer.h.35.attn.c_attn.weight torch.Size([1280, 3840])
+[0]<stdout>:transformer.h.35.attn.c_attn.bias torch.Size([3840])
+[0]<stdout>:transformer.h.35.attn.c_proj.weight torch.Size([1280, 1280])
+[0]<stdout>:transformer.h.35.attn.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.h.35.ln_2.weight torch.Size([1280])
+[0]<stdout>:transformer.h.35.ln_2.bias torch.Size([1280])
+[0]<stdout>:transformer.h.35.mlp.c_fc.weight torch.Size([1280, 5120])
+[0]<stdout>:transformer.h.35.mlp.c_fc.bias torch.Size([5120])
+[0]<stdout>:transformer.h.35.mlp.c_proj.weight torch.Size([5120, 1280])
+[0]<stdout>:transformer.h.35.mlp.c_proj.bias torch.Size([1280])
+[0]<stdout>:transformer.ln_f.weight torch.Size([1280])
+[0]<stdout>:transformer.ln_f.bias torch.Size([1280])
+[0]<stdout>:-----------------model.named_parameters-----------------
+[0]<stdout>:parameters.numel =  774030080
+[0]<stdout>:parameters.count =  436
+[0]<stderr>:[1]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[1]<stderr>:To disable this warning, you can either:
+[1]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[1]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0]<stderr>:Train Epoch     #1:   0%|          | 0/1159 [00:00<?, ?it/s]huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[0]<stderr>:To disable this warning, you can either:
+[0]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[0]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[1]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[1]<stderr>:To disable this warning, you can either:
+[1]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[1]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[0]<stderr>:To disable this warning, you can either:
+[0]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[0]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[1]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[1]<stderr>:To disable this warning, you can either:
+[1]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[1]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[1]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[1]<stderr>:To disable this warning, you can either:
+[1]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[1]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[0]<stderr>:To disable this warning, you can either:
+[0]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[0]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0]<stderr>:huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+[0]<stderr>:To disable this warning, you can either:
+[0]<stderr>:	- Avoid using `tokenizers` before the fork if possible
+[0]<stderr>:	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0]<stderr>:[0]<stdout>:topk_time =  0
+[0]<stdout>:threshold_time =  0
+[0]<stdout>:io_time =  0.00036597251892089844
+[0]<stdout>:forward_time =  1.042682409286499
+[0]<stdout>:backward_time =  0.3053019046783447
+[0]<stdout>:step_time =  2.1745543479919434
+[0]<stdout>:communication_time =  2.082371950149536
+[0]<stdout>:para_update_time =  0.007104635238647461
+[0]<stdout>:hook_time =  0.12471818923950195
+[0]<stdout>:---------------------------------
+[0]<stdout>:step_time =  3.872532367706299
+[0]<stderr>:Train Epoch     #1:   0%|          | 1/1159 [00:03<1:14:43,  3.87s/it][0]<stderr>:Train Epoch     #1:   0%|          | 2/1159 [00:06<1:00:44,  3.15s/it][0]<stderr>:Train Epoch     #1:   0%|          | 3/1159 [00:09<56:20,  2.92s/it]  [0]<stderr>:Train Epoch     #1:   0%|          | 4/1159 [00:11<54:18,  2.82s/it][0]<stderr>:Train Epoch     #1:   0%|          | 5/1159 [00:14<53:15,  2.77s/it][0]<stderr>:Train Epoch     #1:   1%|          | 6/1159 [00:17<52:34,  2.74s/it][0]<stderr>:Train Epoch     #1:   1%|          | 7/1159 [00:19<51:57,  2.71s/it][0]<stderr>:Train Epoch     #1:   1%|          | 8/1159 [00:22<51:34,  2.69s/it][0]<stderr>:Train Epoch     #1:   1%|          | 9/1159 [00:25<51:09,  2.67s/it][0]<stderr>:Train Epoch     #1:   1%|          | 10/1159 [00:27<50:55,  2.66s/it][0]<stderr>:Train Epoch     #1:   1%|          | 11/1159 [00:30<50:46,  2.65s/it][0]<stderr>:Train Epoch     #1:   1%|          | 12/1159 [00:33<50:34,  2.65s/it][0]<stderr>:Train Epoch     #1:   1%|          | 13/1159 [00:35<50:29,  2.64s/it][0]<stderr>:Train Epoch     #1:   1%|          | 14/1159 [00:38<50:28,  2.64s/it][0]<stderr>:Train Epoch     #1:   1%|▏         | 15/1159 [00:40<50:26,  2.65s/it][0]<stderr>:Train Epoch     #1:   1%|▏         | 16/1159 [00:43<50:32,  2.65s/it][0]<stderr>:Train Epoch     #1:   1%|▏         | 17/1159 [00:46<50:22,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 18/1159 [00:48<50:14,  2.64s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 19/1159 [00:51<50:19,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 20/1159 [00:54<50:11,  2.64s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 21/1159 [00:56<50:10,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 22/1159 [00:59<50:08,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 23/1159 [01:02<50:08,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 24/1159 [01:04<50:07,  2.65s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 25/1159 [01:07<49:58,  2.64s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 26/1159 [01:10<49:49,  2.64s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 27/1159 [01:12<49:51,  2.64s/it][0]<stderr>:Train Epoch     #1:   2%|▏         | 28/1159 [01:15<49:53,  2.65s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 29/1159 [01:17<49:48,  2.64s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 30/1159 [01:20<49:48,  2.65s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 31/1159 [01:23<49:58,  2.66s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 32/1159 [01:25<49:59,  2.66s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 33/1159 [01:28<50:03,  2.67s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 34/1159 [01:31<50:10,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 35/1159 [01:34<50:11,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 36/1159 [01:36<50:09,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 37/1159 [01:39<50:09,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 38/1159 [01:42<50:07,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 39/1159 [01:44<50:03,  2.68s/it][0]<stderr>:Train Epoch     #1:   3%|▎         | 40/1159 [01:47<49:55,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▎         | 41/1159 [01:50<49:51,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▎         | 42/1159 [01:52<49:49,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▎         | 43/1159 [01:55<49:46,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 44/1159 [01:58<49:45,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 45/1159 [02:00<49:45,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 46/1159 [02:03<49:44,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 47/1159 [02:06<49:41,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 48/1159 [02:08<49:35,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 49/1159 [02:11<49:31,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 50/1159 [02:14<49:30,  2.68s/it][0]<stdout>:topk_time =  0
+[0]<stdout>:threshold_time =  0
+[0]<stdout>:io_time =  0.014669656753540039
+[0]<stdout>:forward_time =  2.6622226238250732
+[0]<stdout>:backward_time =  19.214475393295288
+[0]<stdout>:step_time =  111.12584638595581
+[0]<stdout>:communication_time =  106.63181781768799
+[0]<stdout>:para_update_time =  0.2862660884857178
+[0]<stdout>:hook_time =  1.650172472000122
+[0]<stdout>:---------------------------------
+[0]<stdout>:step_time =  133.0475673675537
+[0]<stderr>:Train Epoch     #1:   4%|▍         | 51/1159 [02:16<49:28,  2.68s/it][0]<stderr>:Train Epoch     #1:   4%|▍         | 52/1159 [02:19<49:29,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▍         | 53/1159 [02:22<49:27,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▍         | 54/1159 [02:24<49:25,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▍         | 55/1159 [02:27<49:23,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▍         | 56/1159 [02:30<49:17,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▍         | 57/1159 [02:33<49:13,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 58/1159 [02:35<49:11,  2.68s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 59/1159 [02:38<48:58,  2.67s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 60/1159 [02:40<48:45,  2.66s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 61/1159 [02:43<48:33,  2.65s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 62/1159 [02:46<48:32,  2.66s/it][0]<stderr>:Train Epoch     #1:   5%|▌         | 63/1159 [02:48<48:39,  2.66s/it][0]<stderr>:Train Epoch     #1:   6%|▌         | 64/1159 [02:51<48:37,  2.66s/it][0]<stderr>:Train Epoch     #1:   6%|▌         | 65/1159 [02:54<48:40,  2.67s/it][0]<stderr>:Train Epoch     #1:   6%|▌         | 66/1159 [02:56<48:42,  2.67s/it][0]<stderr>:Train Epoch     #1:   6%|▌         | 67/1159 [02:59<48:37,  2.67s/it]

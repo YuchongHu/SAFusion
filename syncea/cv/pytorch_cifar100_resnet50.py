@@ -5,41 +5,31 @@ import torch.multiprocessing as mp
 import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data.distributed
-from torchvision import datasets, transforms, models
-# import horovod.torch as hvd
+from torchvision import datasets, transforms
 import os
-import math
 from tqdm import tqdm
-
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
-
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import os
+sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+sys.path.append("../..") 
+import example_fgbuff.hv_distributed_optimizer as hvd
+from compression import compressors
+from utils_model import get_network
+
+import numpy as np
+from profiling import benchmark
 
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
-
-import sys
-sys.path.append("../..") 
-import example_syncea.hv_distributed_optimizer_synea as hvd
-from compression import compressors
-from utils_model import get_network
-
-import timeit
-import numpy as np
-from profiling import benchmark
-
-
+import example_fgbuff.hv_distributed_optimizer as hvd
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch Cifar100 + ResNet-50 Example',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
 parser.add_argument('--model-net', default='resnet50',type=str, help='net type')
 
 parser.add_argument('--train-dir', default=os.path.expanduser('~/cifar100/train'),
@@ -60,16 +50,12 @@ parser.add_argument('--use-adasum', action='store_true', default=False,
                     help='use adasum algorithm to do reduction')
 parser.add_argument('--gradient-predivide-factor', type=float, default=1.0,
                     help='apply gradient predivide factor in optimizer (default: 1.0)')
-
-
-# Default settings from https://arxiv.org/abs/1706.02677.
 parser.add_argument('--batch-size', type=int, default=32,
                     help='input batch size for training')
 parser.add_argument('--val-batch-size', type=int, default=32,
                     help='input batch size for validation')
 parser.add_argument('--epochs', type=int, default=80,
                     help='number of epochs to train')
-
 parser.add_argument('--base-lr', type=float, default=0.0125,
                     help='learning rate for a single GPU')
 parser.add_argument('--warmup-epochs', type=float, default=5,
@@ -78,21 +64,15 @@ parser.add_argument('--momentum', type=float, default=0.9,
                     help='SGD momentum')
 parser.add_argument('--wd', type=float, default=0.00005,
                     help='weight decay')
-
 parser.add_argument('--gpu', action='store_true', default=True, help='use gpu or not')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='disables CUDA training')
 parser.add_argument('--seed', type=int, default=42,
                     help='random seed')
-
 parser.add_argument('--fp16', action='store_true', default=False,
                     help='use fp16 compression during allreduce')
-
 parser.add_argument('--model', type=str, default='resnet50',
                     help='model to benchmark')
-# parser.add_argument('--batch-size', type=int, default=32,
-#                     help='input batch size')
-
 parser.add_argument('--num-warmup-batches', type=int, default=20,
                     help='number of warm-up batches that don\'t count towards benchmark')
 parser.add_argument('--num-batches-per-iter', type=int, default=10,
@@ -104,9 +84,11 @@ parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WF
 parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
 parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
+
 # Top-k + EF
 parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
+
 
 y_loss = {}  # loss history
 y_loss['train'] = []
@@ -118,12 +100,7 @@ x_test_epoch_time = []
 x_train_epoch_time = []
 x_epoch = []
 
-
 def train(epoch):
-    bias_gaussiank_array=[]
-    bias_dgc_array=[]
-    bias_redsync_array=[]
-    
     model.train()
     train_sampler.set_epoch(epoch)
     train_loss = Metric('train_loss')
@@ -158,14 +135,13 @@ def train(epoch):
             s_time=time.time()
             if args.cuda:
                 data, target = data.cuda(), target.cuda()
-            
+
             io_time_array.append(time.time()-s_time)
-            
+
             e_time=time.time()
-            
+
             optimizer.zero_grad()
-            
-            
+
             output = model(data)
             train_accuracy.update(accuracy(output, target))
             loss = F.cross_entropy(output, target)
@@ -177,21 +153,17 @@ def train(epoch):
             loss.backward()
             backward_time_array.append(time.time()-b_time)
             
-
             s_time=time.time()               
             # Gradient is applied across all ranks
             optimizer.step()       
-            
-                 
             step_time_array.append(time.time()-s_time)
-            
+
             t.set_postfix({'loss': train_loss.avg.item(),
                            'accuracy': 100. * train_accuracy.avg.item()})
-            
             u_time=time.time() 
             t.update(1)
             update_time_array.append(time.time()-u_time)
-            
+
             optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
             optimizer.handle_synchronize_time= []
 
@@ -199,6 +171,7 @@ def train(epoch):
     y_acc['train'].append(train_accuracy.avg.item())
     end_time_epoch = time.time()
     x_train_epoch_time.append(end_time_epoch - modified_time)
+
 
 
 def validate(epoch):
@@ -222,7 +195,6 @@ def validate(epoch):
                                'accuracy': 100. * val_accuracy.avg.item()})
                 t.update(1)
 
-
     y_loss['test'].append(val_loss.avg.item())
     y_acc['test'].append(val_accuracy.avg.item())
     end_time_epoch = time.time()
@@ -232,6 +204,10 @@ def validate(epoch):
     x_test_epoch_time.append(end_time_epoch - modified_time)
 
 
+# Horovod: using `lr = base_lr * hvd.size()` from the very beginning leads to worse final
+# accuracy. Scale the learning rate `lr = base_lr` ---> `lr = base_lr * hvd.size()` during
+# the first five epochs. See https://arxiv.org/abs/1706.02677 for details.
+# After the warmup reduce learning rate by 10 on the 30th, 60th and 80th epochs.
 def adjust_learning_rate(epoch, batch_idx):
     if epoch < args.warmup_epochs:
         epoch += float(batch_idx + 1) / len(train_loader)
@@ -244,7 +220,6 @@ def adjust_learning_rate(epoch, batch_idx):
         lr_adj = 1e-2
     else:
         lr_adj = 1e-3
-  
     for param_group in optimizer.param_groups:
         param_group['lr'] = args.base_lr * hvd.size() * args.batches_per_allreduce * lr_adj
 
@@ -300,7 +275,7 @@ if __name__ == '__main__':
 
     # If set > 0, will resume training from a given checkpoint.
     resume_from_epoch = 0
- 
+
     # Horovod: print logs on the first worker.
     verbose = 1 if hvd.rank() == 0 else 0
 
@@ -319,6 +294,7 @@ if __name__ == '__main__':
     
     CIFAR100_TRAIN_MEAN = [0.5070751592371323, 0.48654887331495095, 0.4409178433670343]
     CIFAR100_TRAIN_STD = [0.2673342858792401, 0.2564384629170883, 0.27615047132568404]
+    
     # CIFAR100
     train_dataset = \
         datasets.CIFAR100(args.train_dir,
@@ -369,7 +345,6 @@ if __name__ == '__main__':
     lr_scaler = args.batches_per_allreduce * hvd.size() if not args.use_adasum else 1
     # By default, Adasum doesn't need scaling up learning rate.
     # lr_scaler = hvd.size() if not args.use_adasum else 1
-
     if args.cuda:
         # Move model to GPU.
         model.cuda()
@@ -398,13 +373,11 @@ if __name__ == '__main__':
     else:
         seq_layernames, layerwise_times = None, None
     
-   
     optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
 
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
     hvd.broadcast_optimizer_state(optimizer, root_rank=0)
-
     start_time = time.time()
     modified_time = start_time
     if hvd.rank() == 0:

@@ -5,36 +5,31 @@ import torch.multiprocessing as mp
 import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data.distributed
-from torchvision import datasets, transforms, models
+from torchvision import datasets, transforms
 import os
-import math
 from tqdm import tqdm
-
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
-
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-import os
+sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+sys.path.append("../..") 
+import example_fgbuff.hv_distributed_optimizer as hvd
+from compression import compressors
+from utils_model import get_network
+
+import numpy as np
+from profiling import benchmark
 
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
+import example_fgbuff.hv_distributed_optimizer as hvd
 
-import sys
-sys.path.append("../..") 
-import Bayesian.hv_bayes_distributed_optimizer as hvd
-from compression import compressors
-from utils_model import get_network
-
-import timeit
-import numpy as np
-from profiling import benchmark
+# Training settings
 parser = argparse.ArgumentParser(description='PyTorch Cifar100 + ResNet-50 Example',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-
 parser.add_argument('--model-net', default='resnet50',type=str, help='net type')
 
 parser.add_argument('--train-dir', default=os.path.expanduser('~/cifar100/train'),
@@ -55,16 +50,12 @@ parser.add_argument('--use-adasum', action='store_true', default=False,
                     help='use adasum algorithm to do reduction')
 parser.add_argument('--gradient-predivide-factor', type=float, default=1.0,
                     help='apply gradient predivide factor in optimizer (default: 1.0)')
-
-
-# Default settings from https://arxiv.org/abs/1706.02677.
 parser.add_argument('--batch-size', type=int, default=32,
                     help='input batch size for training')
 parser.add_argument('--val-batch-size', type=int, default=32,
                     help='input batch size for validation')
 parser.add_argument('--epochs', type=int, default=80,
                     help='number of epochs to train')
-
 parser.add_argument('--base-lr', type=float, default=0.0125,
                     help='learning rate for a single GPU')
 parser.add_argument('--warmup-epochs', type=float, default=5,
@@ -73,36 +64,25 @@ parser.add_argument('--momentum', type=float, default=0.9,
                     help='SGD momentum')
 parser.add_argument('--wd', type=float, default=0.00005,
                     help='weight decay')
-
 parser.add_argument('--gpu', action='store_true', default=True, help='use gpu or not')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='disables CUDA training')
 parser.add_argument('--seed', type=int, default=42,
                     help='random seed')
-
-
-# Gradient Merging
 parser.add_argument('--fp16', action='store_true', default=False,
                     help='use fp16 compression during allreduce')
-
 parser.add_argument('--model', type=str, default='resnet50',
                     help='model to benchmark')
-# parser.add_argument('--batch-size', type=int, default=32,
-#                     help='input batch size')
-
 parser.add_argument('--num-warmup-batches', type=int, default=20,
                     help='number of warm-up batches that don\'t count towards benchmark')
 parser.add_argument('--num-batches-per-iter', type=int, default=10,
                     help='number of batches per benchmark iteration')
 parser.add_argument('--num-iters', type=int, default=50,
                     help='number of benchmark iterations')
-
 parser.add_argument('--mgwfbp', action='store_true', default=False, help='Use MG-WFBP')
 parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WFBP')
 parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
 parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
-
-
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 # Top-k + EF
@@ -132,7 +112,7 @@ def train(epoch):
     optimizer.synchronize_time= []
     optimizer.para_update_time= []
     optimizer.hook_time= []
-    
+
     io_time_array= []
     forward_backforward_time_array= []
     forward_time_array= []
@@ -155,11 +135,11 @@ def train(epoch):
             s_time=time.time()
             if args.cuda:
                 data, target = data.cuda(), target.cuda()
-            
+
             io_time_array.append(time.time()-s_time)
-            
+
             e_time=time.time()
-            
+
             optimizer.zero_grad()
 
             output = model(data)
@@ -172,22 +152,25 @@ def train(epoch):
             b_time=time.time()
             loss.backward()
             backward_time_array.append(time.time()-b_time)
-
+            
             s_time=time.time()               
             # Gradient is applied across all ranks
             optimizer.step()       
-                
             step_time_array.append(time.time()-s_time)
-            
+
             t.set_postfix({'loss': train_loss.avg.item(),
                            'accuracy': 100. * train_accuracy.avg.item()})
-
             u_time=time.time() 
             t.update(1)
             update_time_array.append(time.time()-u_time)
-            
+
             optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
             optimizer.handle_synchronize_time= []
+
+    y_loss['train'].append(train_loss.avg.item())
+    y_acc['train'].append(train_accuracy.avg.item())
+    end_time_epoch = time.time()
+    x_train_epoch_time.append(end_time_epoch - modified_time)
 
 
 
@@ -311,6 +294,7 @@ if __name__ == '__main__':
     
     CIFAR100_TRAIN_MEAN = [0.5070751592371323, 0.48654887331495095, 0.4409178433670343]
     CIFAR100_TRAIN_STD = [0.2673342858792401, 0.2564384629170883, 0.27615047132568404]
+    
     # CIFAR100
     train_dataset = \
         datasets.CIFAR100(args.train_dir,
@@ -332,6 +316,7 @@ if __name__ == '__main__':
     train_loader = torch.utils.data.DataLoader(
         train_dataset, batch_size=allreduce_batch_size,
         sampler=train_sampler, **kwargs)
+
     # CIFAR100
     val_dataset = \
         datasets.CIFAR100(args.val_dir,
@@ -360,7 +345,6 @@ if __name__ == '__main__':
     lr_scaler = args.batches_per_allreduce * hvd.size() if not args.use_adasum else 1
     # By default, Adasum doesn't need scaling up learning rate.
     # lr_scaler = hvd.size() if not args.use_adasum else 1
-
     if args.cuda:
         # Move model to GPU.
         model.cuda()
@@ -389,12 +373,11 @@ if __name__ == '__main__':
     else:
         seq_layernames, layerwise_times = None, None
     
-    optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, model= model,
+    optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
 
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
     hvd.broadcast_optimizer_state(optimizer, root_rank=0)
-
     start_time = time.time()
     modified_time = start_time
     if hvd.rank() == 0:
@@ -404,3 +387,14 @@ if __name__ == '__main__':
     for epoch in range(resume_from_epoch, args.epochs):
         train(epoch)
         validate(epoch)
+
+    if hvd.rank() == 0:
+        # torch.cuda.synchronize()
+        end_time = time.time()
+        end_time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        print('end_time_str = ', end_time_str)
+        print('end_time - start_time = ', end_time - start_time)
+        training_time = end_time - modified_time
+        print('end_time - modified_time = ', training_time)
+        print(f"Samples per second: GPU * epochs * iter * batch-size / time = {8 * args.epochs * 196 * 32 / training_time}")
+

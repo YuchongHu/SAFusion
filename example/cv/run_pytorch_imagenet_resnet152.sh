@@ -1,4 +1,3 @@
-
 density="${density:-0.01}"
 threshold="${threshold:-8192}"
 compressor="${compressor:-gaussian}"
