@@ -1,15 +1,12 @@
 # AGMerge
 
-__AGMerge__ is a new resilient gradient merging mechanism for boosting sparse communication. We  design an inter-worker resilient gradient merging method, which allows different workers to merge the
-same amount of sparsified gradients into variable buffers
-instead of fixed inter-worker buffer sizes in the same merge
-phase, so as to avoid long synchronization waiting. We also design an intra-worker resilient gradient merging method, which allows the buffer size to be adaptively adjusted instead of fixed intra-worker buffer sizes in each iteration, so as to overlap the sparse communication and merge phases completely to reduce multiple waiting periods. This repository contains __AGMerge__’s source code, as well as a set of benchmarking scripts for some popular open-source data-parallel distributed DNN training systems with state-of-the-art gradient merging schemes.
+__AGMerge__ is a new adaptive gradient merging mechanism for boosting sparse communication. We first design an inter-worker adaptive gradient merging method, which allows all workers’ buffer sizes of the same merge phase to be adapted to satisfy that each worker merges the same amount of sparsified gradients before every synchronization, thus avoiding the synchronization waits across workers. We also design an intra-worker adaptive gradient merging method, which allows each worker’s buffer size of all merge phases to be adapted to overlap merging and communication as far as possible, thus reducing the communication waiting periods within every worker. This repository contains __AGMerge__’s source code, as well as a set of benchmarking scripts for some popular open-source distributed DNN training systems with state-of-the-art gradient merging schemes.
 
 # Introduction
 This code repository covers:
 ### __AGMerge__
-- RGM-Inter: Inter-worker resilient gradient merging scheme
-- RGM-(Inter+Intra): Intra-worker resilient gradient merging scheme
+- AGM-Inter: Inter-worker adaptive gradient merging scheme
+- AGM-(Inter+Intra): Intra-worker adaptive gradient merging scheme
 
 ### State-of-the-art gradient merging schemes.
 
@@ -55,7 +52,7 @@ The workflow of the __AGMerge__ generator module：
 
 ## **Get the code**
 ```
-git clone https://github.com/EuroSys25-AGMerge/AGMerge.git
+git clone https://github.com/INFOCOM2025-AGMerge/AGMerge.git
 cd AGMerge
 pip install -r requirements.txt
 HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.28.0
@@ -86,7 +83,7 @@ bash run_clm_no_trainer_hvd_103.sh
 
 ## **Papers**
 
-AGMerge: Resilient Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
+AGMerge: Adaptive Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
 
 ## **Referred Datasets**
 
