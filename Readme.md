@@ -1,13 +1,13 @@
-# RGMerge
+# AGMerge
 
-__RGMerge__ is a new resilient gradient merging mechanism for boosting sparse communication. We  design an inter-worker resilient gradient merging method, which allows different workers to merge the
+__AGMerge__ is a new resilient gradient merging mechanism for boosting sparse communication. We  design an inter-worker resilient gradient merging method, which allows different workers to merge the
 same amount of sparsified gradients into variable buffers
 instead of fixed inter-worker buffer sizes in the same merge
-phase, so as to avoid long synchronization waiting. We also design an intra-worker resilient gradient merging method, which allows the buffer size to be adaptively adjusted instead of fixed intra-worker buffer sizes in each iteration, so as to overlap the sparse communication and merge phases completely to reduce multiple waiting periods. This repository contains __RGMerge__’s source code, as well as a set of benchmarking scripts for some popular open-source data-parallel distributed DNN training systems with state-of-the-art gradient merging schemes.
+phase, so as to avoid long synchronization waiting. We also design an intra-worker resilient gradient merging method, which allows the buffer size to be adaptively adjusted instead of fixed intra-worker buffer sizes in each iteration, so as to overlap the sparse communication and merge phases completely to reduce multiple waiting periods. This repository contains __AGMerge__’s source code, as well as a set of benchmarking scripts for some popular open-source data-parallel distributed DNN training systems with state-of-the-art gradient merging schemes.
 
 # Introduction
 This code repository covers:
-### __RGMerge__
+### __AGMerge__
 - RGM-Inter: Inter-worker resilient gradient merging scheme
 - RGM-(Inter+Intra): Intra-worker resilient gradient merging scheme
 
@@ -29,15 +29,15 @@ This code repository covers:
 
 
 
-## **__RGMerge__** System Architecture
-We use the PyTorch framework and implemented the prototype system of __RGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows:
+## **__AGMerge__** System Architecture
+We use the PyTorch framework and implemented the prototype system of __AGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows:
 <!-- ![Overview](Overview.png) -->
 <center class ='img'>
 <img src="Overview.png" width="600px" />
 </center>
 
-## **__RGMerge__** Generator
-The workflow of the __RGMerge__ generator module：
+## **__AGMerge__** Generator
+The workflow of the __AGMerge__ generator module：
 <center class ='img'>
 <img src="Generator.png" width="600px" />
 </center>
@@ -55,8 +55,8 @@ The workflow of the __RGMerge__ generator module：
 
 ## **Get the code**
 ```
-git clone https://github.com/EuroSys25-RGMerge/RGMerge.git
-cd RGMerge
+git clone https://github.com/EuroSys25-AGMerge/AGMerge.git
+cd AGMerge
 pip install -r requirements.txt
 HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.28.0
 ```
@@ -86,7 +86,7 @@ bash run_clm_no_trainer_hvd_103.sh
 
 ## **Papers**
 
-RGMerge: Resilient Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
+AGMerge: Resilient Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
 
 ## **Referred Datasets**
 
@@ -97,4 +97,4 @@ RGMerge: Resilient Gradient Merging for Boosting Sparse Communication in Distrib
 
 ## **License**
 
-See [LICENSE](https://github.com/ATC24-RGMerge/RGMerge/blob/main/LICENSE.txt).
+See [LICENSE](https://github.com/ATC24-AGMerge/AGMerge/blob/main/LICENSE.txt).
