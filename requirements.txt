@@ -2,7 +2,7 @@ defaults:
   - torch==1.8.1
   - torchvision==0.9.1
   - mpi4py==3.1.1
-  - Horovod==0.27.0
+  - Horovod==0.28.1
 
 channels:
   - pytorch

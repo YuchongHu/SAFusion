@@ -12,6 +12,8 @@ class NoneCompressor():
     def __init__(self):
         self.name = 'none'
 
+
+
     def compress(self, tensor, name=None, sigma_scale=2.5, ratio=1.0):
         # tensor = tensor.flatten().cuda()
         # numel = tensor.numel()

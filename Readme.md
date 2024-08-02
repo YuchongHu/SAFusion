@@ -27,7 +27,7 @@ This code repository covers:
 
 
 ## **__AGMerge__** System Architecture
-We use the PyTorch framework and implemented the prototype system of __AGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows:
+We use the PyTorch framework and implemented the prototype system of __AGMerge__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows: 
 <!-- ![Overview](Overview.png) -->
 <center class ='img'>
 <img src="Overview.png" width="600px" />
