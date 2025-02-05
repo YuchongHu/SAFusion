@@ -11,10 +11,8 @@ This code repository covers:
 ### State-of-the-art gradient merging schemes.
 
 - [Horovod](https://github.com/horovod/horovod)
-- [SyncEA](https://dl.acm.org/doi/pdf/10.1145/3126908.3126912)
 - [OkTopk](https://dl.acm.org/doi/pdf/10.1145/3126908.3126912)
 - [OMGS](https://github.com/HKBU-HPML/OMGS-SGD)
-- [DeAR](https://github.com/lzhangbv/dear_pytorch?tab=readme-ov-file)
 - [CupCake](https://github.com/lzhangbv/dear_pytorch?tab=readme-ov-file)
 
 ### State-of-the-art sparsification algorithms.
