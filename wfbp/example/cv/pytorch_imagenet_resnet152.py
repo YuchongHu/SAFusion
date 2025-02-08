@@ -193,8 +193,8 @@ def draw_curve(epoch):
     comp_type = '/merge_number_noef'
     comp = '/merge_number_noef'
       
-    figpath = '/home/user/mzq/workspaces/project/dear_pytorch/mgwfbp/result' + dataset_model
-    datapath = '/home/user/mzq/workspaces/project/dear_pytorch/mgwfbp/result' + dataset_model + comp_type
+    figpath = './mgwfbp/result' + dataset_model
+    datapath = './mgwfbp/result' + dataset_model + comp_type
     
     if not os.path.exists(figpath):
         os.makedirs(figpath)
