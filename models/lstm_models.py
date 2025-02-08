@@ -4,11 +4,15 @@ from __future__ import print_function
 import math
 from collections import OrderedDict
 
+
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.parameter import Parameter
 from torch.autograd import Variable
+
+
 
 supported_rnns = {
     'lstm': nn.LSTM,

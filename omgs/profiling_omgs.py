@@ -2,12 +2,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+
+
 import torch
 import time
 import numpy as np
 import torch.nn as nn
 from torch.autograd import Variable
 import models.lstm as lstmpy
+
+
 
 
 class Profiling(object):

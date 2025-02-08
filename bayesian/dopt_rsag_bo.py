@@ -27,12 +27,14 @@ import time
 import torch
 import collections
 import numpy as np
-import horovod.torch as hvd
+import wfbp.torch as hvd
 
 from mpi4py import MPI
 
+
 # from comm_core import rank, size, Communicator, init as comm_init
 from tensorfusion import CommReduceScatter, CollectiveOp
+
 
 
 from tuner import Tuner

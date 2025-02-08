@@ -8,6 +8,9 @@ import example_fgbuff.utils_optimizer as utils_optimizer
 from scipy import stats
 import example_fgbuff.hv_distributed_optimizer as hvd
 
+
+
+
 class NoneCompressor():
     def __init__(self):
         self.name = 'none'
