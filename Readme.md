@@ -1,19 +1,21 @@
 # SAFusion
 
-__SAFusion__ is a new adaptive gradient merging mechanism for boosting sparse communication. We first design an inter-worker adaptive gradient merging method, which allows all workers’ buffer sizes of the same merge phase to be adapted to satisfy that each worker merges the same amount of sparsified gradients before every synchronization, thus avoiding the synchronization waits across workers. We also design an intra-worker adaptive gradient merging method, which allows each worker’s buffer size of all merge phases to be adapted to overlap merging and communication as far as possible, thus reducing the communication waiting periods within every worker. This repository contains __SAFusion__’s source code, as well as a set of benchmarking scripts for some popular open-source distributed DNN training systems with state-of-the-art gradient merging schemes.
+__SAFusion__ is a new efficient tensor fusion mechanism for high-performance distributed DNN training. We propose sparsification-ahead tensor fusion, which performs sparsification on each of the gradient tensors before merging them during tensor fusion, instead of sparsification-behind tensor fusion, so as to avoid gradient tensor missing and thus improve the convergence performance. Further, SAFusion designs an inter-worker gradient alignment fusion scheme that merges the same amount of sparsified gradients across workers to avoid long gradient synchronization waiting, and an intra-worker adaptive buffer sizing scheme that maximizes the overlap of backpropagation and communication time to reduce multiple waiting periods.
+This repository contains __SAFusion__’s source code, as well as a set of benchmarking scripts for some popular open-source distributed DNN training systems with state-of-the-art tensor fusion schemes.
 
 # Introduction
 This code repository covers:
 ### __SAFusion__
-- AGM-Inter: Inter-worker adaptive gradient merging scheme
-- AGM-(Inter+Intra): Intra-worker adaptive gradient merging scheme
+- SAF(Naive): Sparsification-ahead tensor fusion
+- SAF-Inter: Aligned inter-worker gradient tensor fusion
+- SAF-(Inter+Intra): Adaptive intra-worker buffer sizing
 
-### State-of-the-art gradient merging schemes.
+### State-of-the-art tensor fusion schemes.
 
-- [Horovod](https://github.com/horovod/horovod)
+- [WFBP](https://github.com/horovod/horovod)
 - [OkTopk](https://dl.acm.org/doi/pdf/10.1145/3126908.3126912)
 - [OMGS](https://github.com/HKBU-HPML/OMGS-SGD)
-- [CupCake](https://github.com/lzhangbv/dear_pytorch?tab=readme-ov-file)
+- [CupCake](https://github.com/HPDC25-SAFusion/SAFusion/tree/main/cupcake)
 
 ### State-of-the-art sparsification algorithms.
 
@@ -27,7 +29,7 @@ This code repository covers:
 
 
 ## **__SAFusion__** System Architecture
-We use the PyTorch framework and implemented the prototype system of __SAFusion__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows: 
+We use the PyTorch framework and implemented the prototype system of __SAFusion__ based on the [Horovod](https://github.com/horovod/horovod) and [PyTorch] framework using NCCL as the communication library. The overview of our system is as follows: 
 <!-- ![Overview](Overview.png) -->
 <center class ='img'>
 <img src="Overview.png" width="600px" />
@@ -52,7 +54,7 @@ The workflow of the __SAFusion__ generator module：
 
 ## **Get the code**
 ```
-git clone https://github.com/INFOCOM2025-SAFusion/SAFusion.git
+git clone https://github.com/HPDC25-SAFusion/SAFusion.git
 cd SAFusion
 pip install -r requirements.txt
 HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.28.0
@@ -83,7 +85,7 @@ bash run_clm_no_trainer_hvd_103.sh
 
 ## **Papers**
 
-SAFusion: Adaptive Gradient Merging for Boosting Sparse Communication in Distributed Training Systems
+SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training
 
 ## **Referred Datasets**
 
