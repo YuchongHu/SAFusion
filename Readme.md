@@ -32,13 +32,13 @@ This code repository covers:
 We use the PyTorch framework and implemented the prototype system of __SAFusion__ based on the [Horovod](https://github.com/horovod/horovod) and [PyTorch] framework using NCCL as the communication library. The overview of our system is as follows: 
 <!-- ![Overview](Overview.png) -->
 <center class ='img'>
-<img src="Overview.png" width="600px" />
+<img src="Overview_0208.png" width="600px" />
 </center>
 
 ## **__SAFusion__** Generator
 The workflow of the __SAFusion__ generator module：
 <center class ='img'>
-<img src="Generator.png" width="600px" />
+<img src="Generator_0208.png" width="600px" />
 </center>
 
 # Installation
