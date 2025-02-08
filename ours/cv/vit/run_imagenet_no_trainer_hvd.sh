@@ -1,13 +1,4 @@
 
-# rm   -rf   ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/*
-
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node15:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node17:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node18:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node19:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node20:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node21:./horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node22:./horovod/example/elastic/pytorch/nlp/gpt/
 
 OUT_DIR=${OUT_DIR:-"./log"}
 num_train_epochs="${num_train_epochs:-80000}"
