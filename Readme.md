@@ -5,19 +5,19 @@ This repository contains __SAFusion__’s source code, as well as a set of bench
 
 # Introduction
 This code repository covers:
-### __SAFusion__
+### __SAFusion Framework__
 - SAF(Naive): Sparsification-ahead tensor fusion
 - SAF-Inter: Aligned inter-worker gradient tensor fusion
 - SAF-(Inter+Intra): Adaptive intra-worker buffer sizing
 
-### State-of-the-art tensor fusion schemes.
+### __State-of-the-art tensor fusion schemes__
 
 - [WFBP](https://github.com/horovod/horovod)
 - [OkTopk](https://dl.acm.org/doi/pdf/10.1145/3126908.3126912)
 - [OMGS](https://github.com/HKBU-HPML/OMGS-SGD)
 - [CupCake](https://github.com/HPDC25-SAFusion/SAFusion/tree/main/cupcake)
 
-### State-of-the-art sparsification algorithms.
+### __State-of-the-art sparsification algorithms__
 
 - [DGC](https://arxiv.org/pdf/1712.01887.pdf)
 - [Gaussiank](https://arxiv.org/pdf/1911.08772.pdf)
