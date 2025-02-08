@@ -73,13 +73,13 @@ def parse_args():
         ),
     )
     parser.add_argument("--train_dir", type=str, 
-                        # default='/home/mzq/cifar100', 
-                        default='/home/data/mzq/beans/train',
+                        # default='/data/cifar100', 
+                        default='/data/beans/train',
                         # default=None, 
                         help="A folder containing the training data.")
     parser.add_argument("--validation_dir", type=str, 
-                        # default='/home/mzq/cifar100', 
-                        default='/home/data/mzq/beans/validation',
+                        # default='/data/cifar100', 
+                        default='/data/beans/validation',
                         # default=None, 
                         help="A folder containing the validation data.")
     
@@ -112,14 +112,14 @@ def parse_args():
         type=str,
         help="Path to pretrained model or model identifier from huggingface.co/models.",
         # default="google/vit-base-patch16-224-in21k",
-        default="/home/data/mzq/google/vit-base-patch16-224-in21k",
+        default="/data/google/vit-base-patch16-224-in21k",
     )
     parser.add_argument(
         "--metric_accuracy",
         type=str,
         help="Metric accuracy.",
         # default="google/vit-base-patch16-224-in21k",
-        default="/home/data/mzq/google/evaluate/metrics/accuracy",
+        default="/data/google/evaluate/metrics/accuracy",
     )
     
     
@@ -315,7 +315,7 @@ def main():
     if args.dataset_name is not None:
         
         # Downloading and loading a dataset from the hub.
-        # dataset = load_dataset(path='/home/mzq/cifar100/train', name= args.dataset_name, trust_remote_code=args.trust_remote_code)
+        # dataset = load_dataset(path='/data/cifar100/train', name= args.dataset_name, trust_remote_code=args.trust_remote_code)
         dataset = load_dataset(args.dataset_name, trust_remote_code=args.trust_remote_code)
         
     else:
@@ -533,7 +533,7 @@ def main():
     
     # Get the metric function
     # metric = evaluate.load("accuracy")
-    # metric = evaluate.load("/home/data/mzq/google/evaluate/metrics/accuracy")
+    # metric = evaluate.load("/data/google/evaluate/metrics/accuracy")
     metric = evaluate.load(args.metric_accuracy)
     
     

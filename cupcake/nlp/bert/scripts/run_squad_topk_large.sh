@@ -1,12 +1,12 @@
 
 echo "Container nvidia build = " $NVIDIA_BUILD_ID
 
-# export DIR_Model="/home/mzq/mingzq/workspaces/project/grace/examples/torch/nlp/bert/pre-model/bert-large-uncased/uncased_L-24_H-1024_A-16"
+# export DIR_Model="/data/nlp/bert/pre-model/bert-large-uncased/uncased_L-24_H-1024_A-16"
 export DIR_Model="/data/dataset/nlp/bert/pre-model/bert-large-uncased/uncased_L-24_H-1024_A-16"
 export DIR_DataSet="/data/dataset/nlp/bert"
 
 
-# init_checkpoint=${1:-"/home/mzq/mingzq/workspaces/project/grace/examples/torch/nlp/bert/pre-model/bert-base-uncased/uncased_L-12_H-768_A-12/bert_model.ckpt"}
+# init_checkpoint=${1:-"/data/nlp/bert/pre-model/bert-base-uncased/uncased_L-12_H-768_A-12/bert_model.ckpt"}
 # init_checkpoint=${1:-"$DIR_Model/bert_model.ckpt"}
 init_checkpoint=${1:-"$DIR_Model/bert_large_pretrained_amp.pt"}
 epochs=${2:-"30.0"}

@@ -23,25 +23,25 @@ per_device_train_batch_size="${per_device_train_batch_size:-32}"
 per_device_eval_batch_size="${per_device_eval_batch_size:-32}"
 
 # beans
-# train_dir=${train_dir:-"/home/data/mzq/beans/train"}
-# validation_dir=${validation_dir:-"/home/data/mzq/beans/validation"}
+# train_dir=${train_dir:-"/data/beans/train"}
+# validation_dir=${validation_dir:-"/data/beans/validation"}
 
 # # imagenet
-train_dir=${train_dir:-"/home/data/mzq/imagenet/train"}
-validation_dir=${validation_dir:-"/home/data/mzq/imagenet/val"}
+train_dir=${train_dir:-"/data/imagenet/train"}
+validation_dir=${validation_dir:-"/data/imagenet/val"}
 
 # # ViT-base
-# model_name_or_path=${model_name_or_path:-"/home/data/mzq/google/vit-base-patch16-224-in21k"}
+# model_name_or_path=${model_name_or_path:-"/data/google/vit-base-patch16-224-in21k"}
 
 # ViT-large
-model_name_or_path=${model_name_or_path:-"/home/data/mzq/google/vit-large-patch16-224-in21k"}
+model_name_or_path=${model_name_or_path:-"/data/google/vit-large-patch16-224-in21k"}
 
 
-metric_accuracy=${metric_accuracy:-"/home/data/mzq/google/evaluate/metrics/accuracy"}
+metric_accuracy=${metric_accuracy:-"/data/google/evaluate/metrics/accuracy"}
 
 
 
-output_dir=${output_dir:-"/home/mzq/mingzq/workspaces/project/transformers/examples/pytorch/image-classification/output"}
+output_dir=${output_dir:-"/data/image-classification/output"}
 
 
 echo "out dir is $OUT_DIR"
