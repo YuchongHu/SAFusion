@@ -29,7 +29,7 @@ This code repository covers:
 
 
 ## **__SAFusion__** System Architecture
-We use the PyTorch framework and implemented the prototype system of __SAFusion__ based on the [Horovod](https://github.com/horovod/horovod) and [PyTorch](https://github.com/pytorch/pytorch) framework using NCCL as the communication library. The overview of our system is as follows: 
+We use the [PyTorch](https://github.com/pytorch/pytorch) framework and implemented the prototype system of __SAFusion__ based on the [Horovod](https://github.com/horovod/horovod) framework using NCCL as the communication library. The overview of our system is as follows: 
 <!-- ![Overview](Overview.png) -->
 <center class ='img'>
 <img src="Overview_0208.png" width="600px" />
