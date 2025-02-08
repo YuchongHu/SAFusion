@@ -35,7 +35,7 @@ We use the [PyTorch](https://github.com/pytorch/pytorch) framework and implement
 <img src="Overview_0208.png" width="600px" />
 </center>
 
-In our system of SAFusion, each worker contains a __Generator__ module for generating an efficient sparsification-ahead fusion buffer, a __Controller__ module for controlling a series of operations such as sparsified gradient pushing, pulling, and communication in the fusion buffer, and a sparsification compression module for performing layer-wise gradient sparsification during the backward pass.
+In our system of SAFusion, each worker contains a __Generator__ module for generating an efficient sparsification-ahead fusion buffer, a __Controller__ module for controlling a series of operations such as sparsified gradient pushing, pulling, and communication in the fusion buffer, and a sparsification compression module for performing layer-wise gradient sparsification during the backward propagation.
 
 ## **__SAFusion__** Generator
 The workflow of the __SAFusion__ __Generator__ module：
