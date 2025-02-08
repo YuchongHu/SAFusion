@@ -1,13 +1,13 @@
 
-# rm   -rf   /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/*
+# rm   -rf   ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/*
 
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node15:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node17:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node18:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node19:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node20:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node21:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
-# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node22:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node15:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node17:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node18:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node19:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node20:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node21:./horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r ./horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node22:./horovod/example/elastic/pytorch/nlp/gpt/
 
 OUT_DIR=${OUT_DIR:-"./log"}
 num_train_epochs="${num_train_epochs:-80000}"
@@ -48,7 +48,7 @@ if [ ! -d "$OUT_DIR" ]; then
 fi
 
 
-export save_checkpoint_path="/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint"
+export save_checkpoint_path="./horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint"
 
 
 

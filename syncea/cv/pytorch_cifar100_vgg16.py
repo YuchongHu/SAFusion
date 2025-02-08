@@ -208,7 +208,7 @@ def draw_curve(epoch):
     # topk, gaussiank, readsync dgc randomk , sidoc
 
     
-    save_dir = '/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/fgmgs_ours/result_train_ours'
+    save_dir = './fgmgs_ours/result_train_ours'
     figpath = save_dir + dataset_model
     datapath = save_dir + dataset_model + comp_type
     

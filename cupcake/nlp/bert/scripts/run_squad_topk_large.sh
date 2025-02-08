@@ -23,7 +23,7 @@ vocab_file=${10:-"$DIR_Model/vocab.txt"}
 # 输出模型和预测结果
 # OUT_DIR=${11:-"./squad_large/actopk/8"}
 # OUT_DIR=${11:-"./squad_large/compression_rate/01"}
-OUT_DIR=${11:-"/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/bert/scripts/squad_large/squad_topk_001"}
+OUT_DIR=${11:-"./horovod/example/elastic/pytorch/nlp/bert/scripts/squad_large/squad_topk_001"}
 
 
 # train+eval
