@@ -1,7 +1,7 @@
 import torch
 
 from grace_lib import Compressor
-from horovod.torch import allreduce_
+from wfbp.torch import allreduce_
 
 
 @torch.jit.script

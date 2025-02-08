@@ -1,7 +1,7 @@
 import torch
 
 from grace_lib import Compressor
-import horovod.torch as hvd
+import wfbp.torch as hvd
 import numpy as np
 
 class RedSyncCompressor(Compressor):

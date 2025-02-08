@@ -1,4 +1,4 @@
-import horovod.torch as hvd 
+import wfbp.torch as hvd 
 
 def get_compressor(params):
     comp = params.get('compressor', 'none')

@@ -21,16 +21,16 @@ from contextlib import contextmanager
 
 import torch
 
-from horovod.common.util import split_list
+from wfbp.common.util import split_list
 
-from horovod.torch.compression import Compression
-from horovod.torch.functions import broadcast_object
-from horovod.torch.mpi_ops import allreduce_async_, grouped_allreduce_async_, sparse_allreduce_async
-from horovod.torch.mpi_ops import synchronize
-from horovod.torch.mpi_ops import size
-from horovod.torch.mpi_ops import Average, Adasum, Sum
-from horovod.torch.mpi_ops import rocm_built
-from horovod.torch.mpi_ops import ProcessSet, global_process_set
+from wfbp.torch.compression import Compression
+from wfbp.torch.functions import broadcast_object
+from wfbp.torch.mpi_ops import allreduce_async_, grouped_allreduce_async_, sparse_allreduce_async
+from wfbp.torch.mpi_ops import synchronize
+from wfbp.torch.mpi_ops import size
+from wfbp.torch.mpi_ops import Average, Adasum, Sum
+from wfbp.torch.mpi_ops import rocm_built
+from wfbp.torch.mpi_ops import ProcessSet, global_process_set
 
 
 class _DistributedOptimizer(torch.optim.Optimizer):

@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import torch.onnx
 import torch.optim as optim
-import horovod.torch as hvd
+import wfbp.torch as hvd
 
 import datahelper
 import model

@@ -12,7 +12,7 @@ comm = MPI.COMM_WORLD
 comm.Set_errhandler(MPI.ERRORS_RETURN)
 
 from dl_trainer import DLTrainer, _support_datasets, _support_dnns
-import horovod.torch as hvd
+import wfbp.torch as hvd
 from tensorboardX import SummaryWriter
 writer = None
 

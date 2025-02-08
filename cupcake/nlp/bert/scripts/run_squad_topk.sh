@@ -13,7 +13,7 @@ seed=${8:-"1"}
 squad_dir=${9:-"$DIR_DataSet/squad"}
 vocab_file=${10:-"$DIR_Model/vocab.txt"}
 
-OUT_DIR=${11:-"../result_train_dear"}
+OUT_DIR=${11:-"../"}
 
 # train+eval
 mode=${12:-"train eval"}

@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from horovod.common.util import check_extension
+from wfbp.common.util import check_extension
 
 _MPI_LIB_AVAILABLE = True
 
@@ -33,40 +33,40 @@ _MPI_LIB_AVAILABLE = True
 
 # only import following function when mpi is available.
 if _MPI_LIB_AVAILABLE:
-    from horovod.torch import elastic
-    from horovod.torch.compression import Compression
-    from horovod.torch.functions import allgather_object, broadcast_object, broadcast_optimizer_state, broadcast_parameters
-    from horovod.torch.mpi_ops import allreduce, allreduce_async, allreduce_, allreduce_async_
-    from horovod.torch.mpi_ops import grouped_allreduce, grouped_allreduce_async, grouped_allreduce_, grouped_allreduce_async_
-    from horovod.torch.mpi_ops import sparse_allreduce_async
-    from horovod.torch.mpi_ops import allgather, allgather_async
-    from horovod.torch.mpi_ops import grouped_allgather, grouped_allgather_async
-    from horovod.torch.mpi_ops import broadcast, broadcast_async, broadcast_, broadcast_async_
-    from horovod.torch.mpi_ops import alltoall, alltoall_async
-    from horovod.torch.mpi_ops import reducescatter, reducescatter_async
-    from horovod.torch.mpi_ops import grouped_reducescatter, grouped_reducescatter_async
-    from horovod.torch.mpi_ops import join
-    from horovod.torch.mpi_ops import barrier
-    from horovod.torch.mpi_ops import poll, synchronize
-    from horovod.torch.mpi_ops import init, shutdown
-    from horovod.torch.mpi_ops import is_initialized, start_timeline, stop_timeline
-    from horovod.torch.mpi_ops import size, local_size, cross_size, rank, local_rank, cross_rank
-    from horovod.torch.mpi_ops import mpi_threads_supported, mpi_enabled, mpi_built
-    from horovod.torch.mpi_ops import gloo_enabled, gloo_built
-    from horovod.torch.mpi_ops import nccl_built, ddl_built, ccl_built, cuda_built, rocm_built
-    from horovod.torch.mpi_ops import ProcessSet, global_process_set, add_process_set, remove_process_set
-    from horovod.torch.mpi_ops import Average, Sum, Adasum, Min, Max, Product
-    from horovod.torch.mpi_ops import HorovodInternalError
-    from horovod.torch.optimizer import DistributedOptimizer
-    from horovod.torch.sync_batch_norm import SyncBatchNorm
+    from wfbp.torch import elastic
+    from wfbp.torch.compression import Compression
+    from wfbp.torch.functions import allgather_object, broadcast_object, broadcast_optimizer_state, broadcast_parameters
+    from wfbp.torch.mpi_ops import allreduce, allreduce_async, allreduce_, allreduce_async_
+    from wfbp.torch.mpi_ops import grouped_allreduce, grouped_allreduce_async, grouped_allreduce_, grouped_allreduce_async_
+    from wfbp.torch.mpi_ops import sparse_allreduce_async
+    from wfbp.torch.mpi_ops import allgather, allgather_async
+    from wfbp.torch.mpi_ops import grouped_allgather, grouped_allgather_async
+    from wfbp.torch.mpi_ops import broadcast, broadcast_async, broadcast_, broadcast_async_
+    from wfbp.torch.mpi_ops import alltoall, alltoall_async
+    from wfbp.torch.mpi_ops import reducescatter, reducescatter_async
+    from wfbp.torch.mpi_ops import grouped_reducescatter, grouped_reducescatter_async
+    from wfbp.torch.mpi_ops import join
+    from wfbp.torch.mpi_ops import barrier
+    from wfbp.torch.mpi_ops import poll, synchronize
+    from wfbp.torch.mpi_ops import init, shutdown
+    from wfbp.torch.mpi_ops import is_initialized, start_timeline, stop_timeline
+    from wfbp.torch.mpi_ops import size, local_size, cross_size, rank, local_rank, cross_rank
+    from wfbp.torch.mpi_ops import mpi_threads_supported, mpi_enabled, mpi_built
+    from wfbp.torch.mpi_ops import gloo_enabled, gloo_built
+    from wfbp.torch.mpi_ops import nccl_built, ddl_built, ccl_built, cuda_built, rocm_built
+    from wfbp.torch.mpi_ops import ProcessSet, global_process_set, add_process_set, remove_process_set
+    from wfbp.torch.mpi_ops import Average, Sum, Adasum, Min, Max, Product
+    from wfbp.torch.mpi_ops import HorovodInternalError
+    from wfbp.torch.optimizer import DistributedOptimizer
+    from wfbp.torch.sync_batch_norm import SyncBatchNorm
 
 
-from horovod.torch.mpi_ops import allreduce_async_
-from horovod.torch.mpi_ops import allgather_async
-from horovod.torch.mpi_ops import broadcast_async_
-from horovod.torch.mpi_ops import synchronize
-from horovod.torch.mpi_ops import size, local_size, rank, local_rank
-from horovod.torch.mpi_ops import init, broadcast
+from wfbp.torch.mpi_ops import allreduce_async_
+from wfbp.torch.mpi_ops import allgather_async
+from wfbp.torch.mpi_ops import broadcast_async_
+from wfbp.torch.mpi_ops import synchronize
+from wfbp.torch.mpi_ops import size, local_size, rank, local_rank
+from wfbp.torch.mpi_ops import init, broadcast
 
 import time
 import torch

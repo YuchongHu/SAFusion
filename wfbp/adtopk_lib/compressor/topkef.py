@@ -3,7 +3,7 @@ import torch
 from grace_lib import Compressor
 import random
 import numpy as np
-import horovod.torch as hvd
+import wfbp.torch as hvd
 import math
 
 

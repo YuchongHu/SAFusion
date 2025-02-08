@@ -824,7 +824,7 @@ def main():
     }
     
     snapshot: Optional[Snapshot] = None
-    checkpoint_save_work_dir = '/home/mzq/mingzq/workspaces/project/bubblecheck/dear_pytorch/ATC24-FG-MGS/horovod/example/backup/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/gpt2_base'
+    checkpoint_save_work_dir = './horovod/example/backup/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/gpt2_base'
 
     optimizer.app_state = app_state
     optimizer.checkpoint_save_work_dir = checkpoint_save_work_dir

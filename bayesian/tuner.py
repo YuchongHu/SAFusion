@@ -2,7 +2,7 @@
 import random
 import time
 import numpy as np
-import horovod.torch as hvd
+import wfbp.torch as hvd
 
 from bayes_opt import BayesianOptimization
 from bayes_opt import UtilityFunction

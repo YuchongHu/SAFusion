@@ -1,7 +1,7 @@
 import torch
 
 from grace_lib import Memory
-from horovod.torch import allreduce_
+from wfbp.torch import allreduce_
 
 
 class DgcMemory(Memory):

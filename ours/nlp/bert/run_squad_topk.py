@@ -60,7 +60,7 @@ import math
 import os
 import torch
 import torch.onnx
-import horovod.torch as hvd
+import wfbp.torch as hvd
 
 import torch
 import argparse
