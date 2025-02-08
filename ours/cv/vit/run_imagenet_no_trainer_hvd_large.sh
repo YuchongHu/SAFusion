@@ -1,0 +1,104 @@
+
+# rm   -rf   /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/*
+
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node15:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node17:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node18:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node19:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node20:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node21:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+# scp -r /home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling   user@node22:/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/
+
+OUT_DIR=${OUT_DIR:-"./log"}
+num_train_epochs="${num_train_epochs:-80000}"
+density="${density:-0.01}"
+compressor="${compressor:-topkef}"
+# compressor="${compressor:-topk}"
+# memory="${memory:-none}"
+# memory="${memory:-residual}"
+threshold="${threshold:-8192}"
+percent="${percent:-0}"
+
+per_device_train_batch_size="${per_device_train_batch_size:-32}"
+per_device_eval_batch_size="${per_device_eval_batch_size:-32}"
+
+# beans
+# train_dir=${train_dir:-"/home/data/mzq/beans/train"}
+# validation_dir=${validation_dir:-"/home/data/mzq/beans/validation"}
+
+# # imagenet
+train_dir=${train_dir:-"/home/data/mzq/imagenet/train"}
+validation_dir=${validation_dir:-"/home/data/mzq/imagenet/val"}
+
+# # ViT-base
+# model_name_or_path=${model_name_or_path:-"/home/data/mzq/google/vit-base-patch16-224-in21k"}
+
+# ViT-large
+model_name_or_path=${model_name_or_path:-"/home/data/mzq/google/vit-large-patch16-224-in21k"}
+
+
+metric_accuracy=${metric_accuracy:-"/home/data/mzq/google/evaluate/metrics/accuracy"}
+
+
+
+output_dir=${output_dir:-"/home/mzq/mingzq/workspaces/project/transformers/examples/pytorch/image-classification/output"}
+
+
+echo "out dir is $OUT_DIR"
+mkdir -p $OUT_DIR
+if [ ! -d "$OUT_DIR" ]; then
+  echo "ERROR: non existing $OUT_DIR"
+  exit 1
+fi
+
+
+export save_checkpoint_path="/home/user/mzq/workspaces/project/dear_pytorch/ATC24-FG-MGS/horovod/example/elastic/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint"
+
+
+
+
+CMD=" HOROVOD_GPU_OPERATIONS=NCCL  HOROVOD_CACHE_CAPACITY=0 "
+
+# CMD=" accelerate launch run_imagenet_no_trainer_hvd.py --image_column_name image   "
+CMD=" horovodrun  -np  4   python run_imagenet_no_trainer_hvd.py --image_column_name image   "
+
+# CMD=" horovodrun  -np  4 -H  node16:1,node18:1,node17:1,node15:1   python   run_clm_no_trainer_hvd_checkpoint.py   "
+
+
+CMD+=" --image_column_name image  "
+CMD+=" --num_train_epochs=$num_train_epochs  "
+
+CMD+=" --train_dir $train_dir  "
+CMD+=" --validation_dir $validation_dir  "
+CMD+=" --model_name_or_path $model_name_or_path  "
+CMD+=" --per_device_train_batch_size $per_device_train_batch_size  "
+CMD+=" --per_device_eval_batch_size $per_device_eval_batch_size  "
+CMD+=" --metric_accuracy $metric_accuracy  --with_tracking "
+CMD+=" --density=$density --compressor=$compressor --memory=$memory --percent=$percent "
+CMD+=" --output_dir $output_dir  "
+
+
+# CMD+=" --image_column_name image  "
+# CMD+=" --image_column_name image  "
+
+
+# CMD+=" --dataset_name /data/dataset/nlp/openai-community/wikitext-103-raw-v1 --dataset_config_name default  "
+# CMD+=" --dataset_name /data/dataset/nlp/openai-community/wikitext-2-raw-v1 --dataset_config_name default "
+# CMD+=" --model_name_or_path /data/dataset/nlp/openai-community/gpt2 "
+# CMD+=" --output_dir  ./gpt2_checkpoint/ "
+# CMD+=" --num_train_epochs=$epochs  "
+# CMD+=" --density=$density --compressor=$compressor --memory=$memory --percent=$percent "
+# CMD+=" --per_device_train_batch_size=$train_batch_size "
+# CMD+=" --per_device_eval_batch_size=$val_batch_size "
+# CMD+=" --resume_from_checkpoint  $Save_Checkpoint"
+
+
+LOGFILE=$OUT_DIR/logfile.txt
+echo "$CMD |& tee $LOGFILE"
+time $CMD |& tee $LOGFILE
+
+
+
+
+
+

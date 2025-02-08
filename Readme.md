@@ -71,6 +71,14 @@ cd example/cv
 bash run_imagenet_resnet152.sh
 ```
 
+To run ViT-large training job:
+
+```
+cd example/cv/vit
+bash run_imagenet_no_trainer.sh
+```
+
+
 To run BERT-large training job:
 ```
 cd example/nlp/bert/scripts
