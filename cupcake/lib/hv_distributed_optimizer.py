@@ -222,8 +222,6 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if size() > 1:
             self._register_hooks()
 
-        
-
     def _benchmark_communication(self):
         #logger.info('Benchmarking communication performance...')
         comm_profiler = CommunicationProfiler(allreduce_async_, synchronize)
@@ -235,8 +233,8 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             model.fit(X, Y)
             alpha = model.intercept_
             beta = model.coef_[0]
-            #A = np.vstack([X, np.ones(len(X))]).T
-            #beta, alpha = np.linalg.lstsq(A, Y, rcond=None)[0]
+            # A = np.vstack([X, np.ones(len(X))]).T
+            # beta, alpha = np.linalg.lstsq(A, Y, rcond=None)[0]
             return alpha, beta
         alpha, beta = _fit_linear_function(sizes, times)
         self.alpha = alpha
