@@ -112,7 +112,7 @@ parser.add_argument('--threshold', type=int, default=34015396, help='Set thresho
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 
-# Top-k + EF
+
 parser.add_argument('--compressor', type=str, default = 'eftopk', help='Specify the compressors if density < 1.0')
 parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
@@ -250,11 +250,7 @@ def train(optimizer, train_data):
     
     optimizer.synchronize_time= []
     optimizer.para_update_time= []
-    optimizer.hook_time= []
-    
-    
-    
-    
+    optimizer.hook_time= []    
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -340,19 +336,11 @@ def train(optimizer, train_data):
     hook_time=sum(optimizer.hook_time)
     
     if hvd.rank() == 0:
-        # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-        # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
-        # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-        
-               
-        print('topk_time = ', topk_time)
+print('topk_time = ', topk_time)
         print('threshold_time = ', threshold_time)
                      
-        # print('send_time = ', send_time)        
-        # print('decompression_time = ', decompression_time)
-        # print('receive_time = ', receive_time)
-        # print('synchronize_time = ', synchronize_time)
+        
         
         print('io_time = ', io_time)
         print('forward_time = ', forward_time)
@@ -365,8 +353,7 @@ def train(optimizer, train_data):
         # print('buffer_time = ', buffer_time)
         
         
-        # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
-        print('---------------------------------')
+        
         
 
 
@@ -630,9 +617,7 @@ try:
             # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
             # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-            
-               
-            print('topk_time = ', topk_time)
+        print('topk_time = ', topk_time)
             print('threshold_time = ', threshold_time)
                      
             # print('send_time = ', send_time)        

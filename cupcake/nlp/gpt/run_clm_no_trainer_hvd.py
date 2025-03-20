@@ -322,12 +322,11 @@ def parse_args():
     parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WFBP')
     parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
 
-    # 设置合并的阈值大小, default=23705252为ResNet-50所有层梯度元素数量的总和
+    
     parser.add_argument('--threshold', type=int, default=34015396, help='Set threshold if mgwfbp is False')
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-    # Top-k + EF
-    # parser.add_argument('--compressor', type=str, default='topkef', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+    
     parser.add_argument('--compressor', type=str, default='topkef', help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
@@ -642,10 +641,6 @@ def main():
     #
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/process#map
-
-    
-    
-    
     lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
@@ -747,11 +742,7 @@ def main():
               'communicator': communicator_str,
               'model_named_parameters':model.named_parameters()
             }
-        
-    
-    
-    
-    
+            
     
             
         
@@ -882,11 +873,7 @@ def main():
     update_time_array= []
     
     optimizer.handle_synchronize_time= []
-    optimizer_synchronize_time_array= []
-    
-    
-    
-    if hvd.rank()==0:
+    optimizer_synchronize_time_array= []    if hvd.rank()==0:
         print_parameters(model)
     
     train_start = time.time()
@@ -1050,10 +1037,6 @@ def main():
 
     
 
-    
-
-    
-    
     
     
         

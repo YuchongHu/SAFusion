@@ -243,11 +243,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     p_tmp = p.expand_as(p)
                     grad_acc = p_tmp.grad_fn.next_functions[0][0]
                     grad_acc.register_hook(self._make_hook(p))
-                    self._grad_accs.append(grad_acc)
-    
-    
-    
-    # SyncEA-SGD, Gradient merging into one buffer(single buffer)
+                    self._grad_accs.append(grad_acc)    # SyncEA-SGD, Gradient merging into one buffer(single buffer)
     def _generate_groups_with_single_buffer(self, ):
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
         self._sizes = sizes

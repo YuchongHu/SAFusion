@@ -102,7 +102,7 @@ parser.add_argument('--threshold', type=int, default=34015396, help='Set thresho
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 
-# Top-k + EF
+
 parser.add_argument('--compressor', type=str, default = 'eftopk', help='Specify the compressors if density < 1.0')
 parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')

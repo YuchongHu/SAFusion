@@ -451,11 +451,7 @@ class ExpCompressor(TopKCompressor):
             # self._process_data_after_residual(name, tensor)
 
 
-            return tensor, indices,values   
-    
-    
-    
-compressors = {
+            return tensor, indices,values   compressors = {
         None: NoneCompressor,
         'none': NoneCompressor,
         'topk': TopKCompressor,

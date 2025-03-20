@@ -362,22 +362,17 @@ def parse_args():
     parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WFBP')
     parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
 
-    # 设置合并的阈值大小, default=23705252为ResNet-50所有层梯度元素数量的总和
+    
     parser.add_argument('--threshold', type=int, default=34015396, help='Set threshold if mgwfbp is False')
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-    # Top-k + EF
-    # parser.add_argument('--compressor', type=str, default='topkef', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+    
     parser.add_argument('--compressor', type=str, default='topkef', help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
     parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
     
-    parser.add_argument('--percent', type=float, default=0, help='percent of residual 0')
-    
-    
-    
-    args = parser.parse_args()
+    parser.add_argument('--percent', type=float, default=0, help='percent of residual 0')    args = parser.parse_args()
 
     # Sanity checks
     if args.dataset_name is None and args.train_dir is None and args.validation_dir is None:
@@ -727,11 +722,7 @@ def main():
               'model_named_parameters':model.named_parameters()
             }
       
-    seq_layernames, layerwise_times = None, None
-    
-    
-    
-    optimizer = hvd.DistributedOptimizer(args.model_net,
+    seq_layernames, layerwise_times = None, None    optimizer = hvd.DistributedOptimizer(args.model_net,
                                          optimizer, 
                                         #  model= model,
                                          named_parameters=model.named_parameters(), 

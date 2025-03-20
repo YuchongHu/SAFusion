@@ -554,11 +554,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             
             group_dims.append(group_dim)
         
-        return groups, key_groupidx_maps, group_sizes, group_dims
-    
-    
-    
-    def _generate_groups_with_number(self, number_layers):
+        return groups, key_groupidx_maps, group_sizes, group_dims    def _generate_groups_with_number(self, number_layers):
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
         self._sizes = sizes
         group_sizes=[]
@@ -603,11 +599,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             
             group_dims.append(group_dim)
             
-        return groups, key_groupidx_maps, group_sizes, group_dims
-    
-    
-    
-    def _generate_groups_with_number_fc(self, number_layers):
+        return groups, key_groupidx_maps, group_sizes, group_dims    def _generate_groups_with_number_fc(self, number_layers):
         number_layers_ =number_layers
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
         self._sizes = sizes

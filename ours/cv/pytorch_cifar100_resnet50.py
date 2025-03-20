@@ -85,7 +85,7 @@ parser.add_argument('--nstreams', type=int, default=1, help='Number of communica
 parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-# Top-k + EF
+
 parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
 

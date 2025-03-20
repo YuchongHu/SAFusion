@@ -119,32 +119,19 @@ parser.add_argument('--mgwfbp', action='store_true', default=False, help='Use MG
 parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WFBP')
 parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
 
-# 设置合并的阈值大小,default=23705252为ResNet50所有层梯度元素数量的总和
-# parser.add_argument('--threshold', type=int, default=536870912, help='Set threshold if mgwfbp is False')
-# parser.add_argument('--threshold', type=int, default=671080, help='Set threshold if mgwfbp is False')
+
 parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
 
-# parser.add_argument('--threshold', type=int, default=1000520, help='Set threshold if mgwfbp is False')
 
 
-# parser.add_argument('--threshold', type=int, default=23705252, help='ResNet-50 Set threshold if mgwfbp is False')
 
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-# Baseline
-# parser.add_argument('--compressor', type=str, default='none', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
-# parser.add_argument('--density', type=float, default=1, help='Density for sparsification')
 
-# Top-k + EF
 parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
-# parser.add_argument('--density', type=float, default=0.0101, help='Density for sparsification')
-# parser.add_argument('--density', type=float, default=0.0099, help='Density for sparsification')
 
 
-# Gaussiank + EF
-# parser.add_argument('--compressor', type=str, default='gaussian', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
-# parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
 
 
 
@@ -182,30 +169,10 @@ def draw_curve(epoch):
     dataset_model = '/cifar100_vgg16'
     date = '0106'
 
-    # comp_type = '/merge_threshold_ef'
-    # comp = '/merge_threshold_ef'
-
-    # comp_type = '/merge_number_noef_wait_001_4'
-    # comp = '/merge_number_noef_wait_001_4'
-
-    # comp_type = '/merge_number_noef_wait_005_9_1215_3'
-    # comp = '/merge_number_noef_wait_005_9_1215_3'
-
-    # comp_type = '/merge_threshold_noef_wait_005'
-    # comp = '/merge_threshold_noef_wait_005'
-    
-    # comp_type = '/fc_conv5_split_001_ef'
-    # comp = '/fc_conv5_split_001_ef'
-    
-    # comp_type = '/fc_conv5_split_001_fc_nocompression_ef'
-    # comp = '/fc_conv5_split_001_fc_nocompression_ef'
-
     comp_type = '/cifar100_vgg16_'+str(args.compressor)+'_ef_epoch_'+str(args.epochs)+'_'+str(args.density).replace('.','')
     comp = '/cifar100_vgg16_'+str(args.compressor)+'_ef_epoch_'+str(args.epochs)+'_'+str(args.density).replace('.','')
     
-    # resnet50 resnet101 Vgg16,  Vgg19
-    # 0.1 0.01 0.05
-    # topk, gaussiank, readsync dgc randomk , sidoc
+    
 
     
     save_dir = './fgmgs_ours/result_train_ours'
@@ -243,11 +210,7 @@ def train(epoch):
     
     optimizer.synchronize_time= []
     optimizer.para_update_time= []
-    optimizer.hook_time= []
-    
-    
-    
-    
+    optimizer.hook_time= []    
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -329,64 +292,13 @@ def train(epoch):
             optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
             optimizer.handle_synchronize_time= []
             
-            # bias_gaussiank=optimizer._communicator.compressor.bias_gaussiank  
-            # bias_dgc=optimizer._communicator.compressor.bias_dgc
-            # bias_redsync=optimizer._communicator.compressor.bias_redsync
-
-            # gaussiank_sum= sum(bias_gaussiank)/len(bias_gaussiank)
-            # dgc_sum= sum(bias_dgc)/len(bias_dgc)
-            # redsync_sum= sum(bias_redsync)/len(bias_dgc)
-
-            # bias_gaussiank_array.append(gaussiank_sum)
-            # bias_dgc_array.append(dgc_sum)
-            # bias_redsync_array.append(redsync_sum)
-
-            # optimizer._communicator.compressor.bias_gaussiank=[]
-            # optimizer._communicator.compressor.bias_dgc=[]
-            # optimizer._communicator.compressor.bias_redsync=[]
-            
-            # topk_time_array =optimizer._communicator.compressor.topk_time
-            # threshold_time_array =optimizer._communicator.compressor.threshold_time
-            # if hvd.rank() == 0:
-            #     datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-            #     np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+"_iteration_"+str(batch_idx)+".txt", topk_time_array)
-            #     np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+"_iteration_"+str(batch_idx)+".txt", threshold_time_array)
-                
-            # optimizer._communicator.compressor.topk_time=[]
-            # optimizer._communicator.compressor.threshold_time=[]
-    
-    
-    # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/bias_threshold/'
-    # np.savetxt(datapath + "average_inter_worker_bias_gaussiank_array_epoch_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", bias_gaussiank_array)
-    # np.savetxt(datapath + "average_inter_worker_bias_dgc_array_epoch_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", bias_dgc_array)
-    # np.savetxt(datapath + "average_inter_worker_bias_redsync_array_epoch_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", bias_redsync_array)
 
 
-    # if hvd.rank() == 0:
-    #     print('bias_gaussiank_array = ', bias_gaussiank_array)
-    #     print('bias_dgc_array = ', bias_dgc_array)
-    #     print('bias_redsync_array = ', bias_redsync_array)
-    
-    # bias_gaussiank_array=[]
-    # bias_dgc_array=[]
-    # bias_redsync_array=[]
-
-    # if log_writer:
-    #     log_writer.add_scalar('train/loss', train_loss.avg, epoch)
-    #     log_writer.add_scalar('train/accuracy', train_accuracy.avg, epoch)
 
     y_loss['train'].append(train_loss.avg.item())
     y_acc['train'].append(train_accuracy.avg.item())
     end_time_epoch = time.time()
-    x_train_epoch_time.append(end_time_epoch - modified_time)
-    
-    
-    # compression_time=sum(optimizer._communicator.compression_time_array)
-    # decompression_time=sum(optimizer._communicator.decompression_time_array)
-    # send_time=sum(optimizer._communicator.send_time_array)
-    # receive_time=sum(optimizer._communicator.receive_time_array)
-    # synchronize_time=sum(optimizer._communicator.synchronize_time_array)
-    
+    x_train_epoch_time.append(end_time_epoch - modified_time)    
     io_time=sum(io_time_array)
     # forward_backforward_time=sum(forward_backforward_time_array)
     forward_time=sum(forward_time_array)
@@ -404,19 +316,11 @@ def train(epoch):
     hook_time=sum(optimizer.hook_time)
     
     if hvd.rank() == 0:
-        # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-        # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
-        # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-        
-               
-        print('topk_time = ', topk_time)
+print('topk_time = ', topk_time)
         print('threshold_time = ', threshold_time)
                      
-        # print('send_time = ', send_time)        
-        # print('decompression_time = ', decompression_time)
-        # print('receive_time = ', receive_time)
-        # print('synchronize_time = ', synchronize_time)
+        
         
         print('io_time = ', io_time)
         print('forward_time = ', forward_time)
@@ -429,21 +333,14 @@ def train(epoch):
         # print('buffer_time = ', buffer_time)
         
         
-        # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
-        print('---------------------------------')
+        
         # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:20])
 
 
 
-    # topk_time=sum(optimizer._communicator.compressor.topk_time)
-    # threshold_time=sum(optimizer._communicator.compressor.threshold_time)
-    # if hvd.rank() == 0:
-    #     print('topk_time = ', topk_time)
-    #     print('threshold_time = ', threshold_time)
+    
 
-    # if hvd.rank() == 0:
-    #     print('\nTrain set: Average loss: {:.4f}, Train Accuracy: {:.2f}%\n'.format(
-    #             train_loss.avg.item(), 100. * train_accuracy.avg.item()))
+    
 
 
 def validate(epoch):
@@ -467,9 +364,7 @@ def validate(epoch):
                                'accuracy': 100. * val_accuracy.avg.item()})
                 t.update(1)
 
-    # if log_writer:
-    #     log_writer.add_scalar('val/loss', val_loss.avg, epoch)
-    #     log_writer.add_scalar('val/accuracy', val_accuracy.avg, epoch)
+    
 
     y_loss['test'].append(val_loss.avg.item())
     y_acc['test'].append(val_accuracy.avg.item())
@@ -479,9 +374,7 @@ def validate(epoch):
     modified_time += val_time
     x_test_epoch_time.append(end_time_epoch - modified_time)
 
-    # if hvd.rank() == 0:
-    #     print('\nTest set: Average loss: {:.4f}, Test Accuracy: {:.2f}%\n'.format(
-    #             val_loss.avg.item(), 100. * val_accuracy.avg.item()))
+    
 
 
 # Horovod: using `lr = base_lr * hvd.size()` from the very beginning leads to worse final
@@ -501,27 +394,6 @@ def adjust_learning_rate(epoch, batch_idx):
     else:
         lr_adj = 1e-3
     
-    
-    # if epoch < 40:
-    #     lr_adj = 1e-1
-    # elif epoch < 60:
-    #     lr_adj = 1e-2
-    # elif epoch < 80:
-    #     lr_adj = 1e-3
-    # else:
-    #     lr_adj = 1e-4
-
-    # if epoch < args.warmup_epochs:
-    #     epoch += float(batch_idx + 1) / len(train_loader)
-    #     lr_adj = 1. / hvd.size() * (epoch * (hvd.size() - 1) / args.warmup_epochs + 1)
-    # elif epoch < 30:
-    #     lr_adj = 1.
-    # elif epoch < 60:
-    #     lr_adj = 1e-1
-    # elif epoch < 80:
-    #     lr_adj = 1e-2
-    # else:
-    #     lr_adj = 1e-3
     for param_group in optimizer.param_groups:
         param_group['lr'] = args.base_lr * hvd.size() * args.batches_per_allreduce * lr_adj
 
@@ -704,56 +576,11 @@ if __name__ == '__main__':
     else:
         seq_layernames, layerwise_times = None, None
     
-    
-    # Horovod: (optional) compression algorithm.
-    # compression = hvd.Compression.fp16 if args.fp16_allreduce else hvd.Compression.none
-    # params = {'compressor': 'topk', 'memory': 'residual', 'communicator': 'allgather'}
-    
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, grc, named_parameters=model.named_parameters())
-
-
-    # Horovod
-    # # Allgather
-    # # params = {'compressor': 'imbalancetopktime', 'memory': 'residual', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # params = {'compressor': 'imbalancetopktime', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allreduce','model_named_parameters':model.named_parameters()}
-    
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allreduce','model_named_parameters':model.named_parameters()}
-    
-    
-    
-    
     optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
 
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
     hvd.broadcast_optimizer_state(optimizer, root_rank=0)
-
-    
-
-    # Horovod: wrap optimizer with DistributedOptimizer.
-    # All-reduce
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, named_parameters=model.named_parameters(),
-    #     compression=compression,
-    #     backward_passes_per_step=args.batches_per_allreduce,
-    #     op=hvd.Adasum if args.use_adasum else hvd.Average,
-    #     gradient_predivide_factor=args.gradient_predivide_factor)
-    
-    # Restore from a previous checkpoint, if initial_epoch is specified.
-    # Horovod: restore on the first worker which will broadcast weights to other workers.
-    # if resume_from_epoch > 0 and hvd.rank() == 0:
-    #     filepath = args.checkpoint_format.format(epoch=resume_from_epoch)
-    #     checkpoint = torch.load(filepath)
-    #     model.load_state_dict(checkpoint['model'])
-    #     optimizer.load_state_dict(checkpoint['optimizer'])
-
-    # Horovod: broadcast parameters & optimizer state.
-    # hvd.broadcast_parameters(model.state_dict(), root_rank=0)
-    # hvd.broadcast_optimizer_state(optimizer, root_rank=0)
 
     start_time = time.time()
     modified_time = start_time
@@ -765,9 +592,7 @@ if __name__ == '__main__':
         train(epoch)
         validate(epoch)
 
-        # 保存最后一个训练模型
-        # if epoch==args.epochs-1:
-        #     save_checkpoint(epoch)
+        
 
     if hvd.rank() == 0:
         # torch.cuda.synchronize()

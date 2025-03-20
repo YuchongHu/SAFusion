@@ -923,8 +923,7 @@ def main():
 
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-    # Top-k + EF
-    # parser.add_argument('--compressor', type=str, default='topkef', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+    
     parser.add_argument('--compressor', type=str, default='topk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
@@ -1312,14 +1311,10 @@ def main():
                     hook_time=sum(optimizer.hook_time)
                     if hvd.rank() == 0:
                         
-                        
-               
-                        print('topk_time = ', topk_time)
+                                print('topk_time = ', topk_time)
                         print('threshold_time = ', threshold_time)
                      
-                        
-        
-                        print('io_time = ', io_time)
+                  print('io_time = ', io_time)
                         print('forward_time = ', forward_time)
                         print('backward_time = ', backward_time-topk_time)
                         print('step_time = ', step_time)
