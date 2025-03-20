@@ -444,9 +444,9 @@ class ExpCompressor(TopKCompressor):
             return tensor, indices,values   compressors = {
         None: NoneCompressor,
         'none': NoneCompressor,
-        'dgc': TopKCompressor,
+        'topk': TopKCompressor,
         'topkef': EFTopKCompressor,
-        'dgc': EFTopKCompressor, #TopK with error-feedback
+        'topkef': EFTopKCompressor, #TopK with error-feedback
         'gaussian': GaussianCompressor, #GaussianK with error-feedback
         'dgc': DgcCompressor,
         'redsync' :RedSyncCompressor,
