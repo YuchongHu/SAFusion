@@ -53,7 +53,7 @@ def grace_from_params(params):
     elif comp == 'terngrad':
         from mergeComp_dl.torch.compressor.poolterngrad import PoolTernGradCompressor
         compressor = PoolTernGradCompressor()
-    elif comp == 'topk':
+    elif comp == 'dgc':
         from mergeComp_dl.torch.compressor.pooltopk import PoolTopKCompressor
         compressor = PoolTopKCompressor(compress_ratio=ratio)
     else:
@@ -62,7 +62,7 @@ def grace_from_params(params):
     if fusion_num > 0:
         if mem == 'dgc':
             from mergeComp_dl.torch.memory.pooldgc import PoolDgcMemory
-            if comp == 'topk' or comp == 'randomk':
+            if comp == 'dgc' or comp == 'randomk':
                 memory = PoolDgcMemory(model_params, momentum=0, fusion_num=fusion_num, momentum_masking=False)
             else:
                 memory = PoolDgcMemory(model_params, fusion_num=fusion_num)
@@ -77,7 +77,7 @@ def grace_from_params(params):
     elif fusion_num == 0:
         if mem == 'dgc':
             from mergeComp_dl.torch.memory.dgc import DgcMemory
-            if comp == 'topk' or comp == 'randomk':
+            if comp == 'dgc' or comp == 'randomk':
                 memory = DgcMemory(model_params, momentum=0, momentum_masking=False)
             else:
                 memory = DgcMemory(model_params)

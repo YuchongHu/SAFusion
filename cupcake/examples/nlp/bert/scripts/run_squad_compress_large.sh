@@ -21,7 +21,7 @@ vocab_file=${10:-"$DIR_Model/vocab.txt"}
 
 
 
-OUT_DIR=${11:-"./horovod/example/elastic/pytorch/nlp/bert/scripts/squad_large/squad_topk_001"}
+OUT_DIR=${11:-"./squad_compress"}
 
 
 # train+eval

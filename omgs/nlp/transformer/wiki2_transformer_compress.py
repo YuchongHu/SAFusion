@@ -112,7 +112,7 @@ parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA
 
 
 
-parser.add_argument('--compressor', type=str, default = 'eftopk', help='Specify the compressors if density < 1.0')
+parser.add_argument('--compressor', type=str, default = 'dgc', help='Specify the compressors if density < 1.0')
 parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
 
@@ -611,10 +611,7 @@ try:
         para_update_time=sum(optimizer.para_update_time)
         hook_time=sum(optimizer.hook_time)
     
-        if hvd.rank() == 0:
-            # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-            # np.savetxt(datapath + "compress_time/compress_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", compress_time_array)
-            # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", compress_time_array)
+        
         
         print('compress_time = ', compress_time)
             print('threshold_time = ', threshold_time)

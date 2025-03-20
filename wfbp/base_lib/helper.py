@@ -13,7 +13,7 @@ def get_compressor(params):
     elif comp == 'none':
         from grace_lib.compressor.none import NoneCompressor
         compressor = NoneCompressor()
-    elif comp == 'topk':
+    elif comp == 'dgc':
         from grace_lib.compressor.topk import TopKCompressor
         density = params.get('density', 0.01)
         compressor = TopKCompressor(density,rank=cur_rank)

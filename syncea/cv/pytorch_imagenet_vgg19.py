@@ -490,12 +490,7 @@ if __name__ == '__main__':
     
 
     
-    # Horovod
-    # # Allgather
-    # # params = {'compressor': 'imbalancetopktime', 'memory': 'residual', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # params = {'compressor': 'imbalancetopktime', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
-    # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allreduce','model_named_parameters':model.named_parameters()}
+    
     optimizer = hvd.DistributedOptimizer(args.model_net, 
                                          optimizer, 
                                          named_parameters=model.named_parameters(), 

@@ -65,7 +65,7 @@ import math
 import os
 import torch
 import torch.onnx
-import wfbp.torch as hvd
+# import horovod.torch as hvd
 
 import torch
 import argparse
@@ -87,7 +87,7 @@ os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
 
-import example_syncea.hv_distributed_optimizer_synea as  hvd
+import example_omgs.hv_distributed_optimizer_omgs as  hvd
 from compression import compressors
 import numpy as np
 
@@ -400,7 +400,7 @@ def _improve_answer_span(doc_tokens, input_start, input_end, tokenizer,
     #   Question: What country is the top exporter of electornics?
     #   Context: The Japanese electronics industry is the lagest in the world.
     #   Answer: Japan
-    
+    #
     # In this case, the annotator chose "Japan" as a character sub-span of
     # the word "Japanese". Since our WordPiece tokenizer does not split
     # "Japanese", we just use "Japanese" as the annotation. This is fairly rare
@@ -921,8 +921,8 @@ def main():
 
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
-
-    parser.add_argument('--compressor', type=str, default='topk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+    
+    parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
     parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
@@ -1083,15 +1083,37 @@ def main():
                                     lr=args.learning_rate,
                                     warmup=args.warmup_proportion,
                                     t_total=num_train_optimization_steps)
-
+        # Multiply the learning rate by hvd.size() 
+        # optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate * hvd.size() , eps=args.adam_epsilon)
+        
+        
+        # optimizer = hvd.DistributedOptimizer(optimizer, named_parameters=model.named_parameters())
+        
+        
         
         # Horovod: broadcast parameters & optimizer state.
-        hvd.broadcast_parameters(model.state_dict(), root_rank=0)
+        # hvd.broadcast_parameters(model.state_dict(), root_rank=0)
         
+        # optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, named_parameters=model.named_parameters(), 
+        #                                 compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, 
+        #                                 seq_layernames=None, layerwise_times=None, norm_clip=None, 
+        #                                 threshold=args.threshold, writer=None)
+        
+        seq_layernames, layerwise_times = None, None
+        dnn=None
+        norm_clip = None
+        if dnn == 'lstm':
+            norm_clip = 0.25
+        elif dnn == 'lstman4':
+            norm_clip = 400
+        writer = None
+
         optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, named_parameters=model.named_parameters(), 
-                                        compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, 
-                                        seq_layernames=None, layerwise_times=None, norm_clip=None, 
-                                        threshold=args.threshold, writer=None)
+                                            compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, 
+                                            seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=norm_clip, 
+                                            threshold=args.threshold, writer=writer)
+
+        hvd.broadcast_parameters(model.state_dict(), root_rank=0) 
     
     logger.info("+++++++++++++++++++ train train train +++++++ hvd.rank() = %d", hvd.rank())
     
@@ -1147,7 +1169,6 @@ def main():
         all_end_positions = torch.tensor([f.end_position for f in train_features], dtype=torch.long)
         train_data = TensorDataset(all_input_ids, all_input_mask, all_segment_ids,
                                    all_start_positions, all_end_positions)
-
         # if args.local_rank == -1:
         #     train_sampler = RandomSampler(train_data)
         # else:
@@ -1175,6 +1196,16 @@ def main():
         optimizer.para_update_time= []
         optimizer.hook_time= []
     
+        # optimizer._communicator.compressor.bias_gaussiank=[]
+        # optimizer._communicator.compressor.bias_dgc=[]
+        # optimizer._communicator.compressor.bias_redsync=[]
+    
+        # optimizer._communicator.compression_time_array=[]
+        # optimizer._communicator.decompression_time_array=[]
+        # optimizer._communicator.send_time_array=[]
+        # optimizer._communicator.receive_time_array=[]
+        # optimizer._communicator.synchronize_time_array=[]
+
         io_time_array= []
         forward_backforward_time_array= []
         forward_time_array= []
@@ -1255,12 +1286,65 @@ def main():
                 update_time_array.append(time.time()-u_time)
                 optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
                 optimizer.handle_synchronize_time= []
-    
+
                 if step % 100 == 0 and hvd.rank()==0:
                 # if step % args.log_freq == 0 and hvd.rank()==0:
                     dllogger.log(step=(epoch, global_step,), data={"step_loss": final_loss,
-                                                                "learning_rate": optimizer.param_groups[0]['lr']})                  
-             
+                                                                "learning_rate": optimizer.param_groups[0]['lr']})
+                    
+                    io_time=sum(io_time_array)
+                    # forward_backforward_time=sum(forward_backforward_time_array)
+                    forward_time=sum(forward_time_array)
+                    backward_time=sum(backward_time_array)
+                    step_time=sum(step_time_array)
+                    update_time=sum(update_time_array)
+    
+                    compress_time_array =optimizer._compression.compress_time
+                    threshold_time_array =optimizer._compression.threshold_time
+                    compress_time=sum(compress_time_array)
+                    threshold_time=sum(threshold_time_array)
+    
+                    synchronize_time=sum(optimizer.synchronize_time)
+                    para_update_time=sum(optimizer.para_update_time)
+                    hook_time=sum(optimizer.hook_time)
+                    if hvd.rank() == 0:
+                        
+                                print('compress_time = ', compress_time)
+                        print('threshold_time = ', threshold_time)
+                     
+                  print('io_time = ', io_time)
+                        print('forward_time = ', forward_time)
+                        print('backward_time = ', backward_time-compress_time)
+                        print('step_time = ', step_time)
+                        # print('update_time = ', update_time)
+                        print('communication_time = ', synchronize_time)
+                        print('para_update_time = ', para_update_time)
+                        print('hook_time = ', hook_time)
+                        # print('buffer_time = ', buffer_time)        
+        
+                        
+                        
+                        
+                        optimizer._compression.compress_time=[]
+                        optimizer._compression.threshold_time=[]
+    
+                        optimizer.synchronize_time= []
+                        optimizer.para_update_time= []
+                        optimizer.hook_time= []
+
+
+                        io_time_array= []
+                        forward_backforward_time_array= []
+                        forward_time_array= []
+                        backward_time_array= []
+                        step_time_array= []
+                        update_time_array= []
+                    
+                        optimizer.handle_synchronize_time= []
+                        optimizer_synchronize_time_array= []
+                    
+                    
+                    
         time_to_train = time.time() - train_start
 
     if args.do_train and is_main_process() and not args.skip_checkpoint:
@@ -1304,6 +1388,8 @@ def main():
 
         infer_start = time.time()
 
+
+
         model.eval()
         all_results = []
         dllogger.log(step="PARAMETER", data={"eval_start": True})
@@ -1333,6 +1419,13 @@ def main():
             f.write(json.dumps(answers, indent=4) + "\n")
         with open(output_nbest_file, "w") as f:
             f.write(json.dumps(nbest_answers, indent=4) + "\n")
+
+        # output_null_log_odds_file = os.path.join(args.output_dir, "null_odds.json")
+        # write_predictions(eval_examples, eval_features, all_results,
+        #                   args.n_best_size, args.max_answer_length,
+        #                   args.do_lower_case, output_prediction_file,
+        #                   output_nbest_file, output_null_log_odds_file, args.verbose_logging,
+        #                   args.version_2_with_negative, args.null_score_diff_threshold)
 
         if args.do_eval and is_main_process():
             import sys

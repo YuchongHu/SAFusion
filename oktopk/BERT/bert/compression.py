@@ -32,7 +32,7 @@ class TopKCompressor():
     zero_conditions = {}
     values = {} 
     indexes = {} 
-    name = 'topk'
+    name = 'dgc'
     @staticmethod
     def compress_org(tensor, name=None, sigma_scale=2.5, ratio=0.05):
         start = time.time()

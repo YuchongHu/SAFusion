@@ -1,14 +1,8 @@
-
 echo "Container nvidia build = " $NVIDIA_BUILD_ID
-
-
-export DIR_Model="/data/dataset/nlp/bert/pre-model/bert-large-uncased/uncased_L-24_H-1024_A-16"
+export DIR_Model="/data/dataset/nlp/bert/pre-model/bert-base-uncased/uncased_L-12_H-768_A-12"
 export DIR_DataSet="/data/dataset/nlp/bert"
-
-
-
-init_checkpoint=${1:-"$DIR_Model/bert_large_pretrained_amp.pt"}
-epochs=${2:-"30.0"}
+init_checkpoint=${1:-"$DIR_Model/bert_base_wiki.pt"}
+epochs=${2:-"3.0"}
 batch_size=${3:-"4"}
 learning_rate=${4:-"3e-5"}
 warmup_proportion=${5:-"0.1"}
@@ -18,11 +12,7 @@ seed=${8:-"1"}
 squad_dir=${9:-"$DIR_DataSet/squad"}
 vocab_file=${10:-"$DIR_Model/vocab.txt"}
 
-
-
-
-OUT_DIR=${11:-"./horovod/example/elastic/pytorch/nlp/bert/scripts/squad_large/squad_topk_001"}
-
+OUT_DIR=${11:-"../result_train/"}
 
 # train+eval
 mode=${12:-"train eval"}
@@ -30,16 +20,13 @@ mode=${12:-"train eval"}
 CONFIG_FILE=${13:-"$DIR_Model/bert_config.json"}
 max_steps=${14:-"-1"}
 
-
 # setup
-density="${density:-0.1}"
-# density="${density:-0.05}"
-# density="${density:-0.1}"
+density="${density:-0.05}"
 threshold="${threshold:-8192}"
-# compressor="${compressor:-sidco}"
-compressor="${compressor:-dgc}"
-# max_epochs="${max_epochs:-200}"
+compressor="${compressor:-gaussian}"
 memory="${memory:-residual}"
+
+
 
 
 echo "out dir is $OUT_DIR"
@@ -64,16 +51,12 @@ else
 fi
 
 
-CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
-
-
-
-CMD=" horovodrun  -np 8  -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1   python ../run_squad_topk.py  "
-CMD+="--init_checkpoint=$init_checkpoint  "
-CMD+="--density=$density  "
+# CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
+CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_compress.py "
+CMD+="--init_checkpoint=$init_checkpoint "
+CMD+="--density=$density "
 CMD+="--compressor=$compressor  "
-CMD+="--threshold  $threshold  "
-
+CMD+="--threshold  $threshold "
 
 if [ "$mode" = "train" ] ; then
   CMD+="--do_train "
@@ -102,7 +85,7 @@ fi
 
 CMD+=" --do_lower_case "
 # CMD+=" --bert_model=bert-large-uncased "
-CMD+=" --bert_model=bert-large-uncased "
+CMD+=" --bert_model=bert-base-uncased "
 CMD+=" --learning_rate=$learning_rate "
 CMD+=" --warmup_proportion=$warmup_proportion"
 CMD+=" --seed=$seed "
@@ -118,17 +101,3 @@ CMD+=" --max_steps=$max_steps "
 LOGFILE=$OUT_DIR/logfile.txt
 echo "$CMD |& tee $LOGFILE"
 time $CMD |& tee $LOGFILE
-
-
-
-
-
-
-
-
-
-
-
-
-
-

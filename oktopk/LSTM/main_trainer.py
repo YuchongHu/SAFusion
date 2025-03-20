@@ -23,7 +23,7 @@ writer = None
 relative_path = None
 
 
-def robust_ssgd(dnn, dataset, data_dir, nworkers, lr, batch_size, nsteps_update, max_epochs, compression=False, compressor='topk', nwpernode=1, sigma_scale=2.5, pretrain=None, density=0.01, prefix=None):
+def robust_ssgd(dnn, dataset, data_dir, nworkers, lr, batch_size, nsteps_update, max_epochs, compression=False, compressor='dgc', nwpernode=1, sigma_scale=2.5, pretrain=None, density=0.01, prefix=None):
     global relative_path
 
     torch.cuda.set_device(dopt.rank()%nwpernode)
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     parser.add_argument('--nworkers', type=int, default=1, help='Just for experiments, and it cannot be used in production')
     parser.add_argument('--nwpernode', type=int, default=1, help='Number of workers per node')
     parser.add_argument('--compression', dest='compression', action='store_true')
-    parser.add_argument('--compressor', type=str, default='topk', choices=compressors.keys(), help='Specify the compressors if \'compression\' is open')
+    parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if \'compression\' is open')
     parser.add_argument('--sigma-scale', type=float, default=2.5, help='Maximum sigma scaler for sparsification')
     parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
     parser.add_argument('--dataset', type=str, default='imagenet', choices=_support_datasets, help='Specify the dataset for training')

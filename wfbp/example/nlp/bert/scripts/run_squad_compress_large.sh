@@ -21,7 +21,7 @@ vocab_file=${10:-"$DIR_Model/vocab.txt"}
 
 
 
-OUT_DIR=${11:-"./horovod/example/elastic/pytorch/nlp/bert/scripts/squad_large/squad_topk_001"}
+OUT_DIR=${11:-"./squad_compress"}
 
 
 # train+eval
@@ -68,7 +68,7 @@ CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
 
 
 
-CMD=" horovodrun  -np 8  -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1   python ../run_squad_topk.py  "
+CMD=" horovodrun  -np 8  -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1   python ../run_squad_compress.py  "
 CMD+="--init_checkpoint=$init_checkpoint  "
 CMD+="--density=$density  "
 CMD+="--compressor=$compressor  "

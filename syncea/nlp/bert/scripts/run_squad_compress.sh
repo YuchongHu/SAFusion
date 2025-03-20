@@ -1,6 +1,9 @@
 echo "Container nvidia build = " $NVIDIA_BUILD_ID
+
+
 export DIR_Model="/data/dataset/nlp/bert/pre-model/bert-base-uncased/uncased_L-12_H-768_A-12"
 export DIR_DataSet="/data/dataset/nlp/bert"
+
 init_checkpoint=${1:-"$DIR_Model/bert_base_wiki.pt"}
 epochs=${2:-"3.0"}
 batch_size=${3:-"4"}
@@ -21,12 +24,10 @@ CONFIG_FILE=${13:-"$DIR_Model/bert_config.json"}
 max_steps=${14:-"-1"}
 
 # setup
-density="${density:-0.05}"
+density="${density:-0.01}"
 threshold="${threshold:-8192}"
 compressor="${compressor:-gaussian}"
 memory="${memory:-residual}"
-
-
 
 
 echo "out dir is $OUT_DIR"
@@ -52,7 +53,7 @@ fi
 
 
 # CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
-CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_topk.py "
+CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_compress.py "
 CMD+="--init_checkpoint=$init_checkpoint "
 CMD+="--density=$density "
 CMD+="--compressor=$compressor  "

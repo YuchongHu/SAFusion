@@ -55,7 +55,7 @@ fi
 
 
 # CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
-CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_topk.py "
+CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_compress.py "
 CMD+="--init_checkpoint=$init_checkpoint "
 CMD+="--density=$density "
 CMD+="--compressor=$compressor  "

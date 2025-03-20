@@ -903,7 +903,7 @@ def main():
     parser.add_argument('--threshold', type=int, default=34015396, help='Set threshold if mgwfbp is False')
 
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
-    parser.add_argument('--compressor', type=str, default='topk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+    parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
     parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')

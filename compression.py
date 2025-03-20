@@ -36,7 +36,7 @@ class TopKCompressor():
         
         self.c = 0
         self.t = 0.
-        self.name = 'topk'
+        self.name = 'dgc'
         self.zc = None
         self.current_ratio = 1
         
@@ -119,7 +119,7 @@ class EFTopKCompressor(TopKCompressor):
     """
     def __init__(self):
         super().__init__()
-        self.name = 'eftopk'
+        self.name = 'dgc'
 
     def compress(self, tensor, name=None, group_size=None, sigma_scale=2.5, ratio=0.01):
         time_start_=time.time()
@@ -444,9 +444,9 @@ class ExpCompressor(TopKCompressor):
             return tensor, indices,values   compressors = {
         None: NoneCompressor,
         'none': NoneCompressor,
-        'topk': TopKCompressor,
+        'dgc': TopKCompressor,
         'topkef': EFTopKCompressor,
-        'eftopk': EFTopKCompressor, #TopK with error-feedback
+        'dgc': EFTopKCompressor, #TopK with error-feedback
         'gaussian': GaussianCompressor, #GaussianK with error-feedback
         'dgc': DgcCompressor,
         'redsync' :RedSyncCompressor,
