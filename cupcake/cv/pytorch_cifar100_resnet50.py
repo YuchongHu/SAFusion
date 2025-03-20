@@ -23,7 +23,7 @@ os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
-import example_fgbuff.hv_distributed_optimizer as hvd
+import hv_distributed_optimizer as hvd
 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch Cifar100 + ResNet-50 Example',

@@ -20,7 +20,7 @@ os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
 
-import example_fgbuff.hv_distributed_optimizer as hvd
+import hv_distributed_optimizer as hvd
 from compression import compressors
 
 

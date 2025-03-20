@@ -77,7 +77,7 @@ from wfbp.torch.mpi_ops import allreduce
 import time
 import torch
 import numpy as np
-import example_fgbuff.utils_optimizer as utils_optimizer
+import utils_optimizer as utils_optimizer
 from profiling import CommunicationProfiler
 
 
