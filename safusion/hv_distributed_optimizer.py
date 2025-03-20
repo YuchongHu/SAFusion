@@ -710,13 +710,11 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             numel = tensor.data.numel()
             # compression
             tensor_compressed, ctx, selected_values = self._compression.compress(tensor, name, group_size=merged_parameters_group_size, ratio=density)
-    
 
             self._merged_parameters[new_key].data[offset:offset+numel].copy_(tensor_compressed.view(numel))
 
             self._groups_flags[group_idx][layer_idx] = 1
             
-
  
             for i, idx in enumerate(self._groups_flags[group_idx]):
 
