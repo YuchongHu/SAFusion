@@ -1234,7 +1234,7 @@ def main():
                     global_step += 1
 
                 final_loss = loss.item()
-                # 设置打印步骤
+                
                 if step % 100 == 0 and hvd.rank()==0:
                 # if step % args.log_freq == 0:
                     dllogger.log(step=(epoch, global_step,), data={"step_loss": final_loss,

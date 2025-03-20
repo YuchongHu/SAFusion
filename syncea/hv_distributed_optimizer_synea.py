@@ -72,7 +72,7 @@ from wfbp.torch.mpi_ops import init, broadcast
 from wfbp.torch.mpi_ops import allreduce
 
 # import sys
-# sys.path.append("../../..") 
+
 
 import time
 import torch

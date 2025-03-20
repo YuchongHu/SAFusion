@@ -21,8 +21,8 @@ import matplotlib.pyplot as plt
 import time
 import os
 
-# 环境变量HOROVOD_FUSION_THRESHOLD实际上以字节为单位.
-# 然而, 当使用horovodrun时, 有一个--fusion-threshold-mb以MB为单位的参数.
+
+
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
@@ -245,15 +245,9 @@ def train(epoch):
     optimizer.para_update_time= []
     optimizer.hook_time= []
     
-    # optimizer._communicator.compressor.bias_gaussiank=[]
-    # optimizer._communicator.compressor.bias_dgc=[]
-    # optimizer._communicator.compressor.bias_redsync=[]
     
-    # optimizer._communicator.compression_time_array=[]
-    # optimizer._communicator.decompression_time_array=[]
-    # optimizer._communicator.send_time_array=[]
-    # optimizer._communicator.receive_time_array=[]
-    # optimizer._communicator.synchronize_time_array=[]
+    
+    
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -414,7 +408,7 @@ def train(epoch):
         # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-        # print('compression_time = ', compression_time)
+        
                
         print('topk_time = ', topk_time)
         print('threshold_time = ', threshold_time)
@@ -714,8 +708,7 @@ if __name__ == '__main__':
     # Horovod: (optional) compression algorithm.
     # compression = hvd.Compression.fp16 if args.fp16_allreduce else hvd.Compression.none
     # params = {'compressor': 'topk', 'memory': 'residual', 'communicator': 'allgather'}
-    # Horovod: wrap optimizer with DistributedOptimizer.
-    # 得到一个分布式的SGD优化器
+    
     # optimizer = hvd.DistributedOptimizer(
     #     optimizer, grc, named_parameters=model.named_parameters())
 
@@ -730,11 +723,9 @@ if __name__ == '__main__':
     # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allgather','model_named_parameters':model.named_parameters()}
     # # params = {'compressor': 'none', 'memory': 'none', 'communicator': 'allreduce','model_named_parameters':model.named_parameters()}
     
-    # communicator = get_communicator(params)
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, communicator, named_parameters=model.named_parameters())
     
-    # MG-WFBP
+    
+    
     optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
 

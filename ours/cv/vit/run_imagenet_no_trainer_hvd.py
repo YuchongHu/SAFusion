@@ -82,14 +82,14 @@ from tqdm import tqdm
 from adtopk_lib.helper import get_communicator
 
 # from utils_model import get_network
-# 环境变量HOROVOD_FUSION_THRESHOLD实际上以字节为单位.
-# 然而, 当使用horovodrun时, 有一个--fusion-threshold-mb以MB为单位的参数.
+
+
 
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 # os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
-# from adtopk_lib.compression import compressors
+
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -105,7 +105,7 @@ from torchsnapshot import Snapshot, Stateful
 
 
 import numpy as np
-# from adtopk_lib.compression import compressors
+
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -706,10 +706,7 @@ def main():
     )
     
     print('Prepare accelerator')
-    # Prepare everything with our `accelerator`.
-    # model, optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(
-    #     model, optimizer, train_dataloader, eval_dataloader, lr_scheduler
-    # )
+    
     
     ### model to cuda
     device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
@@ -733,7 +730,7 @@ def main():
     seq_layernames, layerwise_times = None, None
     
     
-    # MG-WFBP
+    
     optimizer = hvd.DistributedOptimizer(args.model_net,
                                          optimizer, 
                                         #  model= model,
@@ -962,10 +959,7 @@ def main():
                 t.update(1)
             
                 
-                # Checks if the accelerator has performed an optimization step behind the scenes
-                # if accelerator.sync_gradients:
-                #     progress_bar.update(1)
-                #     completed_steps += 1
+                
     
                 if isinstance(checkpointing_steps, int):
                     if completed_steps % checkpointing_steps == 0:
@@ -1019,7 +1013,7 @@ def main():
 
         # eval_metric = metric.compute()
         
-        # 将losses中的零维标量转换为1维张量
+        
         losses = [loss.unsqueeze(0) for loss in losses]
         losses = torch.cat(losses)
         try:
@@ -1063,8 +1057,7 @@ def main():
         #         output_dir = os.path.join(args.output_dir, output_dir)
         #     accelerator.save_state(output_dir)
 
-    # if args.with_tracking:
-    #     accelerator.end_training()
+    
 
     # if args.output_dir is not None:
     #     accelerator.wait_for_everyone()

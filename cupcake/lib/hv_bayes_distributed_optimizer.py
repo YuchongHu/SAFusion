@@ -18,7 +18,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from wfbp.common.util import check_extension
+from horovod.common.util import check_extension
 
 _MPI_LIB_AVAILABLE = True
 
@@ -33,54 +33,50 @@ _MPI_LIB_AVAILABLE = True
 
 # only import following function when mpi is available.
 if _MPI_LIB_AVAILABLE:
-    from wfbp.torch import elastic
-    from wfbp.torch.compression import Compression
-    from wfbp.torch.functions import allgather_object, broadcast_object, broadcast_optimizer_state, broadcast_parameters
-    from wfbp.torch.mpi_ops import allreduce, allreduce_async, allreduce_, allreduce_async_
-    from wfbp.torch.mpi_ops import grouped_allreduce, grouped_allreduce_async, grouped_allreduce_, grouped_allreduce_async_
-    from wfbp.torch.mpi_ops import sparse_allreduce_async
-    from wfbp.torch.mpi_ops import allgather, allgather_async
-    from wfbp.torch.mpi_ops import grouped_allgather, grouped_allgather_async
-    from wfbp.torch.mpi_ops import broadcast, broadcast_async, broadcast_, broadcast_async_
-    from wfbp.torch.mpi_ops import alltoall, alltoall_async
-    from wfbp.torch.mpi_ops import reducescatter, reducescatter_async
-    from wfbp.torch.mpi_ops import grouped_reducescatter, grouped_reducescatter_async
-    from wfbp.torch.mpi_ops import join
-    from wfbp.torch.mpi_ops import barrier
-    from wfbp.torch.mpi_ops import poll, synchronize
-    from wfbp.torch.mpi_ops import init, shutdown
-    from wfbp.torch.mpi_ops import is_initialized, start_timeline, stop_timeline
-    from wfbp.torch.mpi_ops import size, local_size, cross_size, rank, local_rank, cross_rank
-    from wfbp.torch.mpi_ops import mpi_threads_supported, mpi_enabled, mpi_built
-    from wfbp.torch.mpi_ops import gloo_enabled, gloo_built
-    from wfbp.torch.mpi_ops import nccl_built, ddl_built, ccl_built, cuda_built, rocm_built
-    from wfbp.torch.mpi_ops import ProcessSet, global_process_set, add_process_set, remove_process_set
-    from wfbp.torch.mpi_ops import Average, Sum, Adasum, Min, Max, Product
-    from wfbp.torch.mpi_ops import HorovodInternalError
-    from wfbp.torch.optimizer import DistributedOptimizer
-    from wfbp.torch.sync_batch_norm import SyncBatchNorm
+    from horovod.torch import elastic
+    from horovod.torch.compression import Compression
+    from horovod.torch.functions import allgather_object, broadcast_object, broadcast_optimizer_state, broadcast_parameters
+    from horovod.torch.mpi_ops import allreduce, allreduce_async, allreduce_, allreduce_async_
+    from horovod.torch.mpi_ops import grouped_allreduce, grouped_allreduce_async, grouped_allreduce_, grouped_allreduce_async_
+    from horovod.torch.mpi_ops import sparse_allreduce_async
+    from horovod.torch.mpi_ops import allgather, allgather_async
+    from horovod.torch.mpi_ops import grouped_allgather, grouped_allgather_async
+    from horovod.torch.mpi_ops import broadcast, broadcast_async, broadcast_, broadcast_async_
+    from horovod.torch.mpi_ops import alltoall, alltoall_async
+    from horovod.torch.mpi_ops import reducescatter, reducescatter_async
+    from horovod.torch.mpi_ops import grouped_reducescatter, grouped_reducescatter_async
+    from horovod.torch.mpi_ops import join
+    from horovod.torch.mpi_ops import barrier
+    from horovod.torch.mpi_ops import poll, synchronize
+    from horovod.torch.mpi_ops import init, shutdown
+    from horovod.torch.mpi_ops import is_initialized, start_timeline, stop_timeline
+    from horovod.torch.mpi_ops import size, local_size, cross_size, rank, local_rank, cross_rank
+    from horovod.torch.mpi_ops import mpi_threads_supported, mpi_enabled, mpi_built
+    from horovod.torch.mpi_ops import gloo_enabled, gloo_built
+    from horovod.torch.mpi_ops import nccl_built, ddl_built, ccl_built, cuda_built, rocm_built
+    from horovod.torch.mpi_ops import ProcessSet, global_process_set, add_process_set, remove_process_set
+    from horovod.torch.mpi_ops import Average, Sum, Adasum, Min, Max, Product
+    from horovod.torch.mpi_ops import HorovodInternalError
+    from horovod.torch.optimizer import DistributedOptimizer
+    from horovod.torch.sync_batch_norm import SyncBatchNorm
 
 
-from wfbp.torch.mpi_ops import allreduce_async_
-from wfbp.torch.mpi_ops import allgather_async
-from wfbp.torch.mpi_ops import broadcast_async_
-from wfbp.torch.mpi_ops import synchronize
-from wfbp.torch.mpi_ops import size, local_size, rank, local_rank
-from wfbp.torch.mpi_ops import init, broadcast
-from wfbp.torch.mpi_ops import allreduce
-
-# import sys
+from horovod.torch.mpi_ops import allreduce_async_
+from horovod.torch.mpi_ops import allgather_async
+from horovod.torch.mpi_ops import broadcast_async_
+from horovod.torch.mpi_ops import synchronize
+from horovod.torch.mpi_ops import size, local_size, rank, local_rank
+from horovod.torch.mpi_ops import init, broadcast
+from horovod.torch.mpi_ops import allreduce
 
 
 import time
 import torch
 import numpy as np
-import example_fgbuff.utils_optimizer as utils_optimizer
+import utils
 from profiling import CommunicationProfiler
 
-
-
-
+import horovod.torch as hvd
 import collections
 ADAPTIVE_SPARSE = False
 DEBUG = False
@@ -88,6 +84,22 @@ DEBUG = False
 #from profiling import CommunicationProfiler
 from sklearn.linear_model import LinearRegression
 import logging
+from Bayesian.tuner import Tuner
+import Bayesian.utils
+# from mpi4py import MPI
+
+# mpi_comm = MPI.COMM_WORLD
+# comm = None
+# all_gather_comm = None
+# reduce_scatter_comm = None
+
+NUM_NEARBY_LAYERS = 8
+
+# THRESHOLD_MB = 25  # default: 25 mb, with non-compression
+THRESHOLD_MB = 1     # compression density = 0.1  
+ 
+THRESHOLD_MB_TUNING = 1
+NSTREAMS = 1
 
 
 #THRESHOLD = 163840 #4*8192 
@@ -113,9 +125,17 @@ p_alpha_beta_10Gbps = {
 
 
 class _DistributedOptimizer(torch.optim.Optimizer):
-    def __init__(self, model_net_name, params, named_parameters, compression, is_sparse=False, density=0.001, seq_layernames=None, layerwise_times=None, norm_clip=None, threshold=0, writer=None, gradient_path=None, momentum_correction=False, fp16=False, mgwfbp=False, rdma=False, asc=False):
+    def __init__(self, params, model, named_parameters, 
+                 compression = None, is_sparse=False, density=0.001, seq_layernames=None, 
+                 layerwise_times=None, norm_clip=None, threshold=0, writer=None, gradient_path=None, 
+                 momentum_correction=False, fp16=False, 
+                 mgwfbp=False, rdma=False, asc=False, 
+                 threshold_mb = THRESHOLD_MB, threshold_tuning_mb=THRESHOLD_MB_TUNING, 
+                 num_nearby_layers = NUM_NEARBY_LAYERS):
         super(self.__class__, self).__init__(params)
-        self._model_net_name = model_net_name
+        
+        self._model = model
+        
         
         self._compression = compression
         self._sparse = is_sparse
@@ -125,7 +145,35 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         self._layerwise_times = layerwise_times 
         self._original_layerwise_times_kv = None
         self._norm_clip = norm_clip
+        
+        # 阈值的设定
         self._threshold = threshold
+        r"""Distributed optimizer with overlapping reduceScatter and allGather and tensor fusion.
+        Args:
+            params: optimizer parameters.
+            model: training model.
+            num_nearby_layers: number of neaby layers merged for tensor fusion.
+            threshold: buffer size threshold for tensor fusion.
+            threshold_tuning: enable BO to finetune threshold.
+        """
+        self._threshold_mb = threshold_mb
+        self._threshold_tuning_mb = threshold_tuning_mb
+        self._num_nearby_layers = num_nearby_layers
+        self._tuner = None
+        self._next_threshold_mb = None
+        self._num_steps = 0
+        
+        
+        # parameter names 
+        named_parameters_ = list(self._model.named_parameters())
+        if len(named_parameters_) > 0:
+            self._param_names = {v: k for k, v in sorted(named_parameters_)}
+        else:
+            self._param_names = {v: 'param.noname.%s' % i
+                                     for param_group in self.param_groups
+                                     for i, v in enumerate(param_group['params'])}
+
+
         self._writer = writer
         self._gradient_path = gradient_path
         self._fp16 = fp16
@@ -137,8 +185,8 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if self._layerwise_times is not None and self._seq_layernames is not None:
             self._original_layerwise_times_kv = dict(zip(self._seq_layernames, self._layerwise_times))
         self._compression_timers = {} # compression
-        self._allreduce_timers = {} # allreduce times
-        self._update_times = {} # allreduce times
+        self._allreduce_timers = {}   # allreduce times
+        self._update_times = {}       # allreduce times
         self.train_epoch = 0
         self.train_iter = 0
         self.momentum_correction = momentum_correction
@@ -189,6 +237,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             self._parameter_names = {v: 'allreduce.noname.%s' % i
                                      for param_group in self.param_groups
                                      for i, v in enumerate(param_group['params'])}
+
         self._generate_merged_parameters()
 
         self._handles = {}
@@ -196,6 +245,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         self._requires_update = set()
         self.local = False
         self._hook_checked_idx = 0
+        
         if size() > 1:
             self._register_hooks()
 
@@ -250,6 +300,40 @@ class _DistributedOptimizer(torch.optim.Optimizer):
     
     
     def _register_hooks(self):
+        """
+        Register hooks for both feed-forward and back-propagation. 
+        """
+        # find all trainable modules and parameters
+        self._register_modules = []
+        self._register_parameters = []
+        self._module_names = {}               # get module name
+        self._module_direct_parameters = {}   # get module direct params by name
+        
+        register_param_names = []
+        for module in self._model.modules():
+            params = [p for p in module.parameters(recurse=False) if p.requires_grad]
+            direct_params = []
+            for p in params:
+                # avoid repeat registration, e.g. shared parameters
+                p_name = self._param_names.get(p)
+                if p_name not in register_param_names:
+                    register_param_names.append(p_name)
+                    direct_params.append(p)
+            
+            if len(direct_params) > 0:
+                module_name = 'module_name_%s_%d' % (module.__class__.__name__, 
+                        len(self._register_modules))
+                self._module_names[module] = module_name
+                self._register_modules.append(module)
+                self._register_parameters.extend(direct_params)
+                self._module_direct_parameters[module_name] = direct_params
+        
+        # register forward hooks
+        for i, module in enumerate(self._register_modules):
+            module.register_forward_pre_hook(self._forward_pre_hook)
+        
+        
+        # backward_hook
         for param_group in self.param_groups:
             for p in param_group['params']:
                 if p.requires_grad:
@@ -259,10 +343,384 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     grad_acc = p_tmp.grad_fn.next_functions[0][0]
                     grad_acc.register_hook(self._make_hook(p))
                     self._grad_accs.append(grad_acc)
+    
+    
+    def _forward_pre_hook(self, module, input):
+        """
+        Add hooks for pre-feedfoward.
+        """
+        
+        if torch.is_grad_enabled() and self._num_steps > 0:
+            # name = self._module_names.get(module)
+            # group_idx, sub_idx = self._module_group_idx[name]
+
+            # # sync allGather for this group and send for next group
+            # if sub_idx == 0 and self._module_group_flags[group_idx] == 0:
+            #     all_gather_comm.synchronize()
+            #     self._module_group_flags[group_idx] = 1  # done
+            #     if group_idx < self._num_groups - 1 and self._module_group_flags[group_idx+1] == 0:
+            #         self._allgather_one_group(group_idx+1)
+
+            # # update params for this module
+            # self._update_one_module(module, name, group_idx)
+            
+            # temporary solution: update tensor fusion just before the last module
+            if self._threshold_tuning_mb and self._next_threshold_mb is not None :
+                # if hvd.rank()==0: 
+                #     print('self._next_threshold_mb = ', self._next_threshold_mb)
+                
+                if module == self._register_modules[-1]:
+                # if i == len(self._register_modules) -1 :
+                    if hvd.rank()==0:                        
+                        print('self._next_threshold_mb = ', self._next_threshold_mb)
+                    self._update_groups_with_threshold(self._next_threshold_mb)
 
 
-    # Optimal Merging buffer
-    def _generate_groups_with_number_optimal_buffer(self):
+    def _update_groups_with_threshold(self, threshold_mb):
+        """
+        Update groups with buffer size threshold for fine-tuning tensor fusion. 
+        """
+        # bcast next threshold from rank 0 to other workers
+        threshold_mb = hvd.broadcast(torch.tensor(threshold_mb), root_rank=0)
+        # threshold_mb = mpi_comm.bcast(threshold_mb, root=0)
+
+        #threshold=torch.tensor(threshold).cuda()
+        #comm.bcast(threshold, 0)
+        #comm.synchronize()
+        
+        #if rank() == 0:
+        #    print("Step [%d]: finetune the threshold to %.2f" % (self._num_steps, threshold))
+
+        # clear buffers
+        for group in self._groups:
+            del group
+        
+        for group_size in self._group_sizes:
+            del group_size
+            
+        for group_flag in self._groups_flags:
+            del group_flag
+        
+        for group_dim in self._group_dims:
+            del group_dim
+
+        # update tensor fusion groups
+        self._threshold_mb = threshold_mb
+        self._next_threshold_mb = None
+        # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_threshold_mb()
+        
+        self._generate_merged_parameters()
+    
+    def _generate_groups_with_threshold(self, threshold):
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes=[]
+        group_size=[]
+
+        group_dims=[]
+        group_dim=[]
+
+        sub_size = 0
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+
+        # Training time = 1437.5672519207
+        # Threshold = 3386464
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            sub_size += numel
+            key_groupidx_maps[k] = idx
+            
+            if sub_size < threshold:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+            else:
+                idx += 1
+                group.append(k)
+                groups.append(group)
+                group = []
+                
+                group_size.append(numel)
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dim.append(self._named_parameters[k].dim())
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 0
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            group_dims.append(group_dim)
+            
+        return groups, key_groupidx_maps, group_sizes, group_dims
+
+    # 基于阈值大小合并梯度
+    def _generate_groups_with_threshold_mb(self):
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes=[]
+        group_size=[]
+
+        group_dims=[]
+        group_dim=[]
+
+        sub_size = 0
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+
+        # Training time = 1437.5672519207
+        # Threshold = 3386464
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            sub_size += numel
+            key_groupidx_maps[k] = idx
+            
+            sub_size = sub_size*4/1024/1024
+            
+            if sub_size < self._threshold_mb:
+            # if sub_size < threshold_mb:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+            else:
+                idx += 1
+                group.append(k)
+                groups.append(group)
+                group = []
+                
+                group_size.append(numel)
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dim.append(self._named_parameters[k].dim())
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 0
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            group_dims.append(group_dim)
+            
+        return groups, key_groupidx_maps, group_sizes, group_dims
+
+
+
+    # 控制进入buffer的梯度Block
+    def _generate_groups_with_block(self, number_layers, threshold):
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes=[]
+        group_size=[]
+        
+        group_dims=[]
+        group_dim=[]
+        
+        sub_size = 0
+        numel_size = 0
+        
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+        
+        pre_name=None
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            sub_size += 1
+            numel_size += numel
+            
+            name=k.split('.')[0]
+            
+            if name=='conv5_x':
+                number_layers=10
+            # elif name=='conv4_x':
+            #     number_layers=30
+            # elif name=='conv3_x':
+            #     number_layers=20
+            # elif name=='conv2_x':
+            #     number_layers=30
+            
+            else:
+                number_layers=60
+            
+            
+            # if (name == pre_name or pre_name==None):
+            if (name == pre_name or pre_name==None) and sub_size < number_layers:
+            # if (name == pre_name or pre_name==None) and numel_size < threshold:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                
+                key_groupidx_maps[k] = idx
+            else:
+                idx += 1
+
+                groups.append(group)
+                group = []
+                  
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 0
+                numel_size=0 
+                
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                key_groupidx_maps[k] = idx
+            
+            pre_name=name
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            
+            group_dims.append(group_dim)
+        
+        return groups, key_groupidx_maps, group_sizes, group_dims
+    
+    
+    # 控制进入buffer的梯度的数量
+    def _generate_groups_with_number(self, number_layers):
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes=[]
+        group_size=[]
+        
+        group_dims=[]
+        group_dim=[]
+        
+        sub_size = 0
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            sub_size += 1
+            key_groupidx_maps[k] = idx
+            
+            if sub_size < number_layers:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+            else:
+                idx += 1
+                group.append(k)
+                groups.append(group)
+                group = []
+                
+                group_size.append(numel)
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dim.append(self._named_parameters[k].dim())
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 0
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            
+            group_dims.append(group_dim)
+            
+        return groups, key_groupidx_maps, group_sizes, group_dims
+    
+    
+    # 控制进入buffer的梯度的数量
+    def _generate_groups_with_number_fc(self, number_layers):
+        number_layers_ =number_layers
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes= []
+        group_size= []
+        
+        group_dims= []
+        group_dim= []
+        
+        sub_size = 0
+        numel_size = 0
+        
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+        
+        # print('self._sequential_keys[::-1]= ', self._sequential_keys[::-1])
+        
+        pre_name=None
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            
+            numel_size += numel            
+            # name =k.split('.')[0]
+            
+            if 'fc' in k:
+                number_layers_ =2
+
+
+            # if (name == pre_name or pre_name==None):
+            if sub_size < number_layers_:
+            # if (name == pre_name or pre_name==None) and numel_size < threshold:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                
+                key_groupidx_maps[k] = idx
+                sub_size += 1
+                
+            else:
+                number_layers_ =number_layers
+                
+                idx += 1
+
+                groups.append(group)
+                group = []
+                  
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 0
+                numel_size=0 
+                
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                key_groupidx_maps[k] = idx
+            
+            # pre_name=name
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            
+            group_dims.append(group_dim)
+        
+        return groups, key_groupidx_maps, group_sizes, group_dims
+    
+    
+    # 生成最小化等待时间的number梯度合并buffer
+    # 
+    def _generate_groups_with_number_minimize_wait_time(self, number_layers, threshold_buffer_1):
+        number_layers_ =number_layers
         
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
         self._sizes = sizes
@@ -281,17 +739,229 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         key_groupidx_maps = {}
         idx = 0
         
-     
-        sub_buffer = utils_optimizer.optimal_gradient_merging_0101(self._sizes, self._model_net_name, density=self._density)
-    
+        # print('self._sequential_keys[::-1]= ', self._sequential_keys[::-1])
+        
+        # pre_name = None
+
+
+        # 保证总的buffer数量不变
+        # Training time = 1425.0437269210815, Density=0.05
+        # Training time = 2141, Density=0.1
+        sub_buffer = [10, 15, 25, 28, 28, 28, 28]
+
+        # 增加一个buffer, 增加了启动时间, 特别是在通信大于反向传播计算时间的情况下, 
+        # 将buffer-1 拆分成buffer-1-1, buffer-1-2
+        # Training time = 1459
+        # 预先划定好buffer的大小和个数, 
+        # sub_buffer = [10, 14, 23, 23, 23, 23, 23, 23]
+
+        # 原始梯度合并
+        # Training time = 1537, Density=0.05
+        # Training time = 2273.5, Density=0.1
+        # sub_buffer = [24, 23, 23, 23, 23, 23, 23]
+
+        # sub_buffer_count = 0
+        
+        # Density = 0.01
+        sub_buffer = [10, 15, 25, 28, 28, 28, 28]
+
+        sub_buffer = [6, 19, 25, 28, 28, 28, 28]
+
+        sub_buffer =[21, 141]
+
+        sub_buffer =[11, 151]
+        
+        sub_buffer =[6, 156]
+        
+        sub_buffer =[31, 131]
+        
+        sub_buffer =[16, 146]
+        
+        sub_buffer =[11, 20, 131]
+        # [1,0]<stdout>:3618916
+        # [1,0]<stdout>:11025920
+        # [1,0]<stdout>:9060416
+        # 270.7035527229309
+        
+        # sub_buffer =[6, 12, 13, 131]
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:6564352
+        # [1,0]<stdout>:9060416
+        # 258.3208611011505
+        
+        # sub_buffer =[6, 12, 13, 50, 81]
+        # 当前面的
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:6564352
+        # [1,0]<stdout>:6637056
+        # [1,0]<stdout>:2423360
+        # 261.38750553131104
+        
+        # sub_buffer =[6, 12, 13, 81, 50]
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:6564352
+        # [1,0]<stdout>:8249984
+        # [1,0]<stdout>:810432
+        # 264.23098611831665
+        
+        sub_buffer =[6, 12, 144]
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:15624768
+        # 260.3402738571167
+        
+        sub_buffer =[6, 16, 140]
+        # 263.20472049713135
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:7874560
+        # [1,0]<stdout>:14573120
+        
+        sub_buffer =[6, 14, 142]
+        # 262.46073055267334
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6823936
+        # [1,0]<stdout>:15623744
+        
+        sub_buffer =[6, 10, 146]
+        # 280.1100449562073
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:4463104
+        # [1,0]<stdout>:17984576
+        
+        sub_buffer =[6, 12, 24, 124]
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:8206336
+        # [1,0]<stdout>:7418432
+        # 267.1175925731659
+        
+        sub_buffer =[6, 12, 13, 131]
+        # [1,0]<stdout>:1257572
+        # [1,0]<stdout>:6822912
+        # [1,0]<stdout>:6564352
+        # [1,0]<stdout>:9060416
+        
+        sub_buffer =[162]
+        sub_buffer =[81, 81]
+        sub_buffer =[54, 54, 54]
+        
+        sub_buffer =[18, 145]
+        
+        sub_buffer =[41, 40, 40, 40, 1]
+        # [1,0]<stdout>:16024676
+        # [1,0]<stdout>:5257216
+        # [1,0]<stdout>:1958912
+        # [1,0]<stdout>:462720
+        # [1,0]<stdout>:1728, 0.0008780956268310547
+        # 289.872109413147
+        
+        sub_buffer =[17, 145]
+        # [1,0]<stdout>:5721188
+        # [1,0]<stdout>:17984064
+        # 277.49520087242126
+        
+        sub_buffer =[3, 2, 3, 9, 145]
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:4096
+        # [1,0]<stdout>:1049600
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:17984064
+        # 279.48575019836426
+        
+        sub_buffer =[3, 5, 9, 145]
+        # 278.9321551322937
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:1053696
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:17984064
+        
+        sub_buffer =[3, 5, 9, 20, 125]
+        # 258.13166642189026
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:1053696
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:9712896
+        # [1,0]<stdout>:8271168
+        # [0.0006749629974365234, 0.000591278076171875, 0.00705718994140625, 0.04315066337585449, 0.029505491256713867]
+        
+        
+        sub_buffer =[3, 7, 53, 99]
+        # 
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:3413504
+        # [1,0]<stdout>:15166976
+        # [1,0]<stdout>:4919872
+        
+        
+        sub_buffer =[3, 7, 53, 99]
+        # 262.00370717048645
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:3413504
+        # [1,0]<stdout>:15166976
+        # [1,0]<stdout>:4919872
+        # 262.9684977531433
+        
+        
+        # sub_buffer =[3, 7, 12, 41, 99]
+        # 262.8729569911957
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:3413504
+        # [1,0]<stdout>:5513728
+        # [1,0]<stdout>:9653248
+        # [1,0]<stdout>:4919872
+        
+        sub_buffer =[3, 5, 9, 12, 133]
+        # 261.62292742729187
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:1053696
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:6563840
+        # [1,0]<stdout>:11420224
+        
+        sub_buffer =[3, 5, 9, 20, 125]
+        # 263.07871675491333
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:1053696
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:9712896
+        # [1,0]<stdout>:8271168
+        
+        # sub_buffer =[3, 2, 3, 9, 12, 133]
+        # 268.63033175468445
+        # [1,0]<stdout>:204900
+        # [1,0]<stdout>:4096
+        # [1,0]<stdout>:1049600
+        # [1,0]<stdout>:4462592
+        # [1,0]<stdout>:6563840
+        # [1,0]<stdout>:11420224
+
+
         for i, k in  enumerate(self._sequential_keys[::-1]) :
             numel = self._named_parameters[k].data.numel()
 
             numel_size += numel
             sub_size += 1
-       
+            # name =k.split('.')[0]
+
+            # buffer_1_size= 0
+
+            # if 'fc' in k:
+            #     number_layers_ =2
+
+            # if sum_numel_size< threshold_buffer_1:
+            #     number_layers_ = 10
 
             sum_numel_size += numel
+
+            # if (name == pre_name or pre_name==None):
+            # if sub_size < number_layers_:
+
+            # buffer_size= sub_buffer[idx]
+            # if idx==0:
+            #     buffer_size+= 1
 
             if sub_size < sub_buffer[idx]:
             # if (name == pre_name or pre_name==None) and numel_size < threshold:
@@ -333,6 +1003,67 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             group_dims.append(group_dim)
         
         return groups, key_groupidx_maps, group_sizes, group_dims
+
+
+    # 控制进入buffer的梯度的数量和大小
+    def _generate_groups_with_number_threshold(self, number_layers, threshold):
+        sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse order
+        self._sizes = sizes
+        group_sizes =[]
+        group_size =[]
+        
+        group_dims =[]
+        group_dim =[]
+        
+        sub_size = 0
+        numel_size = 0
+        
+        groups = []
+        group = []
+        key_groupidx_maps = {}
+        idx = 0
+        for k in self._sequential_keys[::-1]:
+            numel = self._named_parameters[k].data.numel()
+            sub_size += 1
+            numel_size += numel
+            # key_groupidx_maps[k] = idx
+            
+            if sub_size < number_layers and  numel_size< threshold:
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                
+                key_groupidx_maps[k] = idx
+                
+                # numel_size += numel
+            else:
+                idx += 1
+                
+                groups.append(group)
+                group = []
+               
+                group_sizes.append(group_size)
+                group_size=[]
+                
+                group_dims.append(group_dim)
+                group_dim=[]
+                
+                sub_size = 1
+                numel_size =numel
+                
+                group.append(k)
+                group_size.append(numel)
+                group_dim.append(self._named_parameters[k].dim())
+                key_groupidx_maps[k] = idx
+        
+        if len(group) > 0:
+            groups.append(group)
+            group_sizes.append(group_size)
+            
+            group_dims.append(group_dim)
+            
+        return groups, key_groupidx_maps, group_sizes, group_dims
+    
 
 
     def get_current_density(self, name=None):
@@ -378,10 +1109,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             if self.size_commtime_dict is not None:
                 tc[l-1] = self.size_commtime_dict[l-1]
             else:
-                tc[l-1] = utils_optimizer.predict_allreduce_time_with_size(alpha, beta, p[l-1]*nbytes, num_of_workers)
+                tc[l-1] = utils.predict_allreduce_time_with_size(alpha, beta, p[l-1]*nbytes, num_of_workers)
         sizes = [self._named_parameters[k].data.numel() for k in self._seq_layernames]
         seq_layernames = self._seq_layernames
-        if not utils_optimizer.check_unique(seq_layernames):
+        if not utils.check_unique(seq_layernames):
             raise ValueError
         self._sizes = sizes
         p = sizes[:]
@@ -389,7 +1120,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if self.size_commtime_dict is not None:
             tc = [self.size_commtime_dict[s] for s in sizes]
         else:
-            tc = [utils_optimizer.predict_allreduce_time_with_size(alpha, beta, s*nbytes, num_of_workers) for s in sizes]
+            tc = [utils.predict_allreduce_time_with_size(alpha, beta, s*nbytes, num_of_workers) for s in sizes]
         tb = list(self._layerwise_times)
         taob = [0]*L
         for l in range(0,L-1)[::-1]:
@@ -504,10 +1235,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             if self.size_commtime_dict is not None:
                 tc[l-1] = self.size_commtime_dict[l-1]
             else:
-                tc[l-1] = utils_optimizer.predict_allreduce_time_with_size(alpha, beta, p[l-1]*nbytes, num_of_workers)
+                tc[l-1] = utils.predict_allreduce_time_with_size(alpha, beta, p[l-1]*nbytes, num_of_workers)
         sizes = [self._named_parameters[k].data.numel() for k in self._seq_layernames]
         seq_layernames = self._seq_layernames
-        if not utils_optimizer.check_unique(seq_layernames):
+        if not utils.check_unique(seq_layernames):
             raise ValueError
         self._sizes = sizes
         p = sizes[:]
@@ -515,7 +1246,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if self.size_commtime_dict is not None:
             tc = [self.size_commtime_dict[s] for s in sizes]
         else:
-            tc = [utils_optimizer.predict_allreduce_time_with_size(alpha, beta, s*nbytes, num_of_workers) for s in sizes]
+            tc = [utils.predict_allreduce_time_with_size(alpha, beta, s*nbytes, num_of_workers) for s in sizes]
         tb = list(self._layerwise_times)
         taob = [0]*L
         for l in range(0,L-1)[::-1]:
@@ -562,7 +1293,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
 
         def __calculate_sparse_and_backward_start(tb, sizes, L, start=0):
             taos = [start] * L 
-            ts = [utils_optimizer.topk_perf_model(s) for s in sizes]
+            ts = [utils.topk_perf_model(s) for s in sizes]
             taob = [start] * L 
             taob[L-1] = start 
             taos[L-1] = taob[L-1] + tb[L-1]
@@ -573,7 +1304,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
 
         def __calculate_comm_start(ts, taos, sizes, L):
             taoc = [0] * L 
-            tc = [utils_optimizer.allgather_perf_model(s, P, self._density) for s in sizes]
+            tc = [utils.allgather_perf_model(s, P, self._density) for s in sizes]
             taoc[L-1] = taos[L-1] + ts[L-1]
             for l in range(L-1)[::-1]:
                 taoc[l] = max(taoc[l+1] + tc[l+1], taos[l] + ts[l])
@@ -586,10 +1317,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             p[l-1] = p[l-1]+p[l]
             p[l] = 0
 
-            tc[l-1] = utils_optimizer.allgather_perf_model(p[l-1], P, self._density) 
+            tc[l-1] = utils.allgather_perf_model(p[l-1], P, self._density) 
             tc[l] = 0
 
-            ts[l-1] = utils_optimizer.topk_perf_model(p[l-1])
+            ts[l-1] = utils.topk_perf_model(p[l-1])
             ts[l] = 0
 
         sizes = [self._named_parameters[k].data.numel() for k in self._seq_layernames]
@@ -614,11 +1345,11 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             group.append(key)
             key_groupidx_maps[key] = idx
 
-            tw = tb[l-1]+utils_optimizer.topk_perf_model(p[l]+p[l-1])\
-                - utils_optimizer.topk_perf_model(p[l]) - utils_optimizer.topk_perf_model(p[l-1])\
+            tw = tb[l-1]+utils.topk_perf_model(p[l]+p[l-1])\
+                - utils.topk_perf_model(p[l]) - utils.topk_perf_model(p[l-1])\
                 - (taoc[l] - (taos[l]+ts[l]))
-            tsave = utils_optimizer.allgather_perf_model(p[l], P, self._density)+utils_optimizer.allgather_perf_model(p[l-1], P, self._density)-\
-                    utils_optimizer.allgather_perf_model((p[l]+p[l-1]), P, self._density)
+            tsave = utils.allgather_perf_model(p[l], P, self._density)+utils.allgather_perf_model(p[l-1], P, self._density)-\
+                    utils.allgather_perf_model((p[l]+p[l-1]), P, self._density)
             if tw < tsave:
                 __merge(tb, ts, tc, p, l)
                 taob2, taos2, ts2 = __calculate_sparse_and_backward_start(tb[:l], p[:l], l, start=taob[l]+tb[l])
@@ -653,25 +1384,84 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     groups, key_groupidx_maps, group_sizes  = self._generate_groups_mgwfbp()
         else:
             
+            # 基于阈值大小MB的方法
+            if self._threshold_mb is not None:
+                groups, key_groupidx_maps, group_sizes, group_dims =self._generate_groups_with_threshold_mb()
+                
+                if self._threshold_tuning_mb:
+                    self._tuner = Tuner(x=THRESHOLD_MB, bound=(1.0, 256.0))
+            # else:                
+            #     self._generate_groups_with_nearby_layers()
+            
+            
+            
+            # 基于阈值的buffer划分, 容易造成buffer中梯度集中, 从而造成pipeline效果不明显, 例如最后一个buffer往往包含75个layer的梯度
+            # groups = 8
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_threshold(self._threshold)
+            
+            # groups = 7
+            # 3386464.57
+            # threshold_ = 3380000
+            # threshold_ = 3100000
+            
             threshold_ = 3386464
             threshold_ = 4670000
-           
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_threshold(threshold_)
+
+
+
+            # 基于layer数量的划分
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(15)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(10)
             
-            groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number_optimal_buffer()
+            
+            # Resnet-50
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(10)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(50)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(200)
+            
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(30)
 
 
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(23)
+            
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number_fc(25)
+            
+            
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(33)
+
+
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number_minimize_wait_time(23, 2000000)
+            
+            # 20231223
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number_minimize_wait_time(27, 4000000)
+
+
+            # VGG-16
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number(10)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_number_threshold(10, self._threshold)
+
+
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_block(22)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_block(16)
+
+
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_block(22, self._threshold)
+            # groups, key_groupidx_maps, group_sizes, group_dims = self._generate_groups_with_block(30, self._threshold)
 
 
         self._group_sizes = group_sizes
         self._group_dims = group_dims
         
         
-        print('Number of parameters: %d' % np.sum(self._sizes))
-        print('Total number of tensors: %s' % len(self._sizes))
-        print('Merged number of groups: %s' % len(groups))
+        
         
         # # _sizes和groups都是倒序
-        if rank()==0:
+        if rank()==0 and self._num_steps< 3:
+            print('Number of parameters: %d' % np.sum(self._sizes))
+            print('Total number of tensors: %s' % len(self._sizes))
+            print('Merged number of groups: %s' % len(groups))
+            
             print('self._group_sizes: ',len(self._group_sizes))
             print('self._group_sizes: ',self._group_sizes)
             arr_=[]
@@ -711,7 +1501,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             self._merged_parameter_names[t] = new_key
             self._merged_parameter_offsets[new_key] = offsets
             if self._density < 1 and ADAPTIVE_SPARSE:
-                _density = utils_optimizer.predict_density_with_size_and_computation(sub_size, computation_time, num_of_workers)
+                _density = utils.predict_density_with_size_and_computation(sub_size, computation_time, num_of_workers)
                 density = max(_density, self._density)
             else:
                 density = self._density
@@ -732,7 +1522,25 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             for k in g:
                 flags.append(0)
             self._groups_flags.append(flags)
-    
+
+        # logger.info('offsets: ', self._merged_parameter_offsets)
+        # logger.info('_layerwise_compressors: %s', self._layerwise_compressors)        
+        if rank()==0 and self._num_steps< 3:
+            # print('self._merged_parameter_offsets: ',self._merged_parameter_offsets)
+            # print('self._layerwise_compressors: ', self._layerwise_compressors)            
+            # print('self._merged_parameters: ', self._merged_parameters)
+            # print('self._merged_parameter_names: ', self._merged_parameter_names)
+            # print('self._merged_parameter_offsets: ', self._merged_parameter_offsets)            
+            print('self._groups: ', self._groups)
+            # print('self._key_groupidx_maps: ', self._key_groupidx_maps)                   
+            print('self._merged_parameters_group_sizes: ', self._merged_parameters_group_sizes)
+            
+            for k in self._merged_parameters_group_sizes.keys():
+                print(sum(self._merged_parameters_group_sizes[k]))
+            
+            print('self._merged_parameters_group_ids: ', self._merged_parameters_group_ids)
+
+
     def _push_to_buffer(self, name, tensor):
         with torch.no_grad():
             if len(self._groups) == len(self._sequential_keys):
@@ -751,15 +1559,11 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             self._merged_parameters[new_key].data[offset:offset+numel].copy_(tensor.view(numel))
 
             self._groups_flags[group_idx][layer_idx] = 1
-            
-
- 
-            for i, idx in enumerate(self._groups_flags[group_idx]):
-
-                
+            # 遍历_groups_flags看是否都进group
+            for idx in self._groups_flags[group_idx]:
                 if idx == 0:
                     return name, None
-
+            
             return new_key, self._merged_parameters[new_key]
 
 
@@ -771,7 +1575,6 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         g = name.split(':')
         group_idx = self._key_groupidx_maps[g[0]]
         self._groups_flags[group_idx] = [0]*len(self._groups_flags[group_idx])
-        
         tensors = {}
         for i, k in enumerate(g):
             offset = offsets[i]
@@ -801,13 +1604,60 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         merged_parameters_group_size= self._merged_parameters_group_sizes[name]
         merged_parameters_group_dim= self._merged_parameters_group_dims[name]
         
-
+        # if rank()==0:
+        #     print('merged_parameters_group_size=',sum(merged_parameters_group_size))
+        #     print('tensor=', len(tensor))
+        
+        # if 'classifier.3.weight' in name:
+        #     density=0.002
+        # density =0.1
         
         group_idx = self._merged_parameters_group_ids[name] 
         
-     
+        # if group_idx==5 or group_idx==6:
+        #     density=0.1
+        # elif group_idx==0 or group_idx==1:
+        #     density=0.01
+
+        # if group_idx==0 or group_idx==1 or group_idx==2:
+        #     density=0.01
+        # elif group_idx==6 :
+        #     density=0.5
+        # elif group_idx==4 or group_idx==5:
+        #     density=0.1
+        # else:
+        #     density=0.05
+        
+        # FC 
+        # if group_idx==1:
+        #     density=0.01
+        # elif group_idx==0 or group_idx==7:
+        #     density=1
+        # elif group_idx==5 or group_idx==6:
+        #     density=0.2
+        # else:
+        #     density=0.05    
+        
+
+        # if 'fc' in name :
+        #     density=0.001
+        # elif 'conv4' in name:
+        #     density=0.1
+        # else:
+        #     density=1
+        
+        # print(name,':',group_idx)
         tensor_compressed, ctx, selected_values = self._compression.compress(tensor, name, group_size=merged_parameters_group_size, ratio=density)
-    
+        
+        # tensor_compressed, ctx, selected_values = self._compression.compress_layer_wise(tensor, name, group_size=merged_parameters_group_size, ratio=density)
+
+
+        # tensor_compressed, ctx, selected_values = self._compression.compress_layer_wise_selective(tensor, name, group_size=merged_parameters_group_size, group_dim=merged_parameters_group_dim,ratio=density)
+        
+        # tensor_compressed, ctx, selected_values = self._compression.compress_block(tensor, name, group_size=merged_parameters_group_size, group_dim=merged_parameters_group_dim,ratio=density)
+        
+        # tensor_compressed, ctx, selected_values = self._compression.compress_block_opt(tensor, name, group_size=merged_parameters_group_size, group_dim=merged_parameters_group_dim,ratio=density)
+
 
         if False and rank() == 0 and self.train_iter % 200 == 0 and self.train_iter < 3000:
             grads = tensor.cpu().numpy()
@@ -822,7 +1672,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             handle = allgather_async(selected_values, name)
             handle_idx = allgather_async(indexes.int(), name+'_indexes')
         if self._profiling:
-            utils_optimizer.force_insert_item(self._compression_timers, name, time.time()-stime)
+            utils.force_insert_item(self._compression_timers, name, time.time()-stime)
         return (handle, handle_idx), ctx 
 
     def check_hooked_tensor_sequence(self, name):
@@ -857,20 +1707,18 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     d_p = buf
 
                 new_name, new_tensor = self._push_to_buffer(name, d_p)
-                # if rank()==0 and 'bert.pooler' in name:
-                #     print('new_tensor.numle = ', new_tensor)
 
 
                 if new_tensor is not None:
                     density = self.get_current_density(name=new_name)
-                    # print('new_tensor.numle = ', new_tensor.numle())
+
                     if self._mgwfbp:
                         current_stream = torch.cuda.current_stream()
                         current_stream.synchronize()
 
                     if self._sparse and density < 1:
                         
-                        
+                         
                         handle, ctx = self._sparse_allreduce_async(new_tensor, new_name, density)
                         self._handles[new_tensor] = (handle, ctx, density)
                     else:
@@ -904,7 +1752,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     all_indexes = synchronize(handle_idx)
 
                 if self._profiling:
-                    utils_optimizer.force_insert_item(self._allreduce_timers, name, time.time()-stime)
+                    utils.force_insert_item(self._allreduce_timers, name, time.time()-stime)
 
                 stime = time.time()
                 new_grad = p.data.view(-1)
@@ -935,12 +1783,12 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 new_grad /= num_of_workers
 
                 if self._profiling:
-                    utils_optimizer.force_insert_item(self._update_times, name, time.time()-stime)
+                    utils.force_insert_item(self._update_times, name, time.time()-stime)
             else:
                 stime = time.time()
                 output = synchronize(handle)
                 if self._profiling:
-                    utils_optimizer.force_insert_item(self._allreduce_timers, name, time.time()-stime)
+                    utils.force_insert_item(self._allreduce_timers, name, time.time()-stime)
                 stime = time.time()
 
                 if self._norm_clip is not None:
@@ -957,7 +1805,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                     
                 p.set_(output)
                 if self._profiling:
-                    utils_optimizer.force_insert_item(self._update_times, name, time.time()-stime)
+                    utils.force_insert_item(self._update_times, name, time.time()-stime)
             # torch.cuda.synchronize()
             self.handle_synchronize_time.append(time.time()-handle_time) 
 
@@ -979,6 +1827,8 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         self._handles.clear()
         self._print_profiling()
         self.para_update_time.append(time.time()-p_time)
+        
+        
 
 
     def _print_profiling(self):
@@ -1050,10 +1900,18 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                         offset += d_p.numel()
         return loss
     
-
+    # 执行同步操作
     def step(self, closure=None):
         if not self.local:
             self.synchronize()
+        
+        if self._threshold_tuning_mb:
+            self._next_threshold_mb = self._tuner.step()
+            # print('self._next_threshold_mb = ', self._next_threshold_mb)
+        
+        # Note: the last step is skipped
+        self._num_steps += 1
+        
         if self.momentum_correction and self._sparse:
             return self._step_with_mc(closure)
         
@@ -1061,7 +1919,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
 
 
 
-def DistributedOptimizer(model_net_name, optimizer, named_parameters=None, compression=None, is_sparse=False, density=0.001, seq_layernames=None, layerwise_times=None, norm_clip=None, threshold=0, writer=None, gradient_path=None, momentum_correction=False, fp16=False, mgwfbp=False, rdma=False, asc=False):
+def DistributedOptimizer(optimizer,
+                         model=None, 
+                         named_parameters=None,
+                         compression=None, is_sparse=False, density=0.001, seq_layernames=None, layerwise_times=None, norm_clip=None, threshold=0, writer=None, gradient_path=None, momentum_correction=False, fp16=False, mgwfbp=False, rdma=False, asc=False):
     """
     An optimizer that wraps another torch.optim.Optimizer, using an allreduce to
     average gradient values before applying gradients to model weights.
@@ -1097,7 +1958,7 @@ def DistributedOptimizer(model_net_name, optimizer, named_parameters=None, compr
     cls = type(optimizer.__class__.__name__, (optimizer.__class__,),
                dict(_DistributedOptimizer.__dict__))
 
-    return cls(model_net_name, optimizer.param_groups, named_parameters, compression, is_sparse, density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=threshold, writer=writer, gradient_path=gradient_path, momentum_correction=momentum_correction, fp16=fp16, mgwfbp=mgwfbp,rdma=rdma,asc=asc)
+    return cls(optimizer.param_groups, model, named_parameters, compression, is_sparse, density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=threshold, writer=writer, gradient_path=gradient_path, momentum_correction=momentum_correction, fp16=fp16, mgwfbp=mgwfbp,rdma=rdma,asc=asc)
 
 
 def broadcast_parameters(params, root_rank):
@@ -1142,7 +2003,7 @@ def broadcast_optimizer_state(optimizer, root_rank,model=None):
         root_rank: The rank of the process from which the optimizer will be
                    broadcasted to all other processes.
     """
-    from wfbp.torch.optimizer import DistributedOptimizer
+    from horovod.torch.optimizer import DistributedOptimizer
     if isinstance(optimizer, torch.optim.LBFGS):
         # TODO(travis): L-BFGS cannot be easily supported without serializing
         # the entire state_dict, as its structure is deeply nested and contains

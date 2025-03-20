@@ -71,23 +71,23 @@ from transformers.utils import check_min_version, send_example_telemetry
 from transformers.utils.versions import require_version
 
 import numpy as np
-# from adtopk_lib.compression import compressors
+
 import numpy as np
 import matplotlib.pyplot as plt
 import time
 import timeit
 import numpy as np
-# from adtopk_lib.profiling import benchmark
 
-# 环境变量HOROVOD_FUSION_THRESHOLD实际上以字节为单位.
-# 然而, 当使用horovodrun时, 有一个--fusion-threshold-mb以MB为单位的参数.
+
+
+
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CYCLE_TIME']       = '0'
 os.environ['HOROVOD_CACHE_CAPACITY']   = '0'
 
 import sys
-sys.path.append("../../..") 
-import hv_distributed_optimizer as hvd
+
+import lib/hv_distributed_optimizer as hvd
 from compression import compressors
 
 
@@ -376,7 +376,7 @@ class Metric(object):
 def print_parameters(model):
     from torchsummary import summary
     # summary(model.cuda(), (3,32,32))
-            
+
     array_numel = []
     counter = 0
         
@@ -592,7 +592,7 @@ def main():
     #         desc="Running tokenizer on dataset",
     #     )
     
-    # 生成Token的过程非常耗时, 在弹性GPU中恢复单个, 很耗时！！！
+    
     tokenized_datasets = raw_datasets.map(
             tokenize_function,
             batched=True,
@@ -737,53 +737,7 @@ def main():
 
     # Horovod: broadcast parameters & optimizer state.
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
-    
-    ### ADTopk
-    # if args.density < 1:
-    #     communicator_str = 'allgather'
-    # else:
-    #     communicator_str = 'allreduce'
-    # # params = {'compressor': args.compressor, 'memory': args.memory, 'density': args.density,'communicator': communicator_str,'model_named_parameters':model.named_parameters()}
-    # params = {'compressor': 'none', 'memory': 'none', 'density': args.density,'communicator': 'allreduce','model_named_parameters':model.named_parameters()}
 
-    
-    # communicator = get_communicator(params)
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, communicator, named_parameters=model.named_parameters())
-    
-    ### zxjdnn
-    # allreduce baseline
-    # if args.percent == -1:
-    #     comm_params = {
-    #         'comm_mode':'allreduce',
-    #         'compressor':'none',
-    #         'memory':'none',
-    #         'send_size_aresame':True
-    #     }
-    # else:
-    #     comm_params = {
-    #         'comm_mode':'allgather_fast',
-    #         'compressor':'topk',
-    #         'memory':args.memory,
-    #         'percent':args.percent,
-    #         'send_size_aresame':True,
-    #         'model_named_parameters': model.named_parameters()
-    #     }
-
-    # Horovod: wrap optimizer with DistributedOptimizer.
-    # 得到一个分布式的SGD优化器
-
-    # import zxjdnn_lib
-
-    # Horovod: wrap optimizer with DistributedOptimizer.
-    # 得到一个分布式的SGD优化器
-    # optimizer = zxjdnn_lib.DistributedOptimizer(
-    #     optimizer, comm_params=comm_params, named_parameters=model.named_parameters())
-
-    # Prepare everything with our `accelerator`.
-    # model, optimizer, train_dataloader, eval_dataloader, lr_scheduler = accelerator.prepare(
-    #     model, optimizer, train_dataloader, eval_dataloader, lr_scheduler
-    # )
     
     from adtopk_lib.helper import get_communicator
 
@@ -801,34 +755,17 @@ def main():
               'model_named_parameters':model.named_parameters()
             }
         
-    # _communicator = get_communicator(params)
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, 
-    #     communicator=_communicator, 
-    #     named_parameters=model.named_parameters()
-    # )
     
     
     
-    # Set up fixed fake data
-    # image_size = 224
-    # if args.model == 'inception_v3':
-    #     image_size = 227
-    # data = torch.randn(args.batch_size, 3, image_size, image_size)
-    # target = torch.LongTensor(args.batch_size).random_() % 1000
-    # if args.cuda:
-    #     data, target = data.cuda(), target.cuda()
-    # if args.mgwfbp:
-    #     seq_layernames, layerwise_times, _ = benchmark(model, (data, target), F.cross_entropy, task='imagenet')
-    #     layerwise_times =hvd.broadcast(layerwise_times,root_rank=0)
-    #     # layerwise_times = comm.bcast(layerwise_times, root=0)
-    # else:
+    
+    
             
         
     seq_layernames, layerwise_times = None, None
         
-    # MG-WFBP
-    # MG-WFBP
+    
+    
     optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), 
                                          compression=compressors[args.compressor](), 
@@ -933,9 +870,7 @@ def main():
         print("args.num_train_epochs: ", args.num_train_epochs)
         print("args.max_train_steps: ", args.max_train_steps)
 
-    # device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
-    # print('device = ', device)
-    # model.to(device)
+    
     
     # Training
     optimizer._compression.topk_time=[]
@@ -945,15 +880,6 @@ def main():
     optimizer.para_update_time= []
     optimizer.hook_time= []
     
-    # optimizer._communicator.compressor.bias_gaussiank=[]
-    # optimizer._communicator.compressor.bias_dgc=[]
-    # optimizer._communicator.compressor.bias_redsync=[]
-    
-    # optimizer._communicator.compression_time_array=[]
-    # optimizer._communicator.decompression_time_array=[]
-    # optimizer._communicator.send_time_array=[]
-    # optimizer._communicator.receive_time_array=[]
-    # optimizer._communicator.synchronize_time_array=[]
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -966,7 +892,7 @@ def main():
     optimizer_synchronize_time_array= []
     
     
-    # 打印参数信息
+    
     if hvd.rank()==0:
         print_parameters(model)
     
@@ -1029,7 +955,7 @@ def main():
                 optimizer.handle_synchronize_time= []
                 
                 
-                # 设置打印步骤
+                
                 if step % 50 == 0 and hvd.rank()==0:
                 # if step % args.log_freq == 0 and hvd.rank()==0:
                 
@@ -1049,20 +975,11 @@ def main():
                     para_update_time=sum(optimizer.para_update_time)
                     hook_time=sum(optimizer.hook_time)
                     if hvd.rank() == 0:
-                        # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-                        # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
-                        # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
-        
-                        # print('compression_time = ', compression_time)
+  
                
                         print('topk_time = ', topk_time)
                         print('threshold_time = ', threshold_time)
-                     
-                        # print('send_time = ', send_time)        
-                        # print('decompression_time = ', decompression_time)
-                        # print('receive_time = ', receive_time)
-                        # print('synchronize_time = ', synchronize_time)
-        
+  
                         print('io_time = ', io_time)
                         print('forward_time = ', forward_time)
                         print('backward_time = ', backward_time-topk_time)
@@ -1073,9 +990,8 @@ def main():
                         print('hook_time = ', hook_time)
                         # print('buffer_time = ', buffer_time)        
         
-                        # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
-                        print('---------------------------------')
-                        # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:15])
+                        
+                        
                         print('step_time = ', time.time()-step_100_time)
                         step_100_time = time.time()
                         
@@ -1087,16 +1003,7 @@ def main():
                         optimizer.synchronize_time= []
                         optimizer.para_update_time= []
                         optimizer.hook_time= []
-    
-                        # optimizer._communicator.compressor.bias_gaussiank=[]
-                        # optimizer._communicator.compressor.bias_dgc=[]
-                        # optimizer._communicator.compressor.bias_redsync=[]
-    
-                        # optimizer._communicator.compression_time_array=[]
-                        # optimizer._communicator.decompression_time_array=[]
-                        # optimizer._communicator.send_time_array=[]
-                        # optimizer._communicator.receive_time_array=[]
-                        # optimizer._communicator.synchronize_time_array=[]
+
 
                         io_time_array= []
                         forward_backforward_time_array= []
@@ -1109,17 +1016,9 @@ def main():
                         optimizer_synchronize_time_array= []
                 
                 
-                # Checks if the accelerator has performed an optimization step behind the scenes
-                # if accelerator.sync_gradients:
-                #     progress_bar.update(1)
-                #     completed_steps += 1
+                
 
-                # if isinstance(checkpointing_steps, int):
-                #     if completed_steps % checkpointing_steps == 0:
-                #         output_dir = f"step_{completed_steps}"
-                #         if args.output_dir is not None:
-                #             output_dir = os.path.join(args.output_dir, output_dir)
-                #         accelerator.save_state(output_dir)
+                
                 if completed_steps >= args.max_train_steps:
                     
                     break
@@ -1140,7 +1039,7 @@ def main():
             # losses.append(accelerator.gather_for_metrics(loss.repeat(args.per_device_eval_batch_size)))
             losses.append(loss)
 
-        # 将losses中的零维标量转换为1维张量
+        
         losses = [loss.unsqueeze(0) for loss in losses]
         losses = torch.cat(losses)
         try:
@@ -1152,61 +1051,15 @@ def main():
         if hvd.rank()==0:
             logger.info(f"epoch {epoch}: perplexity: {perplexity} eval_loss: {eval_loss}")
 
-        # if args.with_tracking:
-        #     accelerator.log(
-        #         {
-        #             "perplexity": perplexity,
-        #             "eval_loss": eval_loss,
-        #             "train_loss": total_loss.item() / len(train_dataloader),
-        #             "epoch": epoch,
-        #             "step": completed_steps,
-        #         },
-        #         step=completed_steps,
-        #     )
+        
 
-        # if args.push_to_hub and epoch < args.num_train_epochs - 1:
-        #     accelerator.wait_for_everyone()
-        #     unwrapped_model = accelerator.unwrap_model(model)
-        #     unwrapped_model.save_pretrained(
-        #         args.output_dir, is_main_process=accelerator.is_main_process, save_function=accelerator.save
-        #     )
-        #     if accelerator.is_main_process:
-        #         tokenizer.save_pretrained(args.output_dir)
-        #         api.upload_folder(
-        #             commit_message=f"Training in progress epoch {epoch}",
-        #             folder_path=args.output_dir,
-        #             repo_id=repo_id,
-        #             repo_type="model",
-        #             token=args.hub_token,
-        #         )
+        
 
-    #     if args.checkpointing_steps == "epoch":
-    #         output_dir = f"epoch_{epoch}"
-    #         if args.output_dir is not None:
-    #             output_dir = os.path.join(args.output_dir, output_dir)
-    #         accelerator.save_state(output_dir)
+    
 
-    # if args.with_tracking:
-    #     accelerator.end_training()
+    
 
-    # if args.output_dir is not None:
-    #     accelerator.wait_for_everyone()
-    #     unwrapped_model = accelerator.unwrap_model(model)
-    #     unwrapped_model.save_pretrained(
-    #         args.output_dir, is_main_process=accelerator.is_main_process, save_function=accelerator.save
-    #     )
-    #     if accelerator.is_main_process:
-    #         tokenizer.save_pretrained(args.output_dir)
-    #         if args.push_to_hub:
-    #             api.upload_folder(
-    #                 commit_message="End of training",
-    #                 folder_path=args.output_dir,
-    #                 repo_id=repo_id,
-    #                 repo_type="model",
-    #                 token=args.hub_token,
-    #             )
-    #         with open(os.path.join(args.output_dir, "all_results.json"), "w") as f:
-    #             json.dump({"perplexity": perplexity}, f)
+    
     
     
     

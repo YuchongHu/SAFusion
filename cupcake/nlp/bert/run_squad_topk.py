@@ -1266,9 +1266,8 @@ def main():
                         print('hook_time = ', hook_time)
                         # print('buffer_time = ', buffer_time)        
         
-                        # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
-                        print('---------------------------------')
-                        # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:15])
+                        
+                        
                         
                         optimizer._compression.topk_time=[]
                         optimizer._compression.threshold_time=[]
@@ -1276,16 +1275,7 @@ def main():
                         optimizer.synchronize_time= []
                         optimizer.para_update_time= []
                         optimizer.hook_time= []
-    
-                        # optimizer._communicator.compressor.bias_gaussiank=[]
-                        # optimizer._communicator.compressor.bias_dgc=[]
-                        # optimizer._communicator.compressor.bias_redsync=[]
-    
-                        # optimizer._communicator.compression_time_array=[]
-                        # optimizer._communicator.decompression_time_array=[]
-                        # optimizer._communicator.send_time_array=[]
-                        # optimizer._communicator.receive_time_array=[]
-                        # optimizer._communicator.synchronize_time_array=[]
+
 
                         io_time_array= []
                         forward_backforward_time_array= []

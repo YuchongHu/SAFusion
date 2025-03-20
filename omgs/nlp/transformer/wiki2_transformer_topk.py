@@ -252,15 +252,9 @@ def train(optimizer, train_data):
     optimizer.para_update_time= []
     optimizer.hook_time= []
     
-    # optimizer._communicator.compressor.bias_gaussiank=[]
-    # optimizer._communicator.compressor.bias_dgc=[]
-    # optimizer._communicator.compressor.bias_redsync=[]
     
-    # optimizer._communicator.compression_time_array=[]
-    # optimizer._communicator.decompression_time_array=[]
-    # optimizer._communicator.send_time_array=[]
-    # optimizer._communicator.receive_time_array=[]
-    # optimizer._communicator.synchronize_time_array=[]
+    
+    
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -350,7 +344,7 @@ def train(optimizer, train_data):
         # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-        # print('compression_time = ', compression_time)
+        
                
         print('topk_time = ', topk_time)
         print('threshold_time = ', threshold_time)
@@ -373,7 +367,7 @@ def train(optimizer, train_data):
         
         # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
         print('---------------------------------')
-        # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:15])
+        
 
 
     
@@ -636,7 +630,7 @@ try:
             # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
             # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-            # print('compression_time = ', compression_time)
+            
                
             print('topk_time = ', topk_time)
             print('threshold_time = ', threshold_time)
@@ -659,7 +653,7 @@ try:
         
             # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
             print('---------------------------------')
-            # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:15])
+            
         
 
             # scheduler_warmup.step(epoch)
