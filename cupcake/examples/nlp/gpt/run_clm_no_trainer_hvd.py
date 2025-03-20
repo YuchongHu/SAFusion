@@ -36,6 +36,7 @@ import torch.multiprocessing as mp
 import torch.nn.functional as F
 import torch.optim as optim
 import torch.utils.data.distributed
+from mergeComp_dl.torch.helper import add_parser_arguments, wrap_compress_optimizer
 
 
 import datasets
@@ -51,9 +52,7 @@ from tqdm.auto import tqdm
 
 # import horovod.torch as hvd
 
-# import base_lib.hv_distributed_optimizer as hvd
-# import base_lib.optimizer_adtopk_hvd as hvd
-# from base_lib.helper import get_communicator
+
 
 
 import transformers
@@ -327,7 +326,7 @@ def parse_args():
     parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
     
-    parser.add_argument('--compressor', type=str, default='topkef', help='Specify the compressors if density < 1.0')
+    parser.add_argument('--compressor', type=str, default='dgc', help='Specify the compressors if density < 1.0')
     
     parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
     parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
@@ -750,21 +749,23 @@ def main():
         
     
     
-    optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
-                                         named_parameters=model.named_parameters(), 
-                                         compression=compressors[args.compressor](), 
-                                         is_sparse=args.density<1, 
-                                         density=args.density, 
-                                         seq_layernames=seq_layernames, 
-                                         layerwise_times=layerwise_times, norm_clip=None,
-                                         threshold=args.threshold, 
-                                         writer=None, 
-                                         gradient_path='./', 
-                                         momentum_correction=False, 
-                                         fp16=args.fp16, 
-                                         mgwfbp=args.mgwfbp, 
-                                         rdma=args.rdma, 
-                                         asc=args.asc)
+    # optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
+    #                                      named_parameters=model.named_parameters(), 
+    #                                      compression=compressors[args.compressor](), 
+    #                                      is_sparse=args.density<1, 
+    #                                      density=args.density, 
+    #                                      seq_layernames=seq_layernames, 
+    #                                      layerwise_times=layerwise_times, norm_clip=None,
+    #                                      threshold=args.threshold, 
+    #                                      writer=None, 
+    #                                      gradient_path='./', 
+    #                                      momentum_correction=False, 
+    #                                      fp16=args.fp16, 
+    #                                      mgwfbp=args.mgwfbp, 
+    #                                      rdma=args.rdma, 
+    #                                      asc=args.asc)
+    
+    optimizer, grc = wrap_compress_optimizer(model, optimizer, args)
 
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
     hvd.broadcast_optimizer_state(optimizer, root_rank=0)
@@ -857,7 +858,7 @@ def main():
     
     
     # Training
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []
@@ -946,9 +947,9 @@ def main():
                     step_time=sum(step_time_array)
                     update_time=sum(update_time_array)
     
-                    topk_time_array =optimizer._compression.topk_time
+                    compress_time_array =optimizer._compression.compress_time
                     threshold_time_array =optimizer._compression.threshold_time
-                    topk_time=sum(topk_time_array)
+                    compress_time=sum(compress_time_array)
                     threshold_time=sum(threshold_time_array)
     
                     synchronize_time=sum(optimizer.synchronize_time)
@@ -957,12 +958,12 @@ def main():
                     if hvd.rank() == 0:
   
                
-                        print('compress_time = ', topk_time)
+                        print('compress_time = ', compress_time)
                         print('threshold_time = ', threshold_time)
   
                         print('io_time = ', io_time)
                         print('forward_time = ', forward_time)
-                        print('backward_time = ', backward_time-topk_time)
+                        print('backward_time = ', backward_time-compress_time)
                         print('step_time = ', step_time)
                         # print('update_time = ', update_time)
                         print('communication_time = ', synchronize_time)
@@ -977,7 +978,7 @@ def main():
                         
                         
                         
-                        optimizer._compression.topk_time=[]
+                        optimizer._compression.compress_time=[]
                         optimizer._compression.threshold_time=[]
     
                         optimizer.synchronize_time= []

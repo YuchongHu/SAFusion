@@ -13,17 +13,18 @@ import datahelper
 import model
 from torch.optim import lr_scheduler
 import numpy as np 
-
+# is it faster?
 torch.backends.cudnn.benchmark = True
+
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
 
-import hv_distributed_optimizer as hvd
+import lib.hv_distributed_optimizer as hvd
+from mergeComp_dl.torch.helper import add_parser_arguments, wrap_compress_optimizer
+
 from compression import compressors
-
-
 
 # same hyperparameter scheme as word-language-model
 parser = argparse.ArgumentParser(description='PyTorch Wikitext-2 RNN/LSTM Language Model')
@@ -32,9 +33,6 @@ parser = argparse.ArgumentParser(description='PyTorch Wikitext-2 RNN/LSTM Langua
 parser.add_argument('--data', type=str, default='/data/dataset/nlp/lstm/wikitext-2',
                     help='location of the data corpus')
 
-# Docker
-# parser.add_argument('--data', type=str, default='/horovod/dataset/nlp/lstm/wikitext-2',
-#                     help='location of the data corpus')
 
 parser.add_argument('--model-net', default='lstm',type=str, help='net type')
 
@@ -90,8 +88,6 @@ parser.add_argument('--cutoffs', nargs="*", type=int, default=[10000, 50000, 100
 # experiment name for this run
 parser.add_argument('--name', type=str, default=None,
                     help='name for this experiment. generates folder with the name if specified.')
-
-
 # Gradient Merging
 parser.add_argument('--fp16', action='store_true', default=False,
                     help='use fp16 compression during allreduce')
@@ -102,17 +98,15 @@ parser.add_argument('--num-batches-per-iter', type=int, default=10,
                     help='number of batches per benchmark iteration')
 parser.add_argument('--num-iters', type=int, default=50,
                     help='number of benchmark iterations')
-
 parser.add_argument('--mgwfbp', action='store_true', default=False, help='Use MG-WFBP')
 parser.add_argument('--asc', action='store_true', default=False, help='Use MG-WFBP')
 parser.add_argument('--nstreams', type=int, default=1, help='Number of communication streams')
-parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
 
+parser.add_argument('--threshold', type=int, default=2370520, help='Set threshold if mgwfbp is False')
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 parser.add_argument('--compressor', type=str, default = 'eftopk', help='Specify the compressors if density < 1.0')
 parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
-
 
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
 
@@ -238,13 +232,13 @@ def evaluate(data_source):
 
 
 def train(optimizer, train_data):
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []
     optimizer.para_update_time= []
     optimizer.hook_time= []
-
+    
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -317,7 +311,8 @@ def train(optimizer, train_data):
         
         optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
         optimizer.handle_synchronize_time= []
-    
+
+
 # Loop over epochs.
 best_val_loss = None
 lr=args.lr
@@ -333,18 +328,23 @@ if args.density<1:
 else:
     communicator_str = 'allreduce'
     
+# params = {'compressor': args.compressor, 'memory': args.memory, 'density': args.density,'communicator': 'allgather','model_named_parameters':model.named_parameters()}
+
+# # communicator = get_communicator(params)
+# communicator = get_communicator(params)
+
+# optimizer = hvd.DistributedOptimizer(optimizer, communicator, named_parameters=model.named_parameters(), op=hvd.Average) 
 
 seq_layernames, layerwise_times = None, None
-optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
-                                         named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
-
+# optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, model= model,
+#                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
+optimizer, grc = wrap_compress_optimizer(model, optimizer, args)
 
 
 if hvd.rank() == 0:
     print('===============model_named_parameters===============')
     for name,parameters in model.named_parameters():
         print(name,':',parameters.size()) 
-
 
 
 try:    
@@ -376,7 +376,6 @@ try:
             time_list.append(tmp)            
             print('-' * 89)  
         
-    
     if hvd.rank() == 0:
         # torch.cuda.synchronize()
         end_time = time.time()
@@ -387,6 +386,7 @@ try:
 except KeyboardInterrupt:
     print('-' * 89)     
     print('Exiting from training early') 
+
 
 if hvd.rank() == 0:     
     test_loss = evaluate(test_data)     

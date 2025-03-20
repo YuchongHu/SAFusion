@@ -48,9 +48,9 @@ class TopKCompressor():
         self.tensor={}
         self.indices={}
         
-        self.topk_time=[]
+        self.compress_time=[]
         self.threshold_time=[]
-        self.detopk_time=[]
+        self.decompress_time=[]
         
         
 
@@ -102,8 +102,8 @@ class TopKCompressor():
             # self.residuals[name].data = tensor.data + 0.0 
             # self.residuals[name].data[indexes] = 0.
             
-            e_topk_time=time.time() - time_start_
-            self.topk_time.append(e_topk_time)
+            e_compress_time=time.time() - time_start_
+            self.compress_time.append(e_compress_time)
 
             return tensor, indexes, values
 
@@ -150,8 +150,8 @@ class EFTopKCompressor(TopKCompressor):
             self.residuals[name].data = tensor.data + 0.0 
             self.residuals[name].data[indexes] = 0.
             
-            e_topk_time=time.time() - time_start_
-            self.topk_time.append(e_topk_time)
+            e_compress_time=time.time() - time_start_
+            self.compress_time.append(e_compress_time)
 
             return tensor, indexes, values
 
@@ -218,8 +218,8 @@ class GaussianCompressor(TopKCompressor):
             self.residuals[name].data[indexes] = 0.0
 
             
-            e_topk_time=time.time() - time_start_
-            self.topk_time.append(e_topk_time)
+            e_compress_time=time.time() - time_start_
+            self.compress_time.append(e_compress_time)
             
             return tensor, indexes, values
 

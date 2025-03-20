@@ -3,7 +3,7 @@
 OUT_DIR=${OUT_DIR:-"./log"}
 epochs="${epochs:-30}"
 density="${density:-0.1}"
-compressor="${compressor:-topkef}"
+compressor="${compressor:-dgc}"
 memory="${memory:-residual}"
 threshold="${threshold:-8192}"
 percent="${percent:-0}"

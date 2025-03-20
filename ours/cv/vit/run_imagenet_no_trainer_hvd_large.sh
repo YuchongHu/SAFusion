@@ -4,8 +4,8 @@
 OUT_DIR=${OUT_DIR:-"./log"}
 num_train_epochs="${num_train_epochs:-80000}"
 density="${density:-0.01}"
-compressor="${compressor:-topkef}"
-# compressor="${compressor:-topk}"
+compressor="${compressor:-dgc}"
+# compressor="${compressor:-dgc}"
 # memory="${memory:-none}"
 # memory="${memory:-residual}"
 threshold="${threshold:-8192}"

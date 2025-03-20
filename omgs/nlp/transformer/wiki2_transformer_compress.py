@@ -244,7 +244,7 @@ def evaluate(data_source):
 # 备份
 def train(optimizer, train_data):
     
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []
@@ -325,9 +325,9 @@ def train(optimizer, train_data):
     step_time=sum(step_time_array)
     update_time=sum(update_time_array)
     
-    topk_time_array =optimizer._compression.topk_time
+    compress_time_array =optimizer._compression.compress_time
     threshold_time_array =optimizer._compression.threshold_time
-    topk_time=sum(topk_time_array)
+    compress_time=sum(compress_time_array)
     threshold_time=sum(threshold_time_array)
     
     synchronize_time=sum(optimizer.synchronize_time)
@@ -336,14 +336,14 @@ def train(optimizer, train_data):
     
     if hvd.rank() == 0:
         
-print('compress_time = ', topk_time)
+print('compress_time = ', compress_time)
         print('threshold_time = ', threshold_time)
                      
         
         
         print('io_time = ', io_time)
         print('forward_time = ', forward_time)
-        print('backward_time = ', backward_time-topk_time)
+        print('backward_time = ', backward_time-compress_time)
         print('step_time = ', step_time)
         # print('update_time = ', update_time)
         print('communication_time = ', synchronize_time)
@@ -493,7 +493,7 @@ try:
     start_time_epochs= time.time() 
     for epoch in range(1, args.epochs+1):         
         optimizer._compression.epoch=epoch
-        optimizer._compression.topk_time=[]
+        optimizer._compression.compress_time=[]
         optimizer._compression.threshold_time=[]
     
         optimizer.synchronize_time= []
@@ -602,9 +602,9 @@ try:
         step_time=sum(step_time_array)
         update_time=sum(update_time_array)
     
-        topk_time_array =optimizer._compression.topk_time
+        compress_time_array =optimizer._compression.compress_time
         threshold_time_array =optimizer._compression.threshold_time
-        topk_time=sum(topk_time_array)
+        compress_time=sum(compress_time_array)
         threshold_time=sum(threshold_time_array)
     
         synchronize_time=sum(optimizer.synchronize_time)
@@ -613,10 +613,10 @@ try:
     
         if hvd.rank() == 0:
             # datapath='/home/user/eurosys23/workspace/ACTopk/examples/plot_eurosys/compression_time/'
-            # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
-            # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
+            # np.savetxt(datapath + "compress_time/compress_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", compress_time_array)
+            # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", compress_time_array)
         
-        print('compress_time = ', topk_time)
+        print('compress_time = ', compress_time)
             print('threshold_time = ', threshold_time)
                      
             # print('send_time = ', send_time)        
@@ -626,7 +626,7 @@ try:
         
             print('io_time = ', io_time)
             print('forward_time = ', forward_time)
-            print('backward_time = ', backward_time-topk_time)
+            print('backward_time = ', backward_time-compress_time)
             print('step_time = ', step_time)
             # print('update_time = ', update_time)
             print('communication_time = ', synchronize_time)

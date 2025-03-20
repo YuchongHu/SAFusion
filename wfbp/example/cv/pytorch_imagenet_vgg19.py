@@ -132,7 +132,7 @@ parser.add_argument('--threshold', type=int, default=1000520, help='Set threshol
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 
-parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.01, help='Density for sparsification')
 
 
@@ -199,7 +199,7 @@ def train(epoch):
     train_loss = Metric('train_loss')
     train_accuracy = Metric('train_accuracy')
     
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]    
 
     io_time_array=[]
@@ -257,14 +257,14 @@ def train(epoch):
     forward_backforward_time=sum(forward_backforward_time_array)
     forward_time=sum(forward_time_array)
     
-    topk_time_array =optimizer._compression.topk_time
+    compress_time_array =optimizer._compression.compress_time
     threshold_time_array =optimizer._compression.threshold_time
-    topk_time=sum(topk_time_array)
+    compress_time=sum(compress_time_array)
     threshold_time=sum(threshold_time_array)    
     
     if hvd.rank() == 0:
 
-        print('compress_time = ', topk_time)
+        print('compress_time = ', compress_time)
         print('threshold_time = ', threshold_time)
                      
         
@@ -273,7 +273,7 @@ def train(epoch):
         print('io_time = ', io_time)
         print('forward_backforward_time = ', forward_backforward_time)
         print('forward_time = ', forward_time)
-        print('backforward_time = ', forward_backforward_time-(forward_time+topk_time+threshold_time))
+        print('backforward_time = ', forward_backforward_time-(forward_time+compress_time+threshold_time))
         
         # print('backforward_time = ', forward_backforward_time-(send_time+receive_time+decompression_time+compression_time))
     
@@ -485,12 +485,9 @@ if __name__ == '__main__':
         seq_layernames, layerwise_times = None, None
         
     
-    # Horovod: (optional) compression algorithm.
-    # compression = hvd.Compression.fp16 if args.fp16_allreduce else hvd.Compression.none    
-    # params = {'compressor': 'topk', 'memory': 'residual', 'communicator': 'allgather'}
     
-    # optimizer = hvd.DistributedOptimizer(
-    #     optimizer, grc, named_parameters=model.named_parameters())
+    
+    
 
     
     # Horovod

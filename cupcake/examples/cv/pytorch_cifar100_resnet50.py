@@ -23,8 +23,12 @@ os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
-import hv_distributed_optimizer as hvd
 
+import hv_distributed_optimizer as hvd
+from mergeComp_dl.torch.helper import add_parser_arguments, wrap_compress_optimizer
+
+
+# 
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch Cifar100 + ResNet-50 Example',
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -84,7 +88,7 @@ parser.add_argument('--threshold', type=int, default=2370520, help='Set threshol
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 
-parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
 
 
@@ -104,7 +108,7 @@ def train(epoch):
     train_loss = Metric('train_loss')
     train_accuracy = Metric('train_accuracy')
     
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []
@@ -371,11 +375,14 @@ if __name__ == '__main__':
     else:
         seq_layernames, layerwise_times = None, None
     
-    optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
-                                         named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
-
+    # optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
+    #                                      named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
+    
+    optimizer, grc = wrap_compress_optimizer(model, optimizer, args)
+    
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
     hvd.broadcast_optimizer_state(optimizer, root_rank=0)
+    
     start_time = time.time()
     modified_time = start_time
     if hvd.rank() == 0:

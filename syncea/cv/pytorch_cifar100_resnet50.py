@@ -86,7 +86,7 @@ parser.add_argument('--threshold', type=int, default=2370520, help='Set threshol
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
 
-parser.add_argument('--compressor', type=str, default='eftopk', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
+parser.add_argument('--compressor', type=str, default='dgc', choices=compressors.keys(), help='Specify the compressors if density < 1.0')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
 
 
@@ -106,7 +106,7 @@ def train(epoch):
     train_loss = Metric('train_loss')
     train_accuracy = Metric('train_accuracy')
     
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []

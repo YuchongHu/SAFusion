@@ -1143,7 +1143,7 @@ def main():
         final_loss = None
         
         
-        optimizer._compression.topk_time=[]
+        optimizer._compression.compress_time=[]
         optimizer._compression.threshold_time=[]
     
         optimizer.synchronize_time= []

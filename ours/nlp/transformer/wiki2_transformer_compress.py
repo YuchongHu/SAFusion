@@ -13,15 +13,13 @@ import datahelper
 import model
 from torch.optim import lr_scheduler
 import numpy as np 
-# is it faster?
 torch.backends.cudnn.benchmark = True
-
 os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
 
-import lib.hv_distributed_optimizer as hvd
+import hv_distributed_optimizer as hvd
 from compression import compressors
 # from utils_model import get_network
 
@@ -111,9 +109,16 @@ parser.add_argument('--nstreams', type=int, default=1, help='Number of communica
 parser.add_argument('--threshold', type=int, default=34015396, help='Set threshold if mgwfbp is False')
 parser.add_argument('--rdma', action='store_true', default=False, help='Use RDMA')
 
+
+
 parser.add_argument('--compressor', type=str, default = 'eftopk', help='Specify the compressors if density < 1.0')
 parser.add_argument('--memory', type=str, default = 'residual', help='Error-feedback')
 parser.add_argument('--density', type=float, default=0.1, help='Density for sparsification')
+
+
+
+
+
 
 
 
@@ -238,13 +243,12 @@ def evaluate(data_source):
 # 备份
 def train(optimizer, train_data):
     
-    optimizer._compression.topk_time=[]
+    optimizer._compression.compress_time=[]
     optimizer._compression.threshold_time=[]
     
     optimizer.synchronize_time= []
     optimizer.para_update_time= []
     optimizer.hook_time= []
-
 
     io_time_array= []
     forward_backforward_time_array= []
@@ -267,7 +271,8 @@ def train(optimizer, train_data):
         s_time=time.time()
         data, targets = get_batch(train_data, i)
         io_time_array.append(time.time()-s_time)
-
+        
+        
         # Starting each batch, we detach the hidden state from how it was previously produced.
         # If we didn't, the model would try backpropagating all the way to start of the dataset.
         e_time=time.time()
@@ -308,12 +313,13 @@ def train(optimizer, train_data):
         
         optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
         optimizer.handle_synchronize_time= []
-    
+
 
 # Loop over epochs.
 best_val_loss = None
 
 optimizer = torch.optim.Adam(model.parameters(), lr=args.lr*hvd.size(),weight_decay=1.2e-5) 
+# optimizer = torch.optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=1.2e-6) 
 
 from torch.optim.lr_scheduler import _LRScheduler 
 class WarmupLR(_LRScheduler):
@@ -359,6 +365,11 @@ class WarmupLR(_LRScheduler):
         self.last_epoch = step
 
 scheduler_warmup = WarmupLR(optimizer, warmup_steps=100, last_epoch = -1)
+
+# scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=1)
+# scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)
+
+
 from grace_lib.helper import get_communicator
 
 if args.density<1:
@@ -368,15 +379,9 @@ else:
     
 params = {'compressor': args.compressor, 'memory': args.memory, 'density': args.density,'communicator': 'allgather','model_named_parameters':model.named_parameters()}
 
-
-
-
-
 seq_layernames, layerwise_times = None, None
-optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, model= model,
+optimizer = hvd.DistributedOptimizer(args.model_net, optimizer, 
                                          named_parameters=model.named_parameters(), compression=compressors[args.compressor](), is_sparse=args.density<1, density=args.density, seq_layernames=seq_layernames, layerwise_times=layerwise_times, norm_clip=None, threshold=args.threshold, writer=None, gradient_path='./', momentum_correction=False, fp16=args.fp16, mgwfbp=args.mgwfbp, rdma=args.rdma, asc=args.asc)
-
-
 
 np.random.seed(0)
 np.random.shuffle(column_indices) 
@@ -419,19 +424,18 @@ def train_step(optimizer, train_data, batch):
         start_time = time.time()
 
 
-
-
 try:
     start_time= time.time()  
     start_time_epochs= time.time() 
     for epoch in range(1, args.epochs+1):         
         optimizer._compression.epoch=epoch
-        optimizer._compression.topk_time=[]
+        optimizer._compression.compress_time=[]
         optimizer._compression.threshold_time=[]
     
         optimizer.synchronize_time= []
         optimizer.para_update_time= []
         optimizer.hook_time= []
+
 
         io_time_array= []
         forward_backforward_time_array= []
@@ -494,8 +498,12 @@ try:
             update_time_array.append(time.time()-u_time)
             optimizer_synchronize_time_array.append(optimizer.handle_synchronize_time)
             optimizer.handle_synchronize_time= []
-
- 
+            
+            if  hvd.rank() == 0:
+                scheduler_warmup.step(batch/15) 
+            
+            
+            
         if  hvd.rank() == 0:
             # scheduler_warmup.step(batch/15) 
             val_loss = evaluate(val_data) 
@@ -508,7 +516,6 @@ try:
             print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.4f} | ' 'valid ppl {:8.2f}'.format(epoch, (time.time() - epoch_start_time), val_loss, math.exp(val_loss)))
             time_list.append(tmp)            
             print('-' * 89) 
-
 
     if hvd.rank() == 0:
          # torch.cuda.synchronize()
@@ -524,21 +531,3 @@ except KeyboardInterrupt:
 
 
 
-if hvd.rank() == 0:     
-    test_loss = evaluate(test_data)     
-    print('=' * 89)     
-    print('| End of training | test loss {:5.2f} | test ppl {:8.2f}'.format(test_loss, math.exp(test_loss)))     
-    print('=' * 89) 
-    ppl_test = [math.exp(test_loss)]
-
-
-if hvd.rank() == 0:
-    import numpy as np           
-    time_arr = np.array(time_list)
-    
-    # val loss
-    ppl_arr = np.array(ppl_list)
-    # train loss
-    ppl_test = np.array(ppl_test)
-    
-    
