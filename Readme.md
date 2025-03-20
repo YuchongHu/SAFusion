@@ -33,7 +33,7 @@ We use the [PyTorch](https://github.com/pytorch/pytorch) framework and implement
 <!-- The overview of our system is as follows:  -->
 <!-- ![Overview](Overview.png) -->
 <!-- <center class ='img'>
-<img src="Overview_0208.png" width="600px" />
+<img src="Overview_.png" width="600px" />
 </center> -->
 
 In our system of SAFusion, each worker contains a __Generator__ module for generating an efficient sparsification-ahead fusion buffer, which provides  `inter-worker aligned fusion` and `intra-worker adaptive fusion` operations for efficient tensor fusion; __Controller__ module for controlling a series of operations such as sparsified gradient pushing, pulling, and communication in the fusion buffer; a __Sparsification Compression__ module for performing layer-wise gradient sparsification during the backward propagation.
@@ -41,7 +41,7 @@ In our system of SAFusion, each worker contains a __Generator__ module for gener
 ## **__SAFusion__** Generator Workflow
 The workflow of the __SAFusion__ __Generator__ module：
 <center class ='img'>
-<img src="Generator_0208.png" width="600px" />
+<img src="Generator_.png" width="600px" />
 </center>
 
 # Installation
