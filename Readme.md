@@ -1,4 +1,4 @@
-# SAFusion
+# SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training
 
 __SAFusion__ is a new efficient tensor fusion mechanism for high-performance distributed DNN training. We propose sparsification-ahead tensor fusion, which performs sparsification on each of the gradient tensors before merging them during tensor fusion, instead of sparsification-behind tensor fusion, so as to avoid gradient tensor missing and thus improve the convergence performance. Further, SAFusion designs an inter-worker gradient alignment fusion scheme that merges the same amount of sparsified gradients across workers to avoid long gradient synchronization waiting, and an intra-worker adaptive buffer sizing scheme that maximizes the overlap of backpropagation and communication time to reduce multiple waiting periods.
 This repository contains __SAFusion__'s source code, as well as a set of benchmarking scripts for some popular open-source distributed DNN training systems with state-of-the-art tensor fusion schemes. 
