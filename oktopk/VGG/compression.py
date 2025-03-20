@@ -296,7 +296,7 @@ class GaussianCompressor():
     #        #indexes = one_indexes.nonzero().data.squeeze().view(-1)
     #        #indexes = indexes #[0:k]
     #        values = tensor.data[indexes] 
-    #        #print('gaussion vs topk: ', indexes.numel(), k)
+    #        
     #        GaussianCompressor.residuals[name].data = tensor.data + 0.0 
     #        GaussianCompressor.residuals[name].data[indexes] = 0.0
 

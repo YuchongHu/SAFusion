@@ -9,20 +9,12 @@ from scipy import stats
 import hv_distributed_optimizer as hvd
 
 
-
-
 class NoneCompressor():
     def __init__(self):
         self.name = 'none'
 
-
-
     def compress(self, tensor, name=None, sigma_scale=2.5, ratio=1.0):
-        # tensor = tensor.flatten().cuda()
-        # numel = tensor.numel()
-        # values=tensor
-        # indexes=torch.arange(0,numel).cuda(tensor.device)
-        # return tensor, indexes, values
+        
     
         return tensor, tensor.dtype
 
@@ -183,9 +175,9 @@ class GaussianCompressor(TopKCompressor):
             if name not in self.residuals:
                 self.residuals[name] = torch.zeros_like(tensor.data)
                 
-            # classifier.6
+            
             if ratio ==1:
-            # if ratio ==1 or 'fc' in name or 'classifier.6' in name:
+            
                 numel = tensor.numel()
                 values =tensor
                 indexes=torch.arange(0,numel).cuda(tensor.device)
@@ -220,14 +212,12 @@ class GaussianCompressor(TopKCompressor):
             indexes, = torch.where(mask)
             values = tensor.data[indexes]
             
-            #print('gaussion vs topk: ', indexes.numel(), k)
+            
             
             self.residuals[name].data = tensor.data + 0.0 
             self.residuals[name].data[indexes] = 0.0
 
-            # self.values[name] = values
-            # self.indexes[name] = indexes
-            # self._process_data_after_residual(name, tensor)
+            
             e_topk_time=time.time() - time_start_
             self.topk_time.append(e_topk_time)
             
