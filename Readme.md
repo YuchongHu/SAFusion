@@ -99,10 +99,10 @@ SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance
 
 ## **Referred Datasets**
 
-- CIFAR-100: [https://www.cs.utoronto.ca/~kriz/cifar.html](https://www.cs.utoronto.ca/~kriz/cifar.html)
-- ImageNet: [https://www.image-net.org/](https://www.image-net.org/)
 - Wikitex-2/103: [https://huggingface.co/datasets/wikitext](https://huggingface.co/datasets/wikitext)
 - SQuAD: [https://rajpurkar.github.io/SQuAD-explorer/](https://rajpurkar.github.io/SQuAD-explorer/)
+- CIFAR-100: [https://www.cs.utoronto.ca/~kriz/cifar.html](https://www.cs.utoronto.ca/~kriz/cifar.html)
+- ImageNet: [https://www.image-net.org/](https://www.image-net.org/)
 
 ## **License**
 
