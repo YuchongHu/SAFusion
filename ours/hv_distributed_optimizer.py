@@ -90,26 +90,9 @@ from sklearn.linear_model import LinearRegression
 import logging
 
 
-#THRESHOLD = 163840 #4*8192 
-p_alpha_beta_56Gbps = {
-        64: (0.00080632079996292579, 1.8*3.2713239529771973e-10),
-        32: (0.00040632079996292579, 1.5*3.2713239529771973e-10),
-        16: (0.00023583677659915685*3, 4.0594787739537565e-10),
-        8: (9.75367204301171e-05, 3.0568230536676206e-10),
-        4: (4.204298980348825e-05, 2.0589360830118177e-10),
-        2: (2.554691138304671e-06, 9.837548167872609e-11)
-    }
 
-p_alpha_beta_10Gbps = {
-        64: (0.0023476410788581382*3, 9.643300782166769e-10),
-        48: (0.0018476410788581382*3, 9.643300782166769e-10),
-        32: (0.0013476410788581382*3, 8.643300782166769e-10),
-        16: (0.0009080981007148093, 7.395651186836712e-10),
-        8: (0.0005230272768511732, 8.570746975492128e-10),
-        #8: (1.4e-3, 1.7e-9), # one GPU per node
-        4: (4.204298980348825e-05, 2.0589360830118177e-10),
-        2: (2.554691138304671e-06, 9.837548167872609e-11)
-    }
+
+
 
 
 class _DistributedOptimizer(torch.optim.Optimizer):
@@ -199,7 +182,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if size() > 1:
             self._register_hooks()
 
-        #logger.info('layerwise compressors: %s', self._layerwise_compressors)
+        
 
     def _benchmark_communication(self):
         #logger.info('Benchmarking communication performance...')
@@ -225,8 +208,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if rank() != 0:
             self.alpha = float(alpha_tensor[0])
             self.beta = float(beta_tensor[0])
-        #logger.info('[rank:{}] Communication performance fitted with f(p)=a+b*p, where a={} and b={}'.format(rank(), self.alpha, self.beta))
-
+        
     def _benchmark_communication2(self):
         #logger.info('Benchmarking communication performance for the current DL model')
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse from L to 1
@@ -294,16 +276,15 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             sum_numel_size += numel
 
             if sub_size < sub_buffer[idx]:
-            # if (name == pre_name or pre_name==None) and numel_size < threshold:
+            
                 group.append(k)
                 group_size.append(numel)
                 group_dim.append(self._named_parameters[k].dim())
                 
                 key_groupidx_maps[k] = idx
-                # sub_size += 1
                 
             else:
-                # number_layers_ =number_layers
+                
                 
                 idx += 1
 
@@ -324,7 +305,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 group_dim.append(self._named_parameters[k].dim())
                 key_groupidx_maps[k] = idx
             
-            # pre_name=name
+            
         
         if len(group) > 0:
             groups.append(group)
@@ -396,14 +377,9 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             taob[l] = taob[l+1] + tb[l+1]
         taoc = __calculate_comm_start(tc, tb, taob, L)
         if rank() == 0:
-            #logger.debug('seq_layernames: %s', seq_layernames)
-            #logger.debug('tb: %s', tb)
-            #logger.debug('taob: %s', taob)
-            #logger.debug('sizes: %s', p)
-            #logger.warn('tc sum: %f', np.sum(tc))
+            
             pass
-            #logger.warn('tc: %s', tc)
-            #logger.warn('taoc: %s', taoc)
+            
         groups = []
         group = []
         idx = 0
@@ -412,7 +388,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         key = seq_layernames[l] 
         key_groupidx_maps[key] = idx
         
-        # 逆序插入layer序列
+        
         for l in range(1, L)[::-1]:
             key = seq_layernames[l]
             # 
@@ -450,13 +426,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 group_sizes.append(group_size)
                 group_size=[]
             
-            #elif current_taob > taoc[l+1]+tc[l+1] and current_taob < taoc[l]+tc[l] and taoc[l]+alpha > current_taob:
-            #    __merge(taob, tc, p, l)
-            #    taoc = __calculate_comm_start(tc, tb, taob, L)
-            #else:
-            #    idx += 1
-            #    groups.append(group)
-            #    group = []
+            
         
         l = 0
         key = seq_layernames[l]
@@ -468,15 +438,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             group_sizes.append(group_size)
             
         if rank() == 0:
-            #logger.debug('seq_layernames: %s', seq_layernames)
-            #pass
-            #logger.info('Merged tc sum: %f', np.sum(tc))
+            
             print('Merged sizes: ', p[::-1])
             print('# of parameters: ', np.sum(p[::-1]))
-            #logger.info('Merged tb: %s', tb[::-1])
-            #logger.info('Merged taob: %s', taob[::-1])
-            #logger.info('Merged tc: %s', tc[::-1])
-            #logger.info('Merged taoc: %s', taoc[::-1])
+            
 
         return groups, key_groupidx_maps, group_sizes
 
@@ -550,10 +515,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if len(group) > 0:
             groups.append(group)
 
-        #if rank() == 0:
-        #    logger.info('Predicted non-overlapped time: %f', taoc[0]+tc[0]-(taob[0]+tb[0]))
-        #    logger.info('Predicted tb+tc= %f', taoc[0]+tc[0])
-        #    logger.info('Merged tc sum: %f', np.sum(tc))
+        
         return groups, key_groupidx_maps
     
 
@@ -670,7 +632,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         print('Total number of tensors: %s' % len(self._sizes))
         print('Merged number of groups: %s' % len(groups))
         
-        # # _sizes和groups都是倒序
+        
         if rank()==0:
             print('self._group_sizes: ',len(self._group_sizes))
             print('self._group_sizes: ',self._group_sizes)
@@ -887,7 +849,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         # key(p)=new_tensor, value=(handle, ctx, 1)
         for p, value in self._handles.items():
             # torch.cuda.synchronize()
-            # handle初始时间
+            
             handle_time = time.time() 
             
             name = self._merged_parameter_names.get(p)
@@ -920,7 +882,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                         per_values = values
                         
                         per_values = self._compression.decompress(per_values, p.size())
-                        # 解压梯度
+                        
                         
                         new_grad += per_values.view(-1)
                     else:
@@ -930,7 +892,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
 
                         per_values = self._compression.decompress(per_values, p.size())
                         
-                        # 解压梯度
+                        
                         new_grad[indexes[0:indexes.numel()]] += per_values
                 new_grad /= num_of_workers
 
@@ -995,7 +957,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 tar += aar
                 aup = np.mean(ups[k])
                 tup += aup
-                #logger.info('[%d][%s]: %f, %f, %f', r, k, acp, aar, aup)
+                
             total = tcp+tar+tup
             cps.clear()
             ars.clear()

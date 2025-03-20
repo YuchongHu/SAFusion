@@ -612,7 +612,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 tar += aar
                 aup = np.mean(ups[k])
                 tup += aup
-                #logger.info('[%d][%s]: %f, %f, %f', r, k, acp, aar, aup)
+                
             total = tcp+tar+tup
             # logger.info('[%d]: Total compress: %f, allreduce: %f, update: %f, total: %f', r, tcp, tar, tup, total)
             cps.clear()

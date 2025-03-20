@@ -93,26 +93,9 @@ from sklearn.linear_model import LinearRegression
 import logging
 
 
-#THRESHOLD = 163840 #4*8192 
-p_alpha_beta_56Gbps = {
-        64: (0.00080632079996292579, 1.8*3.2713239529771973e-10),
-        32: (0.00040632079996292579, 1.5*3.2713239529771973e-10),
-        16: (0.00023583677659915685*3, 4.0594787739537565e-10),
-        8: (9.75367204301171e-05, 3.0568230536676206e-10),
-        4: (4.204298980348825e-05, 2.0589360830118177e-10),
-        2: (2.554691138304671e-06, 9.837548167872609e-11)
-    }
 
-p_alpha_beta_10Gbps = {
-        64: (0.0023476410788581382*3, 9.643300782166769e-10),
-        48: (0.0018476410788581382*3, 9.643300782166769e-10),
-        32: (0.0013476410788581382*3, 8.643300782166769e-10),
-        16: (0.0009080981007148093, 7.395651186836712e-10),
-        8: (0.0005230272768511732, 8.570746975492128e-10),
-        #8: (1.4e-3, 1.7e-9), # one GPU per node
-        4: (4.204298980348825e-05, 2.0589360830118177e-10),
-        2: (2.554691138304671e-06, 9.837548167872609e-11)
-    }
+
+
 
 
 class _DistributedOptimizer(torch.optim.Optimizer):
@@ -202,7 +185,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if size() > 1:
             self._register_hooks()
 
-        #logger.info('layerwise compressors: %s', self._layerwise_compressors)
+        
 
     def _benchmark_communication(self):
         #logger.info('Benchmarking communication performance...')
@@ -228,8 +211,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         if rank() != 0:
             self.alpha = float(alpha_tensor[0])
             self.beta = float(beta_tensor[0])
-        #logger.info('[rank:{}] Communication performance fitted with f(p)=a+b*p, where a={} and b={}'.format(rank(), self.alpha, self.beta))
-
+        
     def _benchmark_communication2(self):
         #logger.info('Benchmarking communication performance for the current DL model')
         sizes = [self._named_parameters[k].data.numel() for k in self._sequential_keys][::-1] # reverse from L to 1
@@ -298,16 +280,15 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         
 
             if sub_size < sub_buffer[idx]:
-            # if (name == pre_name or pre_name==None) and numel_size < threshold:
+            
                 group.append(k)
                 group_size.append(numel)
                 group_dim.append(self._named_parameters[k].dim())
                 
                 key_groupidx_maps[k] = idx
-                # sub_size += 1
                 
             else:
-                # number_layers_ =number_layers 
+                 
                 
                 idx += 1
                 groups.append(group)
@@ -327,7 +308,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 group_dim.append(self._named_parameters[k].dim())
                 key_groupidx_maps[k] = idx
             
-            # pre_name=name
+            
         
         if len(group) > 0:
             groups.append(group)
@@ -709,7 +690,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             self._merged_parameters[new_key].data[offset:offset+numel].copy_(tensor.view(numel))
 
             self._groups_flags[group_idx][layer_idx] = 1
-            # 遍历_groups_flags看是否都进group
+            
             for i, idx in enumerate(self._groups_flags[group_idx]):
                 # Debug bert_base
                 if self._model_net_name=='bert_base' and (i==2 or i==3):
@@ -841,7 +822,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         # key(p)=new_tensor, value=(handle, ctx, 1)
         for p, value in self._handles.items():
             # torch.cuda.synchronize()
-            # handle初始时间
+            
             handle_time = time.time() 
             
             name = self._merged_parameter_names.get(p)
@@ -953,7 +934,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                 tar += aar
                 aup = np.mean(ups[k])
                 tup += aup
-                #logger.info('[%d][%s]: %f, %f, %f', r, k, acp, aar, aup)
+                
             total = tcp+tar+tup
             cps.clear()
             ars.clear()
@@ -1008,7 +989,7 @@ class _DistributedOptimizer(torch.optim.Optimizer):
                         offset += d_p.numel()
         return loss
     
-    # 执行同步操作
+    
     def step(self, closure=None):
         if not self.local:
             self.synchronize()

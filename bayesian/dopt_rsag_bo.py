@@ -160,13 +160,9 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         # bcast next threshold from rank 0 to other workers
         threshold = mpi_comm.bcast(threshold, root=0)
 
-        #threshold=torch.tensor(threshold).cuda()
-        #comm.bcast(threshold, 0)
-        #comm.synchronize()
         
-        #if rank() == 0:
-        #    print("Step [%d]: finetune the threshold to %.2f" % (self._num_steps, threshold))
-
+        
+        
         # clear buffers
         for pad_buffer in self._pad_buffers:
             del pad_buffer
