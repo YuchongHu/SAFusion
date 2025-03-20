@@ -709,8 +709,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             offset = self._merged_parameter_offsets[new_key][layer_idx]
             numel = tensor.data.numel()
             # compression
+            tensor_compressed, ctx, selected_values = self._compression.compress(tensor, name, group_size=merged_parameters_group_size, ratio=density)
+    
 
-            self._merged_parameters[new_key].data[offset:offset+numel].copy_(tensor.view(numel))
+            self._merged_parameters[new_key].data[offset:offset+numel].copy_(tensor_compressed.view(numel))
 
             self._groups_flags[group_idx][layer_idx] = 1
             
@@ -763,12 +765,10 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         merged_parameters_group_size= self._merged_parameters_group_sizes[name]
         merged_parameters_group_dim= self._merged_parameters_group_dims[name]
         
-
-        
         group_idx = self._merged_parameters_group_ids[name] 
         
      
-        tensor_compressed, ctx, selected_values = self._compression.compress(tensor, name, group_size=merged_parameters_group_size, ratio=density)
+        # tensor_compressed, ctx, selected_values = self._compression.compress(tensor, name, group_size=merged_parameters_group_size, ratio=density)
     
 
         if False and rank() == 0 and self.train_iter % 200 == 0 and self.train_iter < 3000:
