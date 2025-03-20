@@ -60,10 +60,10 @@ import torch.utils.data.distributed
 
 
 
-from adtopk_lib.helper import get_communicator
+from base_lib.helper import get_communicator
 # import horovod.torch as hvd
-# import adtopk_lib.hv_distributed_optimizer_buffer as hvd
-# import adtopk_lib.optimizer_0621 as hvd
+# import base_lib.hv_distributed_optimizer_buffer as hvd
+# import base_lib.optimizer_0621 as hvd
 
 
 import hv_distributed_optimizer as hvd
@@ -74,11 +74,11 @@ from compression import compressors
 
 
 # import horovod.torch as hvd
-# import adtopk_lib.optimizer_adtopk_hvd as hvd
+# import base_lib.optimizer_adtopk_hvd as hvd
 import os
 import math
 from tqdm import tqdm
-from adtopk_lib.helper import get_communicator
+from base_lib.helper import get_communicator
 
 # from utils_model import get_network
 
@@ -94,7 +94,7 @@ import matplotlib.pyplot as plt
 import time
 import timeit
 import numpy as np
-from adtopk_lib.profiling import benchmark
+from base_lib.profiling import benchmark
 
 import uuid
 import shutil
@@ -110,7 +110,7 @@ import matplotlib.pyplot as plt
 import time
 import timeit
 import numpy as np
-from adtopk_lib.profiling import benchmark
+from base_lib.profiling import benchmark
 
 
 # try:
@@ -706,7 +706,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
     model.to(device)
     
-    from adtopk_lib.helper import get_communicator
+    from base_lib.helper import get_communicator
     if args.density < 1:
         communicator_str = 'allgather'
     else:

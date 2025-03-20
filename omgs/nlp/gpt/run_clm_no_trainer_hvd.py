@@ -51,9 +51,9 @@ from tqdm.auto import tqdm
 
 # import horovod.torch as hvd
 
-# import adtopk_lib.hv_distributed_optimizer as hvd
-# import adtopk_lib.optimizer_adtopk_hvd as hvd
-# from adtopk_lib.helper import get_communicator
+# import base_lib.hv_distributed_optimizer as hvd
+# import base_lib.optimizer_adtopk_hvd as hvd
+# from base_lib.helper import get_communicator
 
 
 import transformers
@@ -726,7 +726,7 @@ def main():
     hvd.broadcast_parameters(model.state_dict(), root_rank=0)
 
     
-    from adtopk_lib.helper import get_communicator
+    from base_lib.helper import get_communicator
 
     if args.density < 1:
         communicator_str = 'allgather'
