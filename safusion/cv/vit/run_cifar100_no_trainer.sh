@@ -54,7 +54,6 @@ export save_checkpoint_path="./horovod/example/elastic/pytorch/nlp/gpt/language-
 
 CMD=" accelerate launch run_imagenet_no_trainer.py --image_column_name image   "
 
-# CMD=" horovodrun  -np  4 -H  node16:1,node18:1,node17:1,node15:1   python   run_clm_no_trainer_hvd_checkpoint.py   "
 
 
 CMD+=" --image_column_name image  "

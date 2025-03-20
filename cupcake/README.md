@@ -69,7 +69,7 @@ Cupcake can support the following configurations and we are extending it for mor
 The primary benchmark is provided in `compress_benchmark.py`. 
 - For example, we can use the following command to run the benchmark on 4 GPUs, with compression algorithm as efsignsgd, communication primitive as allgather, memory as residual.
  ```shell script
- horovodrun -np 4 python compress_benchmark.py --compress --compressor efsignsgd --comm allgather --memory residual --fusion-num 1 --model=resnet50
+ horovodrun -np 8 node15:2,node16:2,node19:2,node20:2 python compress_benchmark.py --compress --compressor efsignsgd --comm allgather --memory residual --fusion-num 1 --model=resnet50
   ```
 - fusion-num specifies the number of partition groups. --fusion-num 0 is the layer-wise compression.
 

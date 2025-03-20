@@ -20,8 +20,7 @@ fi
 
 
 CMD=" HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
-CMD=" horovodrun  -np  4 -H  node15:1,node16:1,node19:1,node20:1  python run_clm_no_trainer_hvd.py   "
-# CMD=" horovodrun  -np  7 -H  node15:1,node17:1,node18:1,node19:1,node20:1,node21:1,node22:1  python run_clm_no_trainer_hvd.py   "
+CMD=" horovodrun  -np  8  -H  node15:2,node16:2,node19:2,node20:2  python run_clm_no_trainer_hvd.py   "
 CMD+=" --dataset_name /data/dataset/nlp/openai-community/wikitext-103-raw-v1 --dataset_config_name default  "
 CMD+=" --model_name_or_path /data/dataset/nlp/openai-community/gpt2 "
 # CMD+=" --model_name_or_path /data/dataset/nlp/openai-community/gpt2-medium "

@@ -47,9 +47,8 @@ export save_checkpoint_path="./horovod/example/elastic/pytorch/nlp/gpt/language-
 CMD=" HOROVOD_GPU_OPERATIONS=NCCL  HOROVOD_CACHE_CAPACITY=0 "
 
 # CMD=" accelerate launch run_imagenet_no_trainer_hvd.py --image_column_name image   "
-CMD=" horovodrun  -np  4   python run_imagenet_no_trainer_hvd.py --image_column_name image   "
+CMD=" horovodrun  -np  8 -H node15:2,node16:2,node19:2,node20:2  python run_imagenet_no_trainer_hvd.py --image_column_name image   "
 
-# CMD=" horovodrun  -np  4 -H  node16:1,node18:1,node17:1,node15:1   python   run_clm_no_trainer_hvd_checkpoint.py   "
 
 
 CMD+=" --image_column_name image  "
