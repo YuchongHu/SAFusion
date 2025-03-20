@@ -54,10 +54,9 @@ The workflow of the __SAFusion__ __Generator__ module：
 - [PyTorch-1.3.+](https://github.com/pytorch/pytorch)
 - [OpenMPI-4.0.+](https://www-lb.open-mpi.org/software/ompi/v4.0/)
 - [Horovod-0.28.1+](https://github.com/horovod/horovod)
-- [numpy](https://github.com/numpy/numpy)
-- [tensorboardX](https://github.com/lanpa/tensorboardX)
-- [tqdm](https://github.com/tqdm/tqdm)
-- [openmpi](https://www.open-mpi.org/software/ompi/)
+- [Numpy](https://github.com/numpy/numpy)
+- [TensorboardX](https://github.com/lanpa/tensorboardX)
+- [Tqdm](https://github.com/tqdm/tqdm)
 
 ## **Get the code**
 ```
