@@ -84,14 +84,10 @@ DEBUG = False
 #from profiling import CommunicationProfiler
 from sklearn.linear_model import LinearRegression
 import logging
-from Bayesian.tuner import Tuner
-import Bayesian.utils
-# from mpi4py import MPI
+import utils
 
-# mpi_comm = MPI.COMM_WORLD
-# comm = None
-# all_gather_comm = None
-# reduce_scatter_comm = None
+
+
 
 NUM_NEARBY_LAYERS = 8
 
@@ -137,7 +133,6 @@ class _DistributedOptimizer(torch.optim.Optimizer):
         self._threshold_mb = threshold_mb
         self._threshold_tuning_mb = threshold_tuning_mb
         self._num_nearby_layers = num_nearby_layers
-        self._tuner = None
         self._next_threshold_mb = None
         self._num_steps = 0
         
@@ -1106,9 +1101,6 @@ class _DistributedOptimizer(torch.optim.Optimizer):
             
             if self._threshold_mb is not None:
                 groups, key_groupidx_maps, group_sizes, group_dims =self._generate_groups_with_threshold_mb()
-                
-                if self._threshold_tuning_mb:
-                    self._tuner = Tuner(x=THRESHOLD_MB, bound=(1.0, 256.0))
 
         self._group_sizes = group_sizes
         self._group_dims = group_dims
@@ -1505,9 +1497,6 @@ class _DistributedOptimizer(torch.optim.Optimizer):
     def step(self, closure=None):
         if not self.local:
             self.synchronize()
-        
-        if self._threshold_tuning_mb:
-            self._next_threshold_mb = self._tuner.step()
             
         
         # Note: the last step is skipped

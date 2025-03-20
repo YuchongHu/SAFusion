@@ -75,7 +75,7 @@ from wfbp.torch.mpi_ops import allreduce
 import time
 import torch
 import numpy as np
-# import utils_bayes
+
 from profiling import CommunicationProfiler
 
 import wfbp.torch as hvd
@@ -88,13 +88,10 @@ from sklearn.linear_model import LinearRegression
 import logging
 from Bayesian.tuner import Tuner
 from Bayesian import utils_bayes
-# import Bayesian.utils_bayes
-# from mpi4py import MPI
 
-# mpi_comm = MPI.COMM_WORLD
-# comm = None
-# all_gather_comm = None
-# reduce_scatter_comm = None
+
+
+
 
 NUM_NEARBY_LAYERS = 8
 
