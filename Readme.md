@@ -15,7 +15,7 @@ This code repository covers:
 - [WFBP](https://github.com/horovod/horovod)
 - [OkTopk](https://dl.acm.org/doi/pdf/10.1145/3126908.3126912)
 - [OMGS](https://github.com/HKBU-HPML/OMGS-SGD)
-- [Cupcake](https://github.com/HPDC25-SAFusion/SAFusion/tree/main/cupcake)
+- [Cupcake](https://github.com/zhuangwang93/Cupcake)
 
 ### __State-of-the-art sparsification algorithms__
 
