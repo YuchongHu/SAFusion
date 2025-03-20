@@ -1250,7 +1250,7 @@ def main():
                     para_update_time=sum(optimizer.para_update_time)
                     hook_time=sum(optimizer.hook_time)
                     if hvd.rank() == 0:
-                             print('topk_time = ', topk_time)
+                             print('compress_time = ', topk_time)
                         print('threshold_time = ', threshold_time)
               
         

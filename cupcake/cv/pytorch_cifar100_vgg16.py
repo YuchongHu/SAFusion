@@ -241,17 +241,7 @@ def train(epoch):
             
             optimizer.zero_grad()
             
-            # Split data into sub-batches of size batch_size
-            # for i in range(0, len(data), args.batch_size):
-            #     data_batch = data[i:i + args.batch_size]
-            #     target_batch = target[i:i + args.batch_size]
-            #     output = model(data_batch)
-            #     train_accuracy.update(accuracy(output, target_batch))
-            #     loss = F.cross_entropy(output, target_batch)
-            #     train_loss.update(loss)
-            #     # Average gradients among sub-batches
-            #     loss.div_(math.ceil(float(len(data)) / args.batch_size))
-            #     loss.backward()
+            
             
             output = model(data)
             train_accuracy.update(accuracy(output, target))
@@ -264,16 +254,7 @@ def train(epoch):
             loss.backward()
             backward_time_array.append(time.time()-b_time)
             
-            # if hvd.rank() == 0 and batch_idx == 5 and epoch < 5:
-            #     # tensor_np_array=[]
-            #     index=1
-            #     for name_1, param_1 in model.named_parameters():
-            #         tensor = param_1.grad
-            #         tensor = tensor.flatten()
-            #         tensor_np = tensor.cpu().numpy()
-            #         # tensor_np_array.append(tensor_np)
-            #         np.savetxt("./examples/torch/resnet_layer_gradient/epoch" + str(epoch+1) + "/resnet18_grad_tensor_5_"+str(index)+".txt", tensor_np)
-            #         index = index + 1
+            
             
             s_time=time.time()               
             # Gradient is applied across all ranks
@@ -315,9 +296,8 @@ def train(epoch):
     para_update_time=sum(optimizer.para_update_time)
     hook_time=sum(optimizer.hook_time)
     
-    if hvd.rank() == 0:
-        
-print('topk_time = ', topk_time)
+    if hvd.rank() == 0:       
+        print('compress_time = ', topk_time)
         print('threshold_time = ', threshold_time)
                      
         
@@ -331,18 +311,7 @@ print('topk_time = ', topk_time)
         print('para_update_time = ', para_update_time)
         print('hook_time = ', hook_time)
         # print('buffer_time = ', buffer_time)
-        
-        
-        
-        # print('optimizer_synchronize_time_array= ', optimizer_synchronize_time_array[:20])
-
-
-
-    
-
-    
-
-
+ 
 def validate(epoch):
     model.eval()
     val_loss = Metric('val_loss')

@@ -955,7 +955,7 @@ def main():
                     hook_time=sum(optimizer.hook_time)
                     if hvd.rank() == 0:
                         
-                                print('topk_time = ', topk_time)
+                                print('compress_time = ', topk_time)
                         print('threshold_time = ', threshold_time)
                      
                   print('io_time = ', io_time)

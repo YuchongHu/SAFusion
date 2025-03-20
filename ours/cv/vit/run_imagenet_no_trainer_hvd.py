@@ -748,33 +748,7 @@ def main():
 
 
     print('state_time = ', time.time() - state_time)
-    
-    # share_memory_count = torch.tensor(0).share_memory_()
-    from multiprocessing import shared_memory
-    
-    # # 创建内存共享缓冲区
-    # if hvd.rank()==1:
-    #     _name = 'yyb-old_dataM_vit'
-    #     shm = shared_memory.SharedMemory(create=True, size=1024*1024*8*10000, name =_name)
 
-    #     # 创建一个 NumPy 数组并将其存储在共享内存中
-    #     array = np.ndarray((10,), dtype=np.float32, buffer=shm.buf)
-    #     array[:] = np.arange(10)
-
-    #     # resource_tracker.unregister(shm.name, 'shared_memory')
-    #     # resource_tracker.register(shm.name, 'shared_memory')
-    #     # print(array)
-    
-    # state = hvd.elastic.TorchState(model=model,
-    #                                optimizer=optimizer,
-    #                                train_sampler=train_sampler,
-    #                                # val_sampler=val_sampler,
-    #                                epoch=resume_from_epoch,
-    #                                batch=0)
-
-    # 传递模型训练状态到optimizer
-    # optimizer._state = state
-    
     if hvd.rank()==0:
         print('state_time = ', time.time() - state_time)
     
@@ -812,7 +786,7 @@ def main():
     }
     
     snapshot: Optional[Snapshot] = None
-    checkpoint_save_work_dir = './horovod/example/backup/pytorch/nlp/gpt/language-modeling/gpt2_checkpoint/gpt2_base'
+    checkpoint_save_work_dir = './gpt2_checkpoint/gpt2_base'
 
     optimizer.app_state = app_state
     optimizer.checkpoint_save_work_dir = checkpoint_save_work_dir

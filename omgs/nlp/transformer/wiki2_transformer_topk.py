@@ -337,7 +337,7 @@ def train(optimizer, train_data):
     
     if hvd.rank() == 0:
         
-print('topk_time = ', topk_time)
+print('compress_time = ', topk_time)
         print('threshold_time = ', threshold_time)
                      
         
@@ -617,7 +617,7 @@ try:
             # np.savetxt(datapath + "topk_time/topk_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
             # np.savetxt(datapath + "threshold_time/threshold_time_"+str(epoch)+"_rank_"+str(hvd.rank())+".txt", topk_time_array)
         
-        print('topk_time = ', topk_time)
+        print('compress_time = ', topk_time)
             print('threshold_time = ', threshold_time)
                      
             # print('send_time = ', send_time)        
