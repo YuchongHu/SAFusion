@@ -85,18 +85,17 @@ cd safusion/example/nlp/gpt
 bash run_clm_no_trainer_hvd_103.sh
 ```
 
-**To run ResNet-152 training job:**
-```
-cd safusion/example/cv
-bash run_imagenet_resnet152.sh
-```
-
 **To run ViT-large training job:**
 ```
 cd safusion/example/cv/vit
 bash run_imagenet_no_trainer.sh
 ```
 
+**To run ResNet-152 training job:**
+```
+cd safusion/example/cv/resnet
+bash run_imagenet_resnet152.sh
+```
 
 
 ## **Papers**
