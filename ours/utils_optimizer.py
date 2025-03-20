@@ -99,17 +99,12 @@ def force_insert_item(d, key, val):
 
 
 s=2.18896957e-10 #P102-100
-#s=4.99671953e-10 #V100
-#a=0.002661810655986525 # small message <1M
-#b=1.3644874178760432e-08 # small message <1M
 
 GbE_multi_p_ab_small = {
         2: (1.6e-3, 1.0e-8),
         4: (2.7e-3, 1.3e-8),
         8: (4.0e-3, 1.5e-8),
-        #16: (1.1e-2, 1.7e-8)
         16: (1.7e-3, 1.7e-8) #  ImageNet
-        #16: (0.05e-2, 0.28e-8) # Inceptionv4 8 layers
         }
 
 
@@ -164,16 +159,13 @@ _100k_time = {
 def calculation_backward_time_local_8_nodes(sum_numel, numel, net_name):
     if net_name=='resnet50':
         # ResNet-50
-        # backward_time = 0.0403665948358382
         backward_time = 0.03523650461313676
     elif net_name=='resnet152':
         # ResNet-152
-        # backward_time = 0.07931486319522468
         backward_time = 0.057005972278
         
     elif net_name=='resnet101':
         # ResNet-101
-        # backward_time= 0.05694400899264277
         backward_time= 0.0543569338564796
     
     elif net_name=='vgg16':
@@ -201,13 +193,12 @@ def calculation_backward_time_local_8_nodes(sum_numel, numel, net_name):
 
 
 def calculation_communication_time_local_8_nodes(numel, density):
-    # 实现分段函数
+    
     from scipy.interpolate import interp1d
     # kB
     x_size =int(numel*density*4/1024)
     
-    # x = [100, 1000]
-    # y = [0.004975676536560059, 0.019652485847473145]
+    
     x = [0.1, 1, 10, 100, 1000, 10000, 100000, 150000]
     y = [0.005115201187133789, 0.005463216590881347, 0.0055778751373291016, 0.005975676536560059, 0.019652485847473145, 0.11236395835876464, 1.005709457397461, 1.5160596132278443]
     
@@ -215,25 +206,23 @@ def calculation_communication_time_local_8_nodes(numel, density):
     if x_size< x[0]:
         return y[0]
     
-    # 创建分段插值函数
+    
     f = interp1d(x, y)
-    # 指定新的点进行插值
-    # new_points = np.linspace(min(x), max(x), num=100)  # 生成等间距的新点
+    
     
     new_points =x_size
     result = f(new_points) 
-    # print("分段线性插值结果：", result)
+    
     
     return result
 
 
 def calculation_compression_time_local_8_nodes(numel):
-    # 实现分段函数
+    
     from scipy.interpolate import interp1d
     x_size =max(1, int(numel*1.0*4/1024)) 
     
-    # x = [100, 1000]
-    # y = [0.004975676536560059, 0.019652485847473145]
+    
     x = [10, 100, 1000, 10000, 100000, 1000000]
     dgc_array_time_y =  [ 0.00034046173095703125, 0.0003764629364013672, 0.000993967056274414, 0.00259234619140625, 0.010454635620117188, 0.0390236186981201]
     topk_array_time_y =  [ 7.677078247070312e-05, 0.0001761913299560547, 0.0003170967102050781, 0.00024127960205078125, 0.0003452301025390625, 0.0015995502471923828]
@@ -245,17 +234,16 @@ def calculation_compression_time_local_8_nodes(numel):
     if x_size< x[0]:
         return topk_array_time_y[0]
     
-    # 创建分段插值函数
+    
     f = interp1d(x, topk_array_time_y)
-    # 指定新的点进行插值
-    # new_points = np.linspace(min(x), max(x), num=100)  # 生成等间距的新点
+    
     
     new_points = x_size
     
     # print(new_points)
     
     result = f(new_points) 
-    # print("分段线性插值结果：", result)
+    
     # print(result)
     
     return result
@@ -286,13 +274,7 @@ gradient_size_array_vgg19 = [100, 409600, 4096, 16777216, 4096, 2097152, 512, 51
 gradient_size_array_bert_base = [2, 1536, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 768, 2359296, 3072, 2359296, 768, 768, 768, 589824, 768, 589824, 768, 589824, 768, 589824, 768, 768, 1536, 393216, 23445504]
 
 
-# optimal_gradient_merging_1231(gradient_size_array, 'resnet50')
 
-# calculation_communication_time_local_8_nodes(200000, 0.9)
-
-# communication_time_lstm = calculation_communication_time_local_8_nodes(37319278, 1.0)
-
-# calculation_compression_time_local_8_nodes(2000000)
 
 def optimal_gradient_merging_0101(gradient_size_array, net_name, density = 0.1):
     print(net_name)
@@ -305,21 +287,14 @@ def optimal_gradient_merging_0101(gradient_size_array, net_name, density = 0.1):
         diff_min = 0
         
     elif net_name=='lstm':
-        # wikitext-2
         diff_min = 5.804741986804342e-03
-        # diff = 1.64741986804342e-02    
     elif net_name=='transformer':
-         # wikitext-2
         diff_min = 9.056826124015718e-02
     elif net_name=='bert_base':
         diff_min = 0
     else:
          diff_min = 0
     
-    
-    # LSTM OMGS
-    # groups_new_ = [3, 1, 3, 3, 1, 1, 1]
-    # return groups_new_
 
     density_all=1.0
     
@@ -509,9 +484,6 @@ def optimal_gradient_merging_0101(gradient_size_array, net_name, density = 0.1):
  
     return groups_new_
 
-
-#a = 0.015890215705869848 # large message >1M
-#b = 8.594593687256138e-09 # large message >1M
 
 def topk_perf_model(x, s=s):
     """

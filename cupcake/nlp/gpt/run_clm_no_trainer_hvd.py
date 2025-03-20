@@ -643,16 +643,9 @@ def main():
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/process#map
 
-    # with accelerator.main_process_first():
-    #     lm_datasets = tokenized_datasets.map(
-    #         group_texts,
-    #         batched=True,
-    #         num_proc=args.preprocessing_num_workers,
-    #         load_from_cache_file=not args.overwrite_cache,
-    #         desc=f"Grouping texts in chunks of {block_size}",
-    #     )
     
-    # 将文本分组为块, 很耗时
+    
+    
     lm_datasets = tokenized_datasets.map(
             group_texts,
             batched=True,
