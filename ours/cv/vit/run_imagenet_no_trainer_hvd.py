@@ -64,8 +64,7 @@ from adtopk_lib.helper import get_communicator
 # import horovod.torch as hvd
 # import adtopk_lib.hv_distributed_optimizer_buffer as hvd
 # import adtopk_lib.optimizer_0621 as hvd
-import sys
-sys.path.append("../../../..") 
+
 
 import hv_distributed_optimizer as hvd
 from compression import compressors

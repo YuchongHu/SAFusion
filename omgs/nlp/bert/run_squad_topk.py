@@ -77,8 +77,7 @@ import torch.utils.data.distributed
 import os
 import math
 
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+
 
 import time
 import os
@@ -87,8 +86,7 @@ os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
-import sys
-sys.path.append("../../../..") 
+
 import example_omgs.hv_distributed_optimizer_omgs as  hvd
 from compression import compressors
 import numpy as np
@@ -898,7 +896,7 @@ def main():
                         action='store_true',
                         help="Whether to profile model.")
     
-    # 聚合操作符
+    
     parser.add_argument('--use-adasum', action='store_true', default=False,
                     help='use adasum algorithm to do reduction')
 

@@ -47,11 +47,10 @@ if [ "$num_gpu" = "1" ] ; then
   mpi_command=""
 else
   unset CUDA_VISIBLE_DEVICES
-  # mpi_command=" -m torch.distributed.launch --nproc_per_node=$num_gpu"
-  # mpi_command=" -m torch.distributed.launch --nproc_per_node=$num_gpu"
+  
 fi
 
-# CMD="python  $mpi_command ../run_squad_hvd.py "
+
 # CMD="HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_CACHE_CAPACITY=0 "
 CMD=" horovodrun -np 8 -H n15:1,n16:1,n17:1,n18:1,n19:1,n20:1,n21:1,n22:1 python ../run_squad_topk.py "
 CMD+="--init_checkpoint=$init_checkpoint "

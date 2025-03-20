@@ -12,8 +12,7 @@ import os
 import math
 from tqdm import tqdm
 
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+
 from utils_model import get_network
 import numpy as np
 import matplotlib.pyplot as plt

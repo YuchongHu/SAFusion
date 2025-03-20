@@ -355,16 +355,7 @@ class GaussianCompressor():
             indexes = one_indexes.nonzero().data.squeeze().view(-1)
             return indexes
 
-    #@staticmethod
-    #def compressbythresholdlong(tensor, thres=0.0):
-    #    with torch.no_grad():
-    #        abs_tensor = torch.abs(tensor)
-
-    #        one_indexes = abs_tensor > thres
-    #        indexes = one_indexes.nonzero().data.squeeze().view(-1)
-    #        values = tensor.data[indexes]
-
-    #        return indexes, values
+    
 
     @staticmethod
     def ratio2threshold(tensor, name=None, ratio=0.05):

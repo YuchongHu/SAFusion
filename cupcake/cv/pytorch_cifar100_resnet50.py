@@ -12,9 +12,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import time
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
-sys.path.append("../..") 
-import example_fgbuff.hv_distributed_optimizer as hvd
+import lib.hv_distributed_optimizer as hvd
 from compression import compressors
 from utils_model import get_network
 

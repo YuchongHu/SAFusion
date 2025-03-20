@@ -12,8 +12,7 @@ import os
 import math
 from tqdm import tqdm
 
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__),'../'))
+import lib.hv_distributed_optimizer as hvd
 from utils_model import get_network
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,8 +23,7 @@ os.environ['HOROVOD_CACHE_CAPACITY'] = '0'
 os.environ['HOROVOD_CYCLE_TIME'] = '0'
 
 import sys
-sys.path.append("../..") 
-import hv_distributed_optimizer as hvd
+import lib.hv_distributed_optimizer as hvd
 from compression import compressors
 from utils_model import get_network
 
@@ -33,7 +31,6 @@ from utils_model import get_network
 import timeit
 import numpy as np
 from profiling import benchmark
-import hv_distributed_optimizer as hvd
 from compression import compressors
 from utils_model import get_network
 

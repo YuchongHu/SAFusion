@@ -87,7 +87,7 @@ os.environ['HOROVOD_CACHE_CAPACITY']   = '0'
 
 import sys
 
-import lib/hv_distributed_optimizer as hvd
+import lib.hv_distributed_optimizer as hvd
 from compression import compressors
 
 

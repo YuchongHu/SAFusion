@@ -85,8 +85,7 @@ os.environ['HOROVOD_FUSION_THRESHOLD'] = '0'
 os.environ['HOROVOD_CYCLE_TIME']       = '0'
 os.environ['HOROVOD_CACHE_CAPACITY']   = '0'
 
-import sys
-sys.path.append("../../..") 
+
 import hv_distributed_optimizer as hvd
 from compression import compressors
 

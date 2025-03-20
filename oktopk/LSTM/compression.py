@@ -315,61 +315,7 @@ class GaussianCompressor():
 
             return right_thres, pre_topk
 
-    ## profiling for GaussianK
-    #@staticmethod
-    #def compress(tensor, name=None, ratio=0.05, counter=-1, rank=-1):
-    #    with torch.no_grad():
-    #        if name not in GaussianCompressor.residuals:
-    #            GaussianCompressor.residuals[name] = torch.zeros_like(tensor.data)
-    #        numel = tensor.numel()
-    #        k = max(int(numel * ratio), 1)
-
-    #        tensor.add_(GaussianCompressor.residuals[name].data)
-
-    #        std = torch.std(tensor)
-    #        mean = torch.mean(tensor)
-    #        left_thres, right_thres = utils.gen_threshold_from_normal_distribution(1-ratio, float(mean), float(std))
-    #        org_thrd = right_thres
-
-    #        abs_tensor = torch.abs(tensor)
-    #        org_topk = None
-
-    #        if counter == 800 and rank == 0:
-    #            one_indexes = abs_tensor > right_thres
-    #            indexes = one_indexes.nonzero().data.squeeze().view(-1)
-    #            org_topk = indexes.numel()
-
-    #        loops = 0
-    #        while loops < 3:
-    #            one_indexes = abs_tensor > right_thres
-    #            indexes = one_indexes.nonzero().data.squeeze().view(-1)
-    #            if indexes.numel() < 2*k/3:
-    #                right_thres *= 0.5
-    #            elif indexes.numel() > 4*k/3:
-    #                right_thres *= 1.5
-    #            else:
-    #                break
-    #            loops += 1
-
-    #        tuned_thrd = right_thres
-    #        one_indexes = abs_tensor > right_thres
-    #        indexes = one_indexes.nonzero().data.squeeze().view(-1)
-    #        #indexes = indexes #[0:k]
-    #        values = tensor.data[indexes] 
-    #        #print('gaussion vs topk: ', indexes.numel(), k)
-    #        GaussianCompressor.residuals[name].data = tensor.data + 0.0 
-    #        GaussianCompressor.residuals[name].data[indexes] = 0.0
-
-    #        indexes = indexes.type(torch.IntTensor)
-
-    #        if counter == 800 and rank == 0:
-    #            tensor_np = tensor.cpu().numpy()
-    #            np.save('gaussionlocalgrad.npy', tensor_np)
-    #            thrds = np.array([org_thrd, tuned_thrd])
-    #            np.save('gaussionthrds.npy', thrds)
-    #            print("thresholds: ", thrds, "tuned_local_topk_elements: ", torch.numel(indexes), "org_topk: ", org_topk)
-    #            print("local mean: ", mean, "local std: ", std, "adapt loops: ", loops)
-    #        return indexes, values
+    
 
     @staticmethod
     def compressbythreshold(tensor, thres=0.0):
@@ -410,16 +356,7 @@ class GaussianCompressor():
             indexes = one_indexes.nonzero().data.squeeze().view(-1)
             return indexes
 
-    #@staticmethod
-    #def compressbythresholdlong(tensor, thres=0.0):
-    #    with torch.no_grad():
-    #        abs_tensor = torch.abs(tensor)
-
-    #        one_indexes = abs_tensor > thres
-    #        indexes = one_indexes.nonzero().data.squeeze().view(-1)
-    #        values = tensor.data[indexes]
-
-    #        return indexes, values
+    
 
     @staticmethod
     def ratio2threshold(tensor, name=None, ratio=0.05):

@@ -63,16 +63,14 @@ def force_insert_item(d, key, val):
 
 
 s=2.18896957e-10 #P102-100
-#s=4.99671953e-10 #V100
-#a=0.002661810655986525 # small message <1M
-#b=1.3644874178760432e-08 # small message <1M
+
 GbE_multi_p_ab_small = {
         2: (1.6e-3, 1.0e-8),
         4: (2.7e-3, 1.3e-8),
         8: (4.0e-3, 1.5e-8),
-        #16: (1.1e-2, 1.7e-8)
+        
         16: (1.7e-3, 1.7e-8) #  ImageNet
-        #16: (0.05e-2, 0.28e-8) # Inceptionv4 8 layers
+        
         }
 
 
@@ -140,17 +138,8 @@ def predict_density_with_size_and_computation(m, comp_time, P):
         return rho
     return 0.001
 
-    #if m >= 1024*16:
-    #    return 0.001
-    #else:
-    #    return 1
-
-    #dense_time = _denseallreduce_model(P, m)
-    #density = 1
-    #if dense_time < comp_time:
-    #    return density
-    #else:
-    #    return _proper_rho_with_sparse_allreduce(P, m, comp_time)
+    
+    
 
 def predict_allreduce_time_with_size(alpha, beta, size, P):
     if size == 0:

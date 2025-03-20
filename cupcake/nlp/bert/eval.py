@@ -857,7 +857,7 @@ def main():
                         action='store_true',
                         help="Whether to profile model.")
     
-    # 聚合操作符
+    
     parser.add_argument('--use-adasum', action='store_true', default=False,
                     help='use adasum algorithm to do reduction')
 
