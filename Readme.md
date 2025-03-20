@@ -1,6 +1,6 @@
 # SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training
 
-__SAFusion__ is a new efficient tensor fusion mechanism for high-performance distributed DNN training. We propose sparsification-ahead tensor fusion, which performs sparsification on each of the gradient tensors before merging them during tensor fusion, instead of sparsification-behind tensor fusion, so as to avoid gradient tensor missing and thus improve the convergence performance. Further, SAFusion designs an inter-worker gradient alignment fusion scheme that merges the same amount of sparsified gradients across workers to avoid long gradient synchronization waiting, and an intra-worker adaptive buffer sizing scheme that maximizes the overlap of backpropagation and communication time to reduce multiple waiting periods.
+__SAFusion__ is a new efficient tensor fusion mechanism for high-performance distributed DNN training. __SAFusion__ first proposes a sparsification-ahead tensor fusion scheme, which performs sparsification on each of the gradient tensors before merging them during tensor fusion, instead of sparsification-behind tensor fusion, so as to avoid gradient tensor missing and thus improve the convergence performance. Then, __SAFusion__ designs an inter-worker gradient alignment fusion scheme that merges the same amount of sparsified gradients across workers to avoid long gradient synchronization waiting, and an intra-worker adaptive buffer sizing scheme that maximizes the overlap of backpropagation and communication time to reduce multiple waiting periods.
 This repository contains __SAFusion__'s source code, as well as a set of benchmarking scripts for some popular open-source distributed DNN training systems with state-of-the-art tensor fusion schemes. 
 
 # Introduction
@@ -48,11 +48,15 @@ The workflow of the __SAFusion__ __Generator__ module：
 
 ## **Prerequisites**
 - CUDA-12.0
-- NCCL-2.8.3
-- PyTorch-1.3.+
+- Python >= 3.9
+- [NCCL-2.8.3](https://github.com/NVIDIA/nccl)
+- [PyTorch-1.3.+](https://github.com/pytorch/pytorch)
 - [OpenMPI-4.0.+](https://www-lb.open-mpi.org/software/ompi/v4.0/)
 - [Horovod-0.28.1+](https://github.com/horovod/horovod)
-
+- [numpy](https://github.com/numpy/numpy)
+- [tensorboardX](https://github.com/lanpa/tensorboardX)
+- [tqdm](https://github.com/tqdm/tqdm)
+- [openmpi](https://www.open-mpi.org/software/ompi/)
 
 ## **Get the code**
 ```
@@ -65,33 +69,34 @@ HOROVOD_GPU_OPERATIONS=NCCL pip install horovod==0.28.0
 if pip installation fails, please try to upgrade pip via `pip install --upgrade pip`. If [Horovod](https://github.com/horovod/horovod) installation with NCCL failed, please check the installation [guide](https://horovod.readthedocs.io/en/stable/install_include.html).
 
 ## **Quick start**
-
-To run ResNet-152 training job:
-
+The primary benchmark is provided in `example`. 
+For example, we can use the following command to run the benchmark on 8 GPUs, with compression algorithm as dgc, communication primitive as allgather, memory as residual.
+ 
+**To run BERT-large training job:**
 ```
-cd example/cv
+cd safusion/example/nlp/bert/scripts
+bash run_squad_bert.sh
+```
+
+**To run GPT2-large training job:**
+```
+cd safusion/example/nlp/gpt
+bash run_clm_no_trainer_hvd_103.sh
+```
+
+**To run ResNet-152 training job:**
+```
+cd safusion/example/cv
 bash run_imagenet_resnet152.sh
 ```
 
-To run ViT-large training job:
-
+**To run ViT-large training job:**
 ```
-cd example/cv/vit
+cd safusion/example/cv/vit
 bash run_imagenet_no_trainer.sh
 ```
 
 
-To run BERT-large training job:
-```
-cd example/nlp/bert/scripts
-bash run_squad_bert.sh
-```
-
-To run GPT2-large training job:
-```
-cd example/nlp/gpt
-bash run_clm_no_trainer_hvd_103.sh
-```
 
 ## **Papers**
 
