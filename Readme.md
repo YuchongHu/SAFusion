@@ -101,6 +101,17 @@ bash run_imagenet_resnet152.sh
 
 SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training
 
+If you are using this repository for your paper, please cite our work
+```
+@inproceedings{ming2025safusion,
+  title={SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training},
+  author={Zhangqiang, Ming and Yuchong, Hu and Xinjue, Zheng and Wenxiang, Zhou and Dan, Feng},
+  booktitle={Proceedings of the 34nd International Symposium on High-Performance Parallel and Distributed Computing},
+  url={https://doi.org/10.1145/3625549.3658678}
+  year={2025}
+}
+```
+
 ## **Referred Datasets**
 
 - Wikitex-2/103: [https://huggingface.co/datasets/wikitext](https://huggingface.co/datasets/wikitext)
