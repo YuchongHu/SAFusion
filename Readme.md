@@ -107,7 +107,7 @@ If you are using this repository for your paper, please cite our work
   title={SAFusion: Efficient Tensor Fusion with Sparsification Ahead for High-Performance Distributed DNN Training},
   author={Zhangqiang, Ming and Yuchong, Hu and Xinjue, Zheng and Wenxiang, Zhou and Dan, Feng},
   booktitle={Proceedings of the 34th ACM International Symposium on High-Performance Parallel and Distributed Computing},
-  url={https://doi.org/10.1145/3625549.3658678}
+  url={https://doi.org/10.1145/3731545.3731581}
   year={2025}
 }
 ```
